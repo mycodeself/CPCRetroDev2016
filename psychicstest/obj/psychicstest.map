@@ -1,0 +1,168 @@
+ASxxxx Linker V03.00 + NoICE + sdld,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000000  .__.ABS.                           
+     00000000  l__CABS                         
+     00000000  l__DABS                         
+     00000000  l__GSFINAL                      
+     00000000  l__GSINIT                       
+     00000000  l__INITIALIZED                  
+     00000000  l__INITIALIZER                  
+     00000000  s__CABS                         
+     00000000  s__DABS                         
+     00000002  l__DATA                         
+     00000D40  l__CODE                         
+     000012FA  l__HOME                         
+     00004000  s__CODE                         
+     00004D40  s__DATA                         
+     00004D42  s__HOME                         
+     00004D42  s__INITIALIZED                  
+     0000603C  s__GSFINAL                      
+     0000603C  s__GSINIT                       
+     0000603C  s__INITIALIZER                  
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00004000    00000D40 =        3392. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00004000  _EuclideanDistance                 psychics
+     000040B7  _AABB_BoxCollision                 psychics
+     0000414D  _main                              main
+     00004190  _cpct_drawStringM1                 cpct_strings
+     00004198  cpct_drawStringM1_asm              cpct_strings
+     000041B2  _sqrtf                             sqrtf
+     00004350  _cpct_drawCharM1                   cpct_strings
+     0000435D  cpct_drawCharM1_asm                cpct_strings
+     000043D7  _powf                              powf
+     00004485  _ldexpf                            ldexpf
+     00004559  _frexpf                            frexpf
+     000045EE  dc_mode1_ct                        
+     000045F2  _cpct_memset                       cpct_memutils
+     00004600  _cpct_mode_rom_status              cpct_firmware
+     00004601  _cpct_getScreenPtr                 cpct_video
+     00004621  _logf                              logf
+     000048B5  _expf                              expf
+     00004D24  __mulint                           
+     00004D2C  __mul16                            
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_DATA                               00004D40    00000002 =           2. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00004D40  _errno                             errno
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_HOME                               00004D42    000012FA =        4858. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00004D42  ___fslt                            _fslt
+     00004E3F  ___fsadd                           _fsadd
+     00005290  ___sint2fs                         _sint2fs
+     000052AB  ___fsdiv                           _fsdiv
+     0000562C  ___fsmul                           _fsmul
+     00005A1C  ___slong2fs                        _slong2fs
+     00005A64  ___fseq                            _fseq
+     00005B08  ___ulong2fs                        _ulong2fs
+     00005BEE  ___fsgt                            _fsgt
+     00005CEB  ___fs2sint                         _fs2sint
+     00005D3B  __mullong                          _mullong
+     00005EC5  ___fssub                           _fssub
+     00005EFA  ___fs2slong                        _fs2slong
+     00005F77  ___fs2ulong                        _fs2ulong
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
+
+Files Linked                              [ module(s) ]
+
+obj/psychics.rel                          [ psychics ]
+obj/main.rel                              [ main ]
+
+
+Libraries Linked                          [ object file ]
+
+/home/isma/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawStringM1.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ sqrtf.rel ]
+/home/isma/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawCharM1.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _fslt.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ powf.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _fsadd.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ ldexpf.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _sint2fs.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ frexpf.rel ]
+/home/isma/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_dc_mode1_ct.rel ]
+/home/isma/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_memset_cbinding.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _fsdiv.rel ]
+/home/isma/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpc_mode_rom_status.rel ]
+/home/isma/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_getScreenPtr_cbindings.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _fsmul.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ errno.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ logf.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _slong2fs.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _fseq.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _ulong2fs.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _fsgt.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ expf.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _fs2sint.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _mullong.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _fssub.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _fs2slong.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ _fs2ulong.rel ]
+/home/isma/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ mul.rel ]
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
+
+User Base Address Definitions
+
+_CODE = 0x4000
+_DATA = 0x0000
+
+
