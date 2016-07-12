@@ -17,44 +17,25 @@
 //------------------------------------------------------------------------------
 
 #include <cpctelera.h>
-#include <stdio.h>
-#include "psychics.h"
+#include "common.h"
+#include "physics.h"
+#include "draw/draw.h"
 
-#define SCREEN_MAX_WIDTH 		80
-#define SCREEN_MAX_HEIGHT 		200
-#define CHARACTER_MAX_HEIGHT 	190
-#define CHARACTER_MAX_WIDTH 	80
 
-typedef enum {
-	s_idle,
-	s_jump
-}Status;
-
-typedef struct Entity  
-{
-	Body body;
-	Status status;	
-	u8* p_vmem;
-	Vector2D lastpos;
-}Entity;
-
-const Body block = {
-	{
-		{30, 165}, // min	
-		{42, 171}, // max
-	}, // box
-	{0,0}, // velocity
-	{12, 6}, // size	
+const AABB _platform = {
+	{30, 145}, 	// min	
+	{42, 151}, 	// max
+	{12, 6},	// size
 };
 
-const Entity box = {
+const TCharacter _character = {
 	{
 		{
-			{10, 160}, // min	
-			{15, 190}, // max
-		}, // box
+			{10, 160}, 	// min	
+			{15, 190}, 	// max
+			{5, 30}, 	// size
+		}, // AABB Box
 		{0,0}, // velocity
-		{5, 30}, // size
 	}, // body	 
 	{s_idle}, //status
 	CPCT_VMEM_START,
@@ -77,88 +58,94 @@ void init()
 	cpct_setVideoMode(0);
 	cpct_clearScreen_f64(0);
 }
-
-void updateBox()
+void characterController()
 {
-	Entity *b 			= &box;	
-	b->body.velocity.x 	= 0;
-	b->lastpos.x 		= b->body.box.min.x;
-	b->lastpos.y 		= b->body.box.min.y;
-	// gravity
-	if(b->body.box.max.y < CHARACTER_MAX_HEIGHT)
-	{
-		b->body.velocity.y += GRAVITY_FORCE;
-	}
+	TCharacter *c = &_character;
 	cpct_scanKeyboard_f();
-	if(cpct_isKeyPressed(Key_Space) && b->status != s_jump)
+	// jump
+	if(cpct_isKeyPressed(Key_Space) && c->status != s_jump)
 	{
-		b->body.velocity.y += JUMP_FORCE;
-		b->status 			= s_jump;
-	}else if(cpct_isKeyPressed(Key_CursorRight))
+		c->body.velocity.y += JUMP_FORCE;
+		c->status 			= s_jump;
+	}
+	// lateral move
+	if(cpct_isKeyPressed(Key_CursorRight))
 	{
-		b->body.velocity.x += 1;
+		c->body.velocity.x += 1;
 	}else if(cpct_isKeyPressed(Key_CursorLeft))
 	{
-		b->body.velocity.x -= 1;
+		c->body.velocity.x -= 1;
 	}
-	b->body.box.min.y += b->body.velocity.y;
-	b->body.box.max.y += b->body.velocity.y;
-	b->body.box.min.x += b->body.velocity.x;
-	b->body.box.max.x += b->body.velocity.x;
-	if(b->body.box.max.y > CHARACTER_MAX_HEIGHT)
-	{
-		b->body.box.min.y -= (b->body.box.max.y - CHARACTER_MAX_HEIGHT);
-		b->body.box.max.y -= (b->body.box.max.y - CHARACTER_MAX_HEIGHT);
-	}
-	if(b->body.box.max.y == CHARACTER_MAX_HEIGHT)
-		b->status = s_idle;
 }
+
+
 
 void blockCollisions()
 {
-	Body *block_ = &block;
-	Entity *box_ = &box;
+	AABB *platform = &_platform;
+	TCharacter *character = &_character;
 	u8 *pvmem;
-	pvmem = cpct_getScreenPtr(CPCT_VMEM_START, block_->box.min.x, block_->box.min.y);
-	if(AABB_BoxCollision(&box_->body.box, &block_->box)){
-		switch(checkBodyCollisionSide(&box_->body, block_))
+	pvmem = cpct_getScreenPtr(CPCT_VMEM_START, 15, 50);
+	if(AABB_BoxCollision(&character->body.box, platform)){
+		switch(checkCollisionSide(platform, &character->body.box))
 		{
 			case COLLISION_SIDE_BOTTOM:
-				box_->body.box.min.y -= (box_->body.box.max.y - block_->box.min.y);
-				box_->body.box.max.y -= (box_->body.box.max.y - block_->box.min.y);
-				cpct_drawStringM0("BOT", CPCT_VMEM_START, _palette[0], _palette[1]);
-				break;
-			case COLLISION_SIDE_RIGHT:
-				//box_->body.box.min.x -= (box_->body.box.max.x - block_->box.min.x);
-				//box_->body.box.max.x -= (box_->body.box.max.x - block_->box.min.x);
-				cpct_drawStringM0("RIGHT", CPCT_VMEM_START, _palette[0], _palette[1]);
-				break;
-			case COLLISION_SIDE_LEFT:
-				cpct_drawStringM0("LEFT", CPCT_VMEM_START, _palette[0], _palette[1]);
+				character->status = s_idle;
+				character->body.velocity.y 	= 0;
+				character->body.box.max.y 	= platform->min.y;
+				character->body.box.min.y	= platform->min.y - character->body.box.size.y;
+				cpct_drawSolidBox(pvmem, cpct_px2byteM0(4, 4), 15, 20);
 				break;
 			case COLLISION_SIDE_TOP:
-				cpct_drawStringM0("TOP", CPCT_VMEM_START, _palette[0], _palette[1]);				
+				character->body.velocity.y 	= 0;
+				character->body.box.min.y 	= platform->max.y + 1;
+				character->body.box.max.y	= character->body.box.min.y + character->body.box.size.y;
+				break;
+			case COLLISION_SIDE_RIGHT:
+				character->body.box.max.x 	= platform->min.x;
+				character->body.box.min.x 	= platform->min.x - character->body.box.size.x;
+				character->body.velocity.x	= 0;
+				break;
+			case COLLISION_SIDE_LEFT:
+				character->body.box.min.x 	= platform->max.x;
+				character->body.box.max.x	= platform->max.x + character->body.box.size.x;
+				character->body.velocity.x	= 0;
 				break;
 		}
-		
+	}else{
 	}
 }
 
-void drawBlock()
+
+void updateCharacter()
 {
-	u8 *pvmem;
-	pvmem = cpct_getScreenPtr(CPCT_VMEM_START, block.box.min.x, block.box.min.y);
-	cpct_drawSolidBox(pvmem, cpct_px2byteM0(6,6), block.size.x, block.size.y);
+	TCharacter *c = &_character;
+
+	c->body.lastpos.x 	= c->body.box.min.x;
+	c->body.lastpos.y	= c->body.box.min.y;
+	c->body.velocity.x	= 0;
+ 
+	characterController();
+	if(c->body.box.max.y < CHARACTER_MAX_HEIGHT)
+	{
+		c->body.velocity.y	+= GRAVITY_FORCE;
+	}
+	c->body.box.min.y += c->body.velocity.y;
+	c->body.box.max.y += c->body.velocity.y;
+	c->body.box.min.x += c->body.velocity.x;
+	c->body.box.max.x += c->body.velocity.x;
+	if(c->body.box.max.y > CHARACTER_MAX_HEIGHT)
+	{
+		c->body.box.min.y -= (c->body.box.max.y - CHARACTER_MAX_HEIGHT);
+		c->body.box.max.y -= (c->body.box.max.y - CHARACTER_MAX_HEIGHT);
+	}
+	if(c->body.box.max.y == CHARACTER_MAX_HEIGHT)
+		c->status = s_idle;	
+	
+	blockCollisions();
+	
 }
 
-void drawBox()
-{
-	Entity *b = &box;
-	b->p_vmem = cpct_getScreenPtr(CPCT_VMEM_START, b->lastpos.x, b->lastpos.y);
-	cpct_drawSolidBox(b->p_vmem, cpct_px2byteM0(0, 0), b->body.size.x, b->body.size.y);
-	b->p_vmem = cpct_getScreenPtr(CPCT_VMEM_START, b->body.box.min.x, b->body.box.min.y);
-	cpct_drawSolidBox(b->p_vmem, cpct_px2byteM0(3, 3), b->body.size.x, b->body.size.y);
-}
 
 void main(void) {
    	u8* pvmem;
@@ -172,10 +159,10 @@ void main(void) {
 
 	while(1)
 	{
-		drawBlock();
-		drawBox();
-		updateBox();
+		cpct_waitVSYNC(); //first frame
+		updateCharacter();
 		blockCollisions();
-		cpct_waitVSYNC();
+		drawBlock();
+		drawCharacter();
 	}
 }
