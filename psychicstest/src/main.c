@@ -18,9 +18,8 @@
 
 #include <cpctelera.h>
 #include "common.h"
-#include "physics.h"
+#include "character/character.h"
 #include "draw/draw.h"
-
 
 const AABB _platform = {
 	{30, 145}, 	// min	
@@ -43,41 +42,22 @@ const TCharacter _character = {
 };
 
 
-// Black, Yellow, 
+// Black, Bright White, White, Bright Red, Red, Green, Yellow, Blue, 
+// Bright Blue, Sky Blue, Cyan, Orange, Bright Green, Sea Green, Pink, Pastel Yellow 
+// {0, 26, 13, 6, 3, 9, 12, 1, 2, 11, 10, 18, 19, 16, 25}
 const u8 _palette[16] = {
-   0x00, 0x0C, 0x03, 0x18, 0x0D, 0x14, 0x06, 0x1A,
-   0x00, 0x02, 0x01, 0x12, 0x08, 0x05, 0x10, 0x09
+   0x14, 0x0B, 0x00, 0x0C, 0x1C, 0x16, 0x17, 0x04,
+   0x15, 0x17, 0x06, 0x0E, 0x12, 0x02, 0x07, 0x03
 };
 
 
 void init()
 {
 	cpct_disableFirmware();
-   	cpct_fw2hw(_palette, 16);
    	cpct_setPalette(_palette, 16);
 	cpct_setVideoMode(0);
 	cpct_clearScreen_f64(0);
 }
-void characterController()
-{
-	TCharacter *c = &_character;
-	cpct_scanKeyboard_f();
-	// jump
-	if(cpct_isKeyPressed(Key_Space) && c->status != s_jump)
-	{
-		c->body.velocity.y += JUMP_FORCE;
-		c->status 			= s_jump;
-	}
-	// lateral move
-	if(cpct_isKeyPressed(Key_CursorRight))
-	{
-		c->body.velocity.x += 1;
-	}else if(cpct_isKeyPressed(Key_CursorLeft))
-	{
-		c->body.velocity.x -= 1;
-	}
-}
-
 
 
 void blockCollisions()
@@ -116,37 +96,6 @@ void blockCollisions()
 	}
 }
 
-
-void updateCharacter()
-{
-	TCharacter *c = &_character;
-
-	c->body.lastpos.x 	= c->body.box.min.x;
-	c->body.lastpos.y	= c->body.box.min.y;
-	c->body.velocity.x	= 0;
- 
-	characterController();
-	if(c->body.box.max.y < CHARACTER_MAX_HEIGHT)
-	{
-		c->body.velocity.y	+= GRAVITY_FORCE;
-	}
-	c->body.box.min.y += c->body.velocity.y;
-	c->body.box.max.y += c->body.velocity.y;
-	c->body.box.min.x += c->body.velocity.x;
-	c->body.box.max.x += c->body.velocity.x;
-	if(c->body.box.max.y > CHARACTER_MAX_HEIGHT)
-	{
-		c->body.box.min.y -= (c->body.box.max.y - CHARACTER_MAX_HEIGHT);
-		c->body.box.max.y -= (c->body.box.max.y - CHARACTER_MAX_HEIGHT);
-	}
-	if(c->body.box.max.y == CHARACTER_MAX_HEIGHT)
-		c->status = s_idle;	
-	
-	blockCollisions();
-	
-}
-
-
 void main(void) {
    	u8* pvmem;
 
@@ -159,9 +108,10 @@ void main(void) {
 
 	while(1)
 	{
-		cpct_waitVSYNC(); //first frame
+		cpct_waitVSYNC(); 	//first frame
 		updateCharacter();
 		blockCollisions();
+		cpct_waitVSYNC();	// second frame
 		drawBlock();
 		drawCharacter();
 	}

@@ -1,10 +1,5 @@
 #include "physics.h"
 
-f32 EuclideanDistance(const Vector2D *a, const Vector2D *b)
-{
-	return sqrtf(powf(a->x - b->x, 2)+powf(a->y - b->y, 2));
-}
-
 /*
  * AABB Collision for boxes
  * return 0 if no collision
