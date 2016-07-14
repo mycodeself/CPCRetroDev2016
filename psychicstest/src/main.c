@@ -27,36 +27,12 @@ const AABB _platform = {
 	{12, 6},	// size
 };
 
-const TCharacter _character = {
-	{
-		{
-			{10, 160}, 	// min	
-			{15, 190}, 	// max
-			{5, 30}, 	// size
-		}, // AABB Box
-		{0,0}, // velocity
-	}, // body	 
-	{s_idle}, //status
-	CPCT_VMEM_START,
-	{10, 140},
-};
-
-
-// Black, Bright White, White, Bright Red, Red, Green, Yellow, Blue, 
-// Bright Blue, Sky Blue, Cyan, Orange, Bright Green, Sea Green, Pink, Pastel Yellow 
-// {0, 26, 13, 6, 3, 9, 12, 1, 2, 11, 10, 18, 19, 16, 25}
-const u8 _palette[16] = {
-   0x14, 0x0B, 0x00, 0x0C, 0x1C, 0x16, 0x17, 0x04,
-   0x15, 0x17, 0x06, 0x0E, 0x12, 0x02, 0x07, 0x03
-};
-
-
 void init()
 {
 	cpct_disableFirmware();
    	cpct_setPalette(_palette, 16);
 	cpct_setVideoMode(0);
-	cpct_clearScreen_f64(0);
+	cpct_clearScreen(cpct_px2byteM0(BACKGROUND_COLOR,BACKGROUND_COLOR));
 }
 
 
@@ -64,8 +40,6 @@ void blockCollisions()
 {
 	AABB *platform = &_platform;
 	TCharacter *character = &_character;
-	u8 *pvmem;
-	pvmem = cpct_getScreenPtr(CPCT_VMEM_START, 15, 50);
 	if(AABB_BoxCollision(&character->body.box, platform)){
 		switch(checkCollisionSide(platform, &character->body.box))
 		{
@@ -74,7 +48,6 @@ void blockCollisions()
 				character->body.velocity.y 	= 0;
 				character->body.box.max.y 	= platform->min.y;
 				character->body.box.min.y	= platform->min.y - character->body.box.size.y;
-				cpct_drawSolidBox(pvmem, cpct_px2byteM0(4, 4), 15, 20);
 				break;
 			case COLLISION_SIDE_TOP:
 				character->body.velocity.y 	= 0;
@@ -92,7 +65,6 @@ void blockCollisions()
 				character->body.velocity.x	= 0;
 				break;
 		}
-	}else{
 	}
 }
 
@@ -101,11 +73,8 @@ void main(void) {
 
    	init();
 	
-	pvmem = cpct_getScreenPtr(CPCT_VMEM_START, 0, 190);
-	cpct_drawSolidBox(pvmem,  cpct_px2byteM0(1, 1), 40, 10); 
-	pvmem = cpct_getScreenPtr(CPCT_VMEM_START, 40, 190);
-	cpct_drawSolidBox(pvmem,  cpct_px2byteM0(1, 1), 40, 10); 
-
+	drawBorder();
+	drawGround();
 	while(1)
 	{
 		cpct_waitVSYNC(); 	//first frame
