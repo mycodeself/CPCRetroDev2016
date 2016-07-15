@@ -44,7 +44,7 @@ void blockCollisions()
 		switch(checkCollisionSide(platform, &character->body.box))
 		{
 			case COLLISION_SIDE_BOTTOM:
-				character->status = s_idle;
+				character->status = cs_idle;
 				character->body.velocity.y 	= 0;
 				character->body.box.max.y 	= platform->min.y;
 				character->body.box.min.y	= platform->min.y - character->body.box.size.y;
@@ -72,15 +72,14 @@ void main(void) {
    	u8* pvmem;
 
    	init();
-	
-	drawBorder();
+
 	drawGround();
 	while(1)
 	{
 		cpct_waitVSYNC(); 	//first frame
 		updateCharacter();
 		blockCollisions();
-		cpct_waitVSYNC();	// second frame
+		//cpct_waitVSYNC();	// second frame
 		drawBlock();
 		drawCharacter();
 	}

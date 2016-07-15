@@ -1,0 +1,1 @@
+cpct_img2tileset -m 0 -pf {10 26 13 6 3 9 12 1 2 11 0 18 19 16 25} -im -nt -bn character_idle -tw 14 -th 32 character_idle_0.png

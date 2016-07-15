@@ -3,23 +3,29 @@
 
 #include "../common.h"
 #include "../physics/physics.h"
+#include "../animations/animations.h"
 
 typedef enum {
-	s_idle,
-	s_jump
-}Status;
+	cs_idle,
+	cs_jump,
+	cs_walk_right,
+	cs_walk_left
+}CharacterStatus;
 
 typedef struct TCharacter  
 {
-	DynamicBody body;
-	Status status;
-	u8* p_vmem;
-	
+	DynamicBody 	body;
+	CharacterStatus status;
+	CharacterStatus last_status;
+	u8* 			p_vmem;
+	Animation* 		anim;
 }TCharacter;
 
 extern const TCharacter _character;
 
 void characterController();
 void updateCharacter();
+void updateCharacterAnimation();
+
 
 #endif

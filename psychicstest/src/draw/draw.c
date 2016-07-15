@@ -23,11 +23,12 @@ void drawBlock()
 void drawCharacter()
 {
 	TCharacter *c = &_character;
+	AnimationFrame* frame = c->anim->frames[c->anim->frame_idx];
+
 	c->p_vmem = cpct_getScreenPtr(CPCT_VMEM_START, c->body.lastpos.x, c->body.lastpos.y);
 	cpct_drawSolidBox(c->p_vmem, cpct_px2byteM0(BACKGROUND_COLOR, BACKGROUND_COLOR), c->body.box.size.x, c->body.box.size.y);
 	c->p_vmem = cpct_getScreenPtr(CPCT_VMEM_START, c->body.box.min.x, c->body.box.min.y);
-	cpct_drawSpriteMasked(_character_sprite_idle, c->p_vmem, CHARACTER_SPRITE_SIZE_X, CHARACTER_SPRITE_SIZE_Y);
-	c->p_vmem = cpct_getScreenPtr(CPCT_VMEM_START, c->body.box.min.x, c->body.box.min.y);
+	cpct_drawSpriteMasked(frame->sprite, c->p_vmem, frame->size_x, frame->size_y);
 }
 
 

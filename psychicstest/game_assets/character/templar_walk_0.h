@@ -3,8 +3,8 @@
 #define _TEMPLAR_WALK_0_H_
 
 #include <types.h>
-#define CHARACTER_IDLE_TEMPLAR_WALK_0_W 11
-#define CHARACTER_IDLE_TEMPLAR_WALK_0_H 32
-extern const u8 character_idle_templar_walk_0[2 * 11 * 32];
+#define G_TILE_TEMPLAR_WALK_0_W 10
+#define G_TILE_TEMPLAR_WALK_0_H 32
+extern const u8 g_tile_templar_walk_0[2 * 10 * 32];
 
 #endif

@@ -5,7 +5,8 @@
 
 extern const u8 _palette[16];
 extern const u8 _border[5*5];
-extern const u8 _character_sprite_idle[2 * 7 * 32];
-extern const u8 _character_walk_0[2 * 11 * 32];
+extern const u8 _character_sprite_idle[2 * 8 * 32];
+extern const u8 _character_walk_0[2 * 10 * 32];
+extern const u8 _character_walk_1[2 * 11 * 32];
 
 #endif

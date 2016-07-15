@@ -24,16 +24,27 @@
 #define GROUND_SIZE_X				80 	// bytes
 #define GROUND_SIZE_Y				20	// bytes
 
-
-
 #define BACKGROUND_COLOR			9	// Sky Blue
 
-// CHARACTER
-#define CHARACTER_SPRITE_SIZE_X		7	// bytes
-#define CHARACTER_SPRITE_SIZE_Y 	32	// bytes
+// CHARACTER SPRITE SIZES
+#define CHARACTER_IDLE_0_SIZE_X		8	// bytes
+#define CHARACTER_IDLE_0_SIZE_Y 	32	// bytes
 
-#define CHARACTER_WALK_0_SIZE_X		11	// bytes
+#define CHARACTER_WALK_0_SIZE_X		10	// bytes
 #define CHARACTER_WALK_0_SIZE_Y		32	// bytes
+
+#define CHARACTER_WALK_1_SIZE_X		11	// bytes
+#define CHARACTER_WALK_1_SIZE_Y		32	// bytes
+
+// CHARACTER NUMBER OF FRAMES PER ANIM
+#define CHARACTER_IDLE_ANIM_FRAMES	1
+#define CHARACTER_WALK_ANIM_FRAMES	2
+
+
+// CHARACTER START POSITION
+#define CHARACTER_START_X			10
+#define CHARACTER_START_Y			148
+
 
 // PHYSICS
 #define GRAVITY_FORCE 				1
