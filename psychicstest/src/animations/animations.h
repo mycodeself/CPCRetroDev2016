@@ -11,10 +11,16 @@ typedef enum {
 	as_end
 }AnimationStatus;
 
+typedef enum {
+	al_right,
+	al_left
+}AnimationLook;
+
 typedef struct AnimationFrame {
-	u8*		sprite;
-	u8		size_x;	// bytes
-	u8		size_y;	// bytes
+	u8*				sprite;
+	u8				size_x, size_y;		// bytes
+	u8 				time;	
+	AnimationLook	look;
 }AnimationFrame;
 
 typedef struct Animation {
@@ -22,6 +28,9 @@ typedef struct Animation {
 	u8					frame_idx;
 	u8 					numframes;
 	AnimationStatus 	status;
+	u8					time;
+	AnimationLook 		look;
+	u8 					erase_x, erase_y;	// bytes to erase y
 }Animation;
 
 extern AnimationFrame* const 	_character_anim_idle[1];

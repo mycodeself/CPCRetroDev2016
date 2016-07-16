@@ -76,6 +76,9 @@ void updateCharacterAnimation()
 {
 	TCharacter*		c 	= 	&_character;
 	AnimationFrame* frame;
+	
+	updateAnimation(c->anim);
+	frame 	=	c->anim->frames[c->anim->frame_idx];
 	if(c->status != c->last_status)
 	{
 		switch(c->status)
@@ -85,17 +88,21 @@ void updateCharacterAnimation()
 				c->anim->numframes	=	CHARACTER_IDLE_ANIM_FRAMES;
 				break;
 			case cs_walk_right:
-				c->anim->frames = (AnimationFrame**) _character_anim_walk;
+				c->anim->frames 	=	(AnimationFrame**) _character_anim_walk;
 				c->anim->numframes	=	CHARACTER_WALK_ANIM_FRAMES;
+				c->anim->look		=	al_right;
+				break;
+			case cs_walk_left:
+				c->anim->frames 	=	(AnimationFrame**) _character_anim_walk;
+				c->anim->numframes	=	CHARACTER_WALK_ANIM_FRAMES;
+				c->anim->look		=	al_left;
 				break;
 		}
 		c->anim->status 		=	as_play;
 		c->anim->frame_idx		=	0;
+		c->anim->time 			=	frame->time;
 	}
 	
-	updateAnimation(c->anim);
-	
-	frame = c->anim->frames[c->anim->frame_idx];
 	c->body.box.size.x 	=	frame->size_x;
 	c->body.box.size.y 	=	frame->size_y;
 	c->body.box.max.x 	=	c->body.box.min.x + c->body.box.size.x;
