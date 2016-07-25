@@ -16,25 +16,33 @@ const TCharacter _character = {
 };
 
 
+
+
 void characterController()
 {
 	TCharacter *c = &_character;
 	cpct_scanKeyboard_f();
-	// jump
-	if(cpct_isKeyPressed(Key_Space) && c->status != cs_jump)
+	
+	if(cpct_isKeyPressed(Key_Space)) // jump
 	{
-		c->body.velocity.y += JUMP_FORCE;
-		c->status 			= cs_jump;
-	}
-	// lateral move
-	if(cpct_isKeyPressed(Key_CursorRight))
+		if(c->status != cs_jump && c->status != cs_jump_left && c->status != cs_jump_right){
+			c->body.velocity.y += JUMP_FORCE;
+			c->status 			= cs_jump;
+		}		
+	}else if(cpct_isKeyPressed(Key_CursorRight))	// walk right
 	{
 		c->body.velocity.x += 1;
-		c->status			= cs_walk_right;
-	}else if(cpct_isKeyPressed(Key_CursorLeft))
+		if(c->status == cs_jump)
+			c->status	= cs_jump_right;
+		else
+			c->status	= cs_walk_right;
+	}else if(cpct_isKeyPressed(Key_CursorLeft))		// walk left
 	{
 		c->body.velocity.x -= 1;
-		c->status			= cs_walk_left;
+		if(c->status == cs_jump)
+			c->status	= cs_jump_left;
+		else
+			c->status	= cs_walk_left;
 	}
 }
 
@@ -60,13 +68,10 @@ void updateCharacter()
 		c->body.box.min.y -= (c->body.box.max.y - GROUND_POSITION_Y);
 		c->body.box.max.y -= (c->body.box.max.y - GROUND_POSITION_Y);
 	}
-	/*if(c->body.box.max.y == GROUND_POSITION_Y){
+	if(c->body.box.max.y == GROUND_POSITION_Y && c->status == cs_jump){
 		c->status 			= cs_idle;	
 		c->body.velocity.y 	= 0;
-	}*/	
-	if(c->body.velocity.x == 0) 
-		if(c->status == cs_walk_left || c->status == cs_walk_right)
-			c->status = cs_idle;
+	}
 	
 	updateCharacterAnimation();
 		
@@ -88,11 +93,13 @@ void updateCharacterAnimation()
 				c->anim->numframes	=	CHARACTER_IDLE_ANIM_FRAMES;
 				break;
 			case cs_walk_right:
+			case cs_jump_right:
 				c->anim->frames 	=	(AnimationFrame**) _character_anim_walk;
 				c->anim->numframes	=	CHARACTER_WALK_ANIM_FRAMES;
 				c->anim->look		=	al_right;
 				break;
 			case cs_walk_left:
+			case cs_jump_left:
 				c->anim->frames 	=	(AnimationFrame**) _character_anim_walk;
 				c->anim->numframes	=	CHARACTER_WALK_ANIM_FRAMES;
 				c->anim->look		=	al_left;

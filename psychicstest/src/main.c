@@ -78,7 +78,7 @@ void main(void) {
 	{
 		cpct_waitVSYNC(); 	//first frame
 		updateCharacter();
-		blockCollisions();
+//		blockCollisions();
 		cpct_waitVSYNC();	// second frame
 		drawBlock();
 		drawCharacter();

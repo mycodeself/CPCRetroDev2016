@@ -9,7 +9,9 @@ typedef enum {
 	cs_idle,
 	cs_jump,
 	cs_walk_right,
-	cs_walk_left
+	cs_walk_left,
+	cs_jump_right,
+	cs_jump_left
 }CharacterStatus;
 
 typedef struct TCharacter  

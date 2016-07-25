@@ -48,7 +48,7 @@
 
 // PHYSICS
 #define GRAVITY_FORCE 				1
-#define JUMP_FORCE					-10
+#define JUMP_FORCE					-9
 
 // COLLISIONS
 #define COLLISION_SIDE_BOTTOM 		0
