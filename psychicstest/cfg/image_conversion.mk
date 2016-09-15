@@ -70,6 +70,6 @@
 
 
  
-PALETTE={8 26 13 6 3 9 12 1 20 11 0 18 19 16 25 10}
+PALETTE={16 0 26 13 1 2 11 10 4 25 18 21 9 3 6 15}
 
-$(eval $(call IMG2SPRITES,assets/level0/level0_tileset.png,0,_level0,4,4,$(PALETTE),tileset,src/assets,hwpalette))
+$(eval $(call IMG2SPRITES,assets/level0/level0_tileset.png,0,LEVEL0,4,4,$(PALETTE),tileset,src/assets,hwpalette))
