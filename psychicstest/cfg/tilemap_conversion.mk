@@ -53,3 +53,7 @@
 ##
 
 #$(eval $(call TMX2C,img/tilemap.tmx,g_tilemap,src/))
+
+#level0
+$(eval $(call TMX2C,assets/level0/level0.tmx,_level0,src/assets/))
+

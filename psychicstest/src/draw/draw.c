@@ -1,17 +1,6 @@
 #include "draw.h"
 
-void drawBorder()
-{
-	u8 *pvmem;
-	u8 i;
-	pvmem = cpct_getScreenPtr(CPCT_VMEM_START, BORDER_TOP_POSITION_X, BORDER_TOP_POSITION_Y);
-	for(i=16;i!=0;--i)
-	{
-		cpct_drawSprite(_border, pvmem, BORDER_SIZE_X, BORDER_SIZE_Y);
-		pvmem += 5;
-	}	
-	
-}
+
 
 void drawBlock()
 {

@@ -67,3 +67,9 @@
 ##	  hardware colour values.
 
 #$(eval $(call IMG2SPRITES,img/example.png,0,pre,24,12,$(PALETTE),mask,src/,hwpalette))
+
+
+ 
+PALETTE={8 26 13 6 3 9 12 1 20 11 0 18 19 16 25 10}
+
+$(eval $(call IMG2SPRITES,assets/level0/level0_tileset.png,0,_level0,4,4,$(PALETTE),tileset,src/assets,hwpalette))

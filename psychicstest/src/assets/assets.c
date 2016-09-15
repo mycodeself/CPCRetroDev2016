@@ -1,30 +1,8 @@
 #include "assets.h"
 
-/*
- * 0 Cyan (Mask)
- * 1 Bright White
- * 2 White
- * 3 Birght Red
- * 4 Red
- * 5 Green
- * 6 Yellow
- * 7 Blue
- * 8 Bright Blue
- * 9 Sky Blue
- * 10 Black
- * 11 Orange
- * 12 Green
- * 13 Sea Green
- * 14 Pink
- * 15 Pastel Yellow
- * 
- * {10 26 13 6 3 9 12 1 2 11 0 18 19 16 25}
- */
-const u8 _palette[16] = {
-	0x06, // MASK
-	0x0B, 0x00, 0x0C, 0x1C, 0x16, 0x1E, 0x04,
-	0x15, 0x17, 0x14, 0x0E, 0x12, 0x02, 0x07, 0x03
-};
+
+// Palette uses hardware values.
+const u8 _palette[16] = { 0x4d, 0x4b, 0x40, 0x4c, 0x5c, 0x56, 0x5e, 0x44, 0x53, 0x57, 0x54, 0x52, 0x42, 0x47, 0x43, 0x46 };
 
 
 // Tile border: 10x5 pixels, 5x5 bytes.

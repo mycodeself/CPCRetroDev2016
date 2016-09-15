@@ -8,7 +8,6 @@
 
 extern const AABB _platform;
 
-void drawBorder();
 void drawGround();
 void drawBlock();
 void drawCharacter();

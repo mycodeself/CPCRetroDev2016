@@ -13,18 +13,18 @@
 #define SCREEN_PIXELS_HEIGHT		200 // pixels
 #define SCREEN_PIXELS_WIDTH			160	// pixels
 
-// BORDER
-#define BORDER_TOP_POSITION_X		0	// bytes
-#define BORDER_TOP_POSITION_Y		30	// bytes
-#define BORDER_SIZE_X				5	// bytes		
-#define BORDER_SIZE_Y				5	// bytes
+// WORLD SIZE
+#define WORLD_MIN_X					0
+#define WORLD_MIN_Y					40	// pixels
+#define WORLD_MAX_X					160	// pixels
+#define WORLD_MAX_Y					200	// pixels 
 
 #define GROUND_POSITION_X			0	// bytes
 #define GROUND_POSITION_Y			180	// bytes
 #define GROUND_SIZE_X				80 	// bytes
 #define GROUND_SIZE_Y				20	// bytes
 
-#define BACKGROUND_COLOR			9	// Sky Blue
+#define BACKGROUND_COLOR			8	// 
 
 // CHARACTER SPRITE SIZES
 #define CHARACTER_IDLE_0_SIZE_X		8	// bytes
