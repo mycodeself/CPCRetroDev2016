@@ -1,5 +1,5 @@
 //-----------------------------LICENSE
-//NOTICE------------------------------------
+// NOTICE------------------------------------
 //  This file is part of CPCtelera: An Amstrad CPC Game Engine
 //  Copyright (C) 2015 ronaldo / Fremos / Cheesetea / ByteRealms
 //  (@FranGallegoBR)
@@ -24,14 +24,19 @@
 #include "common.h"
 #include "draw/draw.h"
 
-#define   LEVEL0_VMEM       cpctm_screenPtr (CPCT_VMEM_START, 0, 40)
-#define   LEVEL0_MAXSCROLL  80
+#define LEVEL0_MAXSCROLL  100
 
+const AABB _platform = {
+    {30, 145},  // min
+    {42, 151},  // max
+    {12, 6},    // size
+};
 
-typedef struct {
+typedef struct 
+{
   u8* video_ptr;
   u8* tile_ptr;
-  u8 scroll;
+  u8  scroll;
 } ScreenPointer;
 
 const ScreenPointer _screen_ptr = {CPCT_VMEM_START, LEVEL0, 0};
@@ -45,12 +50,10 @@ void scrollScreen(i16 scroll) {
   // Update pointers to tilemap drawable window, tilemap upper-left corner in
   // video memory
   // and scroll offset
-  scr->video_ptr +=
-      2 *
-      scroll;  // Video memory starts now 2 bytes to the left or to the right
-  scr->tile_ptr += scroll;  // Move the start pointer to the tilemap 1 tile (1
-                            // byte) to point to the drawable zone (viewport)
-  scr->scroll += scroll;    // Update scroll offset to produce scrolling
+  scr->video_ptr += 2 * scroll;   // Video memory starts now 2 bytes to the left or to the right
+  scr->tile_ptr += scroll;        // Move the start pointer to the tilemap 1 tile (1
+                                  // byte) to point to the drawable zone (viewport)
+  scr->scroll += scroll;          // Update scroll offset to produce scrolling
 
   // Wait for VSYNC before redrawing,
   cpct_waitVSYNC();
@@ -59,16 +62,16 @@ void scrollScreen(i16 scroll) {
 
   // Redraw newly appearing column (either it is left or right)
   cpct_etm_drawTileBox2x4(
-      column, 0,  // (X, Y) Upper-left Location of the Box (column in this case)
-                  // to be redrawn
-      1, LEVEL0_H,  // (Width, Height) of the Box (column) to be redrawn
-      LEVEL0_W,  // Width of the full tilemap (which is wider than the screen
-                  // in this case)
-      scr->video_ptr,  // Pointer to the upper-left corner of the tilemap in
-                       // video memory
-      scr->tile_ptr);  // Pointer to the first tile of the tilemap to be drawn
-                       // (upper-left corner
-                       // ... of the tilemap viewport window)
+      column, 0,        // (X, Y) Upper-left Location of the Box (column in this case)
+                        // to be redrawn
+      1, LEVEL0_H,      // (Width, Height) of the Box (column) to be redrawn
+      LEVEL0_W,         // Width of the full tilemap (which is wider than the screen
+                        // in this case)
+      scr->video_ptr,   // Pointer to the upper-left corner of the tilemap in
+                        // video memory
+      scr->tile_ptr);   // Pointer to the first tile of the tilemap to be drawn
+                        // (upper-left corner
+                        // ... of the tilemap viewport window)
 
   // When scrolling to the right, erase the character (2x8) bytes that
   // scrolls-out
@@ -81,7 +84,7 @@ void scrollScreen(i16 scroll) {
     cpct_drawSolidBox(scr->video_ptr - 2, 0, 2,
                       8);  // top-left scrolled-out char
   else {
-    u8* br_char = cpct_getScreenPtr(scr->video_ptr, 0, LEVEL0_H);
+    u8* br_char = cpct_getScreenPtr(scr->video_ptr, 0, 4*LEVEL0_H);
     cpct_drawSolidBox(br_char, 0, 2, 8);  // bottom-right scrolled-out char
   }
 }
@@ -101,11 +104,6 @@ i16 wait4KeyboardInput() {
   }
 }
 
-const AABB _platform = {
-    {30, 145},  // min
-    {42, 151},  // max
-    {12, 6},    // size
-};
 
 void init() {
   cpct_disableFirmware();
@@ -150,19 +148,14 @@ void blockCollisions() {
 }
 
 void startLevel0() {
-  ScreenPointer *p = &_screen_ptr;
   cpct_etm_setTileset2x4(LEVEL0_tileset);
   // Clean up the screen
   cpct_memset(CPCT_VMEM_START, 0x00, 0x4000);
-  
-  //_screen_ptr.video_ptr  
-  p->video_ptr   =   LEVEL0_VMEM;
 }
 
 void drawLevel0() {
   // cpct_etm_drawTilemap2x4(LEVEL0_W, LEVEL0_H, LEVEL0_VMEM, LEVEL0);
-
-  cpct_etm_drawTileBox2x4(0, 0, 40, LEVEL0_H, LEVEL0_W, LEVEL0_VMEM,
+  cpct_etm_drawTileBox2x4(0, 0, 40, LEVEL0_H, LEVEL0_W, CPCT_VMEM_START,
                           LEVEL0);
 }
 
@@ -175,17 +168,19 @@ void main(void) {
 
   while (1) {
     scroll_offset = wait4KeyboardInput();
-    if (scroll_offset > 0 ) {
-      if(_screen_ptr.scroll == LEVEL0_MAXSCROLL) continue;  // Do not scroll passed the right limit
-    } else if(_screen_ptr.scroll == 0) continue;  // Do not scroll passed the left limit
+    if (scroll_offset > 0) {
+      if (_screen_ptr.scroll == LEVEL0_MAXSCROLL)
+        continue;   // Do not scroll passed the right limit
+    } else if (_screen_ptr.scroll == 0)
+      continue;     // Do not scroll passed the left limit
 
     // Scroll and redraw the tilemap
-    scrollScreen(scroll_offset);		
-    //		cpct_waitVSYNC(); 	//first frame
-    //		updateCharacter();
-    //		blockCollisions();
-    //		cpct_waitVSYNC();	// second frame
-    //		drawBlock();
+    scrollScreen(scroll_offset);
+    //    cpct_waitVSYNC();   //first frame
+    //    updateCharacter();
+    //    blockCollisions();
+    //    cpct_waitVSYNC(); // second frame
+    //    drawBlock();
     // drawCharacter();
   }
 }
