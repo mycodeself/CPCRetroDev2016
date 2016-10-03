@@ -1,31 +1,25 @@
 #include "draw.h"
 
+cpctm_createTransparentMaskTable(MASK_TABLE, 0x100, M0, 0);
 
-
-void drawBlock()
+void
+drawCharacter()
 {
-	u8 *pvmem;
-	pvmem = cpct_getScreenPtr(CPCT_VMEM_START, _platform.min.x, _platform.min.y);
-	cpct_drawSolidBox(pvmem, cpct_px2byteM0(6,6), _platform.size.x, _platform.size.y);
+  Game* g = &_game;
+  TCharacter* c = &_character;
+  AnimationFrame* frame = c->anim->frames[c->anim->frame_idx];
+
+  cpct_etm_drawTileBox2x4(c->db.lastpos.x / 2, c->db.lastpos.y / 4, 6, 8, LEVEL0_1_W, CPCT_VMEM_START, g->lvl->lm->map);
+
+  c->p_vmem = cpct_getScreenPtr(CPCT_VMEM_START, c->db.body.pos.x, c->db.body.pos.y);
+  cpct_drawSpriteMaskedAlignedTable(frame->sprite, c->p_vmem, frame->size_x, frame->size_y, MASK_TABLE);
 }
 
-void drawCharacter()
+void
+drawLevel()
 {
-	TCharacter *c = &_character;
-	AnimationFrame* frame = c->anim->frames[c->anim->frame_idx];
-
-	c->p_vmem = cpct_getScreenPtr(CPCT_VMEM_START, c->body.lastpos.x, c->body.lastpos.y);
-	cpct_drawSolidBox(c->p_vmem, cpct_px2byteM0(BACKGROUND_COLOR, BACKGROUND_COLOR), c->anim->erase_x, c->anim->erase_y);
-	c->p_vmem = cpct_getScreenPtr(CPCT_VMEM_START, c->body.box.min.x, c->body.box.min.y);
-	cpct_drawSpriteMasked(frame->sprite, c->p_vmem, frame->size_x, frame->size_y);
-}
-
-
-void drawGround()
-{
-	u8 *pvmem;
-	pvmem = cpct_getScreenPtr(CPCT_VMEM_START, GROUND_POSITION_X, GROUND_POSITION_Y+3);
-	cpct_drawSolidBox(pvmem, cpct_px2byteM0(11,11), 50, GROUND_SIZE_Y-3);
-	pvmem = cpct_getScreenPtr(CPCT_VMEM_START, GROUND_POSITION_X, GROUND_POSITION_Y);
-	cpct_drawSolidBox(pvmem, cpct_px2byteM0(5,5), 50, 3);
+  Game *g = &_game;
+  
+  // cpct_memset(CPCT_VMEM_START, cpct_px2byteM0(1, 1), 0x4000);
+  cpct_etm_drawTilemap2x4_f(LEVEL0_1_W, LEVEL0_1_H, CPCT_VMEM_START, g->lvl->lm->map);
 }

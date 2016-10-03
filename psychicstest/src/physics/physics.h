@@ -3,26 +3,34 @@
 
 #include "../common.h"
 
-// structs
-typedef struct Vector2D{
-	u8 x;
-	u8 y;
-}Vector2D;
+typedef struct Vector2D
+{
+  u8 x, y;
+} Vector2D;
 
-typedef struct AABB {
-	Vector2D min;		// min position (top-left corner)
-	Vector2D max;		// max position (bottom-right corner)
-	Vector2D size;		// size
-}AABB;
+typedef struct Body
+{
+  Vector2D pos;
+  Vector2D size;
+} Body;
 
-typedef struct DynamicBody {
-	AABB box;			// AABB Box
-	Vector2D velocity;	// velocity
-	Vector2D lastpos;	// last position
-}DynamicBody;
+typedef struct Velocity
+{
+  i8 x;
+  i8 y;
+} Velocity;
 
-//Collision
-u8 AABB_BoxCollision(const AABB *a, const AABB *b);
-u8 checkCollisionSide(const AABB *a, const AABB *b);
+typedef struct DynamicBody
+{
+  Body body;
+  Vector2D lastpos;   // last position
+  Velocity vel;       // velocity
+  u8 side;            // 1: right 0: left
+} DynamicBody;
+
+// Collision
+u8 checkCollision(const Body* a, const Body* b);
+u8 checkCollisionSide(const Body* a, const Body* b);
+void blockCollisions();
 
 #endif

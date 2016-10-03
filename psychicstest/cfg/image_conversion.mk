@@ -72,4 +72,9 @@
  
 PALETTE={16 0 26 13 1 2 11 10 4 25 18 21 9 3 6 15}
 
-$(eval $(call IMG2SPRITES,assets/level0/level0_tileset.png,0,LEVEL0,4,4,$(PALETTE),tileset,src/assets,hwpalette))
+$(eval $(call IMG2SPRITES,assets/level0/level0_tileset.png,0,LEVEL0,4,4,$(PALETTE),tileset,src/levels/level0))
+$(eval $(call IMG2SPRITES,assets/char/idle.png,0,character,18,32,$(PALETTE),,src/character/sprites/))
+$(eval $(call IMG2SPRITES,assets/char/walk0.png,0,character,22,32,$(PALETTE),,src/character/sprites/))
+$(eval $(call IMG2SPRITES,assets/char/walk1.png,0,character,22,32,$(PALETTE),,src/character/sprites/))
+$(eval $(call IMG2SPRITES,assets/esm.png,0,sprite,8,8,$(PALETTE),,src/objects/sprites/))
+$(eval $(call IMG2SPRITES,assets/hud/border.png,0,hud,4,40,$(PALETTE),,src/hud/))
