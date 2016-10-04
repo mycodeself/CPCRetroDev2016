@@ -2,9 +2,9 @@
 
 const AnimationFrame _bat_frames[3] = {
   // sprite, width bytes, height bytes, time, look
-  { sprite_bat0, SPRITE_BAT0_W, SPRITE_BAT0_H, 2, as_left },
+  { sprite_bat0, SPRITE_BAT0_W, SPRITE_BAT0_H, 3, as_left },
   { sprite_bat1, SPRITE_BAT1_W, SPRITE_BAT1_H, 3, as_left },
-  { sprite_bat2, SPRITE_BAT2_W, SPRITE_BAT2_H, 2, as_left }
+  { sprite_bat2, SPRITE_BAT2_W, SPRITE_BAT2_H, 3, as_left }
 };
 
 AnimationFrame* const _bat_anim_fly[3] = { &_bat_frames[0], &_bat_frames[1], &_bat_frames[2] };

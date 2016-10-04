@@ -11,15 +11,14 @@ game()
   drawScore();
   // drawEmeralds();
   while(_character.status != cs_dead) {
-    updateCharacter();
-    updateBat(&_bat);
     cpct_waitVSYNC();
     drawCharacter();
-    drawBat();
+    drawBat();    
+    updateCharacter();
+    updateBat(&_bat);
     if(_game.score != lastscore) {
       drawScore();
       lastscore = _game.score;
     }
-    
   }
 }
