@@ -18,9 +18,9 @@ drawCharacter()
   Character* c = &_character;
   AnimationFrame* frame = c->anim->frames[c->anim->frame_idx];
 
-  cpct_etm_drawTileBox2x4(c->db.lastx / 2, c->db.lasty / 4, 6, 8, LEVEL0_1_W, CPCT_VMEM_START, g->lvl->lm->map);
+  cpct_etm_drawTileBox2x4(c->db.lastx / 2, c->db.lasty / 4, 5, 6, LEVEL0_1_W, GAME_VMEM_PTR, g->lvl->lm->map);
 
-  c->p_vmem = cpct_getScreenPtr(CPCT_VMEM_START, c->db.body.x, c->db.body.y);
+  c->p_vmem = cpct_getScreenPtr(GAME_VMEM_PTR, c->db.body.x, c->db.body.y);
   cpct_drawSpriteMaskedAlignedTable(frame->sprite, c->p_vmem, frame->w, frame->h, MASK_TABLE);
 }
 
@@ -54,7 +54,7 @@ void
 drawMap()
 {
   Game* g = &_game;
-  cpct_etm_drawTilemap2x4_f(40, 40, CPCT_VMEM_START, g->lvl->lm->map);
+  cpct_etm_drawTilemap2x4_f(40, 40, GAME_VMEM_PTR, g->lvl->lm->map);
 }
 
 // void

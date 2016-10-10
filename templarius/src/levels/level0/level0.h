@@ -8,7 +8,7 @@
 #include "../../enemies/bat.h"
 
 #define LEVEL0_START_POSITION_X 5   // bytes
-#define LEVEL0_START_POSITION_Y 108 // 160 px full map - 20 px ground - 32 character size
+#define LEVEL0_START_POSITION_Y 160 - 20 - 20// 160 px full map - 20 px ground - 18 character size
 
 #define LEVEL0_NUM_MAPS 1
 

@@ -6,12 +6,14 @@ void
 game()
 {
   u8 lastscore = 0; // last score, for draw the score when change
+  cpct_clearScreen(cpct_px2byteM0(1,1));
   startLevel();
-  drawHUD();
+  //drawHUD();
   // drawScore();
   // drawEmeralds();
   while(_character.status != cs_dead) {
     cpct_waitVSYNC();
+    cpct_setBorder(HW_RED);
     drawCharacter();
     //drawBat();    
     updateCharacter();
@@ -20,5 +22,6 @@ game()
     //   drawScore();
     //   lastscore = _game.score;
     // }
+    cpct_setBorder(HW_BLACK);
   }
 }

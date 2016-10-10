@@ -13,6 +13,8 @@
 #define GAME_SCREEN_W 80  // bytes
 #define GAME_SCREEN_H 160 // bytes
 
+#define GAME_VMEM_PTR	cpctm_screenPtr (CPCT_VMEM_START, 0, 40)
+
 #define HUD_POSITION_X 0   // bytes
 #define HUD_POSITION_Y 160 // bytes
 #define HUD_SIZE_W 80      // bytes

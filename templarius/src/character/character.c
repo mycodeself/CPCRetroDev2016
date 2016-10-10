@@ -6,14 +6,15 @@ u8 esmeralds_size = 10;
 
 const AnimationFrame _character_frames[3] = {
   // sprite, width bytes, height bytes, time, look
-  { character_idle, CHARACTER_IDLE_W, CHARACTER_IDLE_H, 1, as_right },
-  { character_walk0, CHARACTER_WALK0_W, CHARACTER_WALK0_H, 3, as_right },
-  { character_walk1, CHARACTER_WALK1_W, CHARACTER_WALK1_H, 6, as_right }
+  { sprite_character_walk0, SPRITE_CHARACTER_WALK0_W, SPRITE_CHARACTER_WALK0_H, 2, as_right },
+  { sprite_character_walk1, SPRITE_CHARACTER_WALK1_W, SPRITE_CHARACTER_WALK1_H, 5, as_right },
+  { sprite_character_walk2, SPRITE_CHARACTER_WALK2_W, SPRITE_CHARACTER_WALK2_H, 5, as_right },
+    
 };
 // idle
 AnimationFrame* const _character_anim_idle[1] = { &_character_frames[0] };
 // walk
-AnimationFrame* const _character_anim_walk[2] = { &_character_frames[1], &_character_frames[2] };
+AnimationFrame* const _character_anim_walk[4] = { &_character_frames[0], &_character_frames[1], &_character_frames[0], &_character_frames[2] };
 // start animation
 const Animation _character_animation = { _character_anim_idle, 0, 1, as_play, 0, as_right };
 
@@ -21,16 +22,16 @@ const Animation _character_animation = { _character_anim_idle, 0, 1, as_play, 0,
 const Character _character = {
   {
     {
-      LEVEL0_START_POSITION_X, LEVEL0_START_POSITION_Y, // position
-      CHARACTER_IDLE_W, CHARACTER_IDLE_H                // size
-    },                                                  // Body
+      LEVEL0_START_POSITION_X, LEVEL0_START_POSITION_Y,   // position
+      SPRITE_CHARACTER_WALK0_W, SPRITE_CHARACTER_WALK0_H  // size
+    },                                                    // Body
     LEVEL0_START_POSITION_X,
     LEVEL0_START_POSITION_Y, // last position
     { 0, 0 },                // velocity
   },                         // DynamicBody
   { cs_idle },               // status
   { cs_idle },               // last status
-  CPCT_VMEM_START,           // pvmem
+  CPCT_VMEM_START,             // pvmem
   &_character_animation      // Animation
 };
 
@@ -151,7 +152,7 @@ updateCharacter()
   c->db.body.y += c->db.vel.y;
 
   if(isGround()) {
-    c->db.body.y = (c->db.body.y & 0b11111100); // + 1;
+    c->db.body.y = (c->db.body.y & 0b11111100);
     c->db.vel.y = 0;
     if(c->db.vel.x == 0)
       c->status = cs_idle;
