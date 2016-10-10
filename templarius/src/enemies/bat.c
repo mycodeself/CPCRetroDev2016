@@ -11,54 +11,43 @@ AnimationFrame* const _bat_anim_fly[3] = { &_bat_frames[0], &_bat_frames[1], &_b
 
 const Animation _bat_animation = { _bat_anim_fly, 0, 3, as_play, 0, as_left };
 
-// Bat definition
-const Bat _bat = {
-  {
-    {
-      60, 110,                        // position
-      SPRITE_BAT0_W, SPRITE_BAT0_H    // size
-    },                                // Body
-    60, 110,                          // last position
-    { 0, 0 },                // velocity
-  },                         // DynamicBody
-  &_bat_animation,
-  bs_alive
-};
-
-void updateBat(Bat* bat)
+void updateBats(Bat* bat)
 {
-  u8 r = cpct_rand();
+  u8 i = 0;
+  u8 r = cpct_rand();  
   AnimationFrame* frame;
   
-  updateAnimation(bat->anim);
-  frame = bat->anim->frames[bat->anim->frame_idx];
-  bat->db.body.w = frame->w;
-  bat->db.body.h = frame->h;
-  
-  bat->db.lastx = bat->db.body.x;
-  bat->db.lasty = bat->db.body.y;
-  bat->db.vel.x = 0;
-  bat->db.vel.y = 0;
-  
-  if(r > 120)
-    if(bat->anim->side == as_left)
-      bat->db.vel.x -= 1;
-    else
-      bat->db.vel.x += 1;
-  else if(r > 60 && bat->db.body.y < 130)
-    bat->db.vel.y += 1;
-  else if(bat->db.body.y > 100)
-    bat->db.vel.y -=  1;
-
-  bat->db.body.x += bat->db.vel.x;
-  bat->db.body.y += bat->db.vel.y;
-  
-  if(bat->db.body.x <= 0){
-    bat->anim->side = as_right;
-  }else if((bat->db.body.x + bat->db.body.w) >= SCREEN_BYTES_WIDTH)
+  for(;i != 3;i++)
   {
-    bat->anim->side = as_left;
-  }
-  
+    updateAnimation(bat->anim);
+    frame = bat->anim->frames[bat->anim->frame_idx];
+    bat->db.body.w = frame->w;
+    bat->db.body.h = frame->h;
+    
+    bat->db.lastx = bat->db.body.x;
+    bat->db.lasty = bat->db.body.y;
+    bat->db.vel.x = 0;
+    bat->db.vel.y = 0;
+    
+    if(r > 120)
+      if(bat->anim->side == as_left)
+        bat->db.vel.x -= 1;
+      else
+        bat->db.vel.x += 1;
+    else if(r > 60 && bat->db.body.y < 130)
+      bat->db.vel.y += 1;
+    else if(bat->db.body.y > 100)
+      bat->db.vel.y -=  1;
 
+    bat->db.body.x += bat->db.vel.x;
+    bat->db.body.y += bat->db.vel.y;
+    
+    if(bat->db.body.x <= 0){
+      bat->anim->side = as_right;
+    }else if((bat->db.body.x + bat->db.body.w) >= SCREEN_BYTES_WIDTH)
+    {
+      bat->anim->side = as_left;
+    }
+    ++bat;
+  }
 }

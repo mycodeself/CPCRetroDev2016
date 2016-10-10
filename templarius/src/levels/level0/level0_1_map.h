@@ -1,7 +1,5 @@
-#ifndef _LEVEL0_1_H_
-#define _LEVEL0_1_H_
 //
-// File assets/level0/level0_1_map.tmx converted to csv using cpct_tmx2csv [20161004 00:01:08 CEST]
+// File assets/level0/level0_1_map.tmx converted to csv using cpct_tmx2csv [20161010 02:37:52 CEST]
 //   * Width:  40
 //   * Height: 40
 //   * Bytes:  1600 
@@ -13,4 +11,3 @@
 #define LEVEL0_1_W  40
 #define LEVEL0_1_H  40
 extern const u8 LEVEL0_1[40*40];
-#endif

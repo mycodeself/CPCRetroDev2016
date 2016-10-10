@@ -4,11 +4,13 @@
 #include <types.h>
 #include "../physics/physics.h"
 #include "level0/level0_tileset.h"
+#include "../enemies/bat.h"
 
 typedef struct LevelMap
 {
   u8* map;
   Body* emeralds;
+  Bat* bats;
 //Enemies  
 } LevelMap;
 

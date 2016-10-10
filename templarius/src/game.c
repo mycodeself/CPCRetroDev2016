@@ -8,17 +8,17 @@ game()
   u8 lastscore = 0; // last score, for draw the score when change
   startLevel();
   drawHUD();
-  drawScore();
+  // drawScore();
   // drawEmeralds();
   while(_character.status != cs_dead) {
     cpct_waitVSYNC();
-    drawCharacter();
+    //drawCharacter();
     drawBat();    
-    updateCharacter();
-    updateBat(&_bat);
-    if(_game.score != lastscore) {
-      drawScore();
-      lastscore = _game.score;
-    }
+    //updateCharacter();
+    //updateBat(&_bat);
+    // if(_game.score != lastscore) {
+    //   drawScore();
+    //   lastscore = _game.score;
+    // }
   }
 }

@@ -15,8 +15,8 @@ typedef struct Bat {
   BatStatus status;
 } Bat;
 
-extern const Bat _bat;
+extern const Animation _bat_animation;
 
-void updateBat(Bat* bat);
+void updateBats(Bat* bat);
 
 #endif

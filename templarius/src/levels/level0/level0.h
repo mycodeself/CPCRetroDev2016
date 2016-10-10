@@ -5,6 +5,7 @@
 #include "level0_1_map.h"
 #include "level0_2_map.h"
 #include "../level.h"
+#include "../../enemies/bat.h"
 
 #define LEVEL0_START_POSITION_X 5   // bytes
 #define LEVEL0_START_POSITION_Y 108 // 160 px full map - 20 px ground - 32 character size
