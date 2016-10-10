@@ -12,9 +12,9 @@ game()
   // drawEmeralds();
   while(_character.status != cs_dead) {
     cpct_waitVSYNC();
-    //drawCharacter();
-    drawBat();    
-    //updateCharacter();
+    drawCharacter();
+    //drawBat();    
+    updateCharacter();
     //updateBat(&_bat);
     // if(_game.score != lastscore) {
     //   drawScore();
