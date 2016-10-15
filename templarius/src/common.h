@@ -12,13 +12,15 @@
 
 #define GAME_SCREEN_W 80  // bytes
 #define GAME_SCREEN_H 160 // bytes
+#define GAME_SCREEN_START_X 0
+#define GAME_SCREEN_START_Y 40
 
-#define GAME_VMEM_PTR	cpctm_screenPtr (CPCT_VMEM_START, 0, 40)
+#define GAME_VMEM_PTR	cpctm_screenPtr(0x8000, 0, 40)
 
-#define HUD_POSITION_X 0   // bytes
-#define HUD_POSITION_Y 160 // bytes
-#define HUD_SIZE_W 80      // bytes
-#define HUD_SIZE_H 40      // bytes
+#define HUD_POSITION_X 0   	// bytes
+#define HUD_POSITION_Y 0 	// bytes
+#define HUD_SIZE_W 80      	// bytes
+#define HUD_SIZE_H 40      	// bytes
 
 
 // PHYSICS

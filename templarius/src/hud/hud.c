@@ -1,23 +1,56 @@
 #include "hud.h"
+#include "sprites/numbers.h"
 
-#define BORDER_LEFT_VMEM cpctm_screenPtr(CPCT_VMEM_START, 0, 160)
-#define BORDER_RIGHT_VMEM cpctm_screenPtr(CPCT_VMEM_START, 78, 160)
-#define BORDER_TOP0_VMEM cpctm_screenPtr(CPCT_VMEM_START, 2, 160)
-#define BORDER_TOP1_VMEM cpctm_screenPtr(CPCT_VMEM_START, 40, 160)
-#define BORDER_BOT0_VMEM cpctm_screenPtr(CPCT_VMEM_START, 2, 196)
-#define BORDER_BOT1_VMEM cpctm_screenPtr(CPCT_VMEM_START, 40, 196)
+u8* const _numbers[10] = {
+	sprite_numbers_00, sprite_numbers_01, 
+	sprite_numbers_02, sprite_numbers_03, 
+	sprite_numbers_04, sprite_numbers_05,
+	sprite_numbers_06, sprite_numbers_07,
+	sprite_numbers_08, sprite_numbers_09
+};
 
-void drawBorder()
+const u8 score[5] = {0,0,0,0,0};
+
+void initScore()
 {
-  cpct_drawSolidBox(BORDER_LEFT_VMEM, 12, 2, 40);
-  cpct_drawSolidBox(BORDER_RIGHT_VMEM, 12, 2, 40);
-  cpct_drawSolidBox(BORDER_TOP0_VMEM, 12, 38, 4);
-  cpct_drawSolidBox(BORDER_TOP1_VMEM, 12, 38, 4);
-  cpct_drawSolidBox(BORDER_BOT0_VMEM, 12, 38, 4);
-  cpct_drawSolidBox(BORDER_BOT1_VMEM, 12, 38, 4);
+	u8* pvm = cpct_getScreenPtr(CPCT_VMEM_START, 60, 2);
+	u8 i=3;
+	while(--i)
+	{
+		cpct_drawSprite(sprite_numbers_00, pvm, SPRITE_NUMBERS_00_W, SPRITE_NUMBERS_00_H);
+		pvm += SPRITE_NUMBERS_00_W;
+		cpct_drawSprite(sprite_numbers_00, pvm, SPRITE_NUMBERS_00_W, SPRITE_NUMBERS_00_H);
+		pvm += SPRITE_NUMBERS_00_W;
+		cpct_drawSprite(sprite_numbers_00, pvm, SPRITE_NUMBERS_00_W, SPRITE_NUMBERS_00_H);
+		pvm += SPRITE_NUMBERS_00_W;
+		cpct_drawSprite(sprite_numbers_00, pvm, SPRITE_NUMBERS_00_W, SPRITE_NUMBERS_00_H);
+		pvm += SPRITE_NUMBERS_00_W;
+		cpct_drawSprite(sprite_numbers_00, pvm, SPRITE_NUMBERS_00_W, SPRITE_NUMBERS_00_H);
+		pvm = cpct_getScreenPtr(0x8000, 60, 2);
+	}
 }
 
-void drawHUD()
+void incrementScore()
 {
-  drawBorder();
+	u8* s 		= score+5;
+	u8* pvm 	= cpct_getScreenPtr(0xC000, 76, 2);
+	u8* pvm_ 	= cpct_getScreenPtr(0x8000, 76, 2);	
+	while(s != score)
+	{
+		--s;
+		if((++(*s)) == 10)
+		{
+			*s = 0;
+			cpct_drawSprite(_numbers[*s], pvm,  4, 12);
+			cpct_drawSprite(_numbers[*s], pvm_, 4, 12);
+			pvm 	-= 4;
+			pvm_ 	-= 4;
+		}
+		else
+		{
+			cpct_drawSprite(_numbers[*s], pvm,  4, 12);
+			cpct_drawSprite(_numbers[*s], pvm_, 4, 12);
+			break;
+		}
+	}
 }

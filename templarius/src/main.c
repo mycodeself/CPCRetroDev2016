@@ -12,12 +12,15 @@ init()
   cpct_disableFirmware();
   cpct_setVideoMode(0);
   cpct_setPalette(_palette, 16);
+  cpct_memset(0x8000, cpct_px2byteM0(1,1), 0x4000);
+  cpct_memset(0xC000, cpct_px2byteM0(1,1), 0x4000);
   cpct_setBorder(HW_BLACK);
 }
 
 void
 main(void)
 {
+  cpct_setStackLocation((void*)0x8000);
   init();
   game();
 }

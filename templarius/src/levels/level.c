@@ -1,5 +1,7 @@
 #include "level.h"
-
+#include "../draw/draw.h"
+#include "level0/level0_tileset.h"
+#include "../game.h"
 
 void
 startLevel()

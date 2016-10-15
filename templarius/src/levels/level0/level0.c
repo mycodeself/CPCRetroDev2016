@@ -1,49 +1,39 @@
 #include "level0.h"
+#include "level0_1_map.h"
+#include "level0_2_map.h"
 
-// const Body _level0_1_emeralds[10] = {
-//   {15, 85, 4, 8},
-//   {15, 100, 4, 8},
-//   {20, 100, 4, 8},
-//   {25, 100, 4, 8},
-//   {30, 100, 4, 8},
-//   {35, 100, 4, 8},
-//   {40, 100, 4, 8},
-//   {45, 100, 4, 8},
-//   {50, 100, 4, 8},
-//   {55, 100, 4, 8},
-// };
-
-const Bat _level0_1_bats[2] = {
-  {  
-    {
-      {
-        30, 100,                        // position
-        SPRITE_BAT0_W, SPRITE_BAT0_H    // size
-      },                                // Body
-      30, 100,                          // last position
-      { 0, 0 },                         // velocity
-    },                                  // DynamicBody
-    &_bat_animation,
-    bs_alive
-  },
-  {  
-    {
-      {
-        60, 110,                        // position
-        SPRITE_BAT0_W, SPRITE_BAT0_H    // size
-      },                                // Body
-      60, 110,                          // last position
-      { 0, 0 },                         // velocity
-    },                                  // DynamicBody
-    &_bat_animation,
-    bs_alive
-  }
-};
+Skeleton _skeleton0[2];
 
 // Level 0 maps
-const LevelMap _level0_maps[2] = { { LEVEL0_1, NULL, _level0_1_bats }, { LEVEL0_2, NULL, NULL } };
+const LevelMap _level0_maps[2] = { 
+	{ LEVEL0_1, { _skeleton0, 0, 2 } }, 
+	{ LEVEL0_2, { 0, 0, 0 } } 
+};
 
 // Level 0
 const Level _level0 = { _level0_maps, 0, 1 };
 
 
+void
+initLevel0()
+{
+	Level* l = &_level0;
+	// map0
+	Skeleton *s = _skeleton0;
+	// init skeletons
+	cpct_memcpy ((void*)s, (void*)&_skeleton_template, sizeof(Skeleton)); 
+	s->de.x[0]	= 20;
+	++s;
+
+	cpct_memcpy ((void*)s, (void*)&_skeleton_template, sizeof(Skeleton)); 
+	s->de.x[0]	= 70;
+	++s;
+
+	 // cpct_memcpy ((void*)s, (void*)&_skeleton_template, sizeof(Skeleton)); 
+	 // s->de.x[0]	= 30;
+	 // ++s;	
+
+	// init level
+	l->lm 	= _level0_maps;
+  	l->idx 	= 0;
+}

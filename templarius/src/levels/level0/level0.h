@@ -2,16 +2,14 @@
 #define _LEVEL0_H_
 
 #include <cpctelera.h>
-#include "level0_1_map.h"
-#include "level0_2_map.h"
 #include "../level.h"
-#include "../../enemies/bat.h"
 
-#define LEVEL0_START_POSITION_X 5   // bytes
-#define LEVEL0_START_POSITION_Y 160 - 20 - 20// 160 px full map - 20 px ground - 18 character size
-
-#define LEVEL0_NUM_MAPS 1
+#define LEVEL0_START_POSITION_X 6   		
+#define LEVEL0_START_POSITION_Y 200 - 20 - 20 // 200 px full map - 20 px ground - 18 character size
 
 extern const Level _level0;
+
+void
+initLevel0();
 
 #endif

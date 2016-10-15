@@ -3,29 +3,19 @@
 
 #include "../common.h"
 
-typedef struct Body
-{
-  u8 x, y; // position
-  u8 w, h; // size
-} Body;
-
 typedef struct Velocity
 {
   i8 x;
   i8 y;
 } Velocity;
 
-typedef struct DynamicBody
+typedef struct Collision
 {
-  Body body;
-  u8 lastx, lasty;   // last position
-  Velocity vel;       // velocity
-  u8 side;            // 1: right 0: left
-} DynamicBody;
+	u8 x[2], y[2];
+	u8 w[2], h[2];
+	u8 collision;
+} Collision;
 
-// Collision
-u8 checkCollision(const Body* a, const Body* b);
-u8 checkCollisionSide(const Body* a, const Body* b);
-void blockCollisions();
+void checkCollision(Collision* c);
 
 #endif

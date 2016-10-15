@@ -1,10 +1,9 @@
 #ifndef _ANIMATIONS_H_
 #define _ANIMATIONS_H_
 
-#include "../common.h"
-#include <types.h>
+#include <cpctelera.h>
 
-typedef enum { as_play, as_cycle, as_pause, as_end } AnimationStatus;
+typedef enum { as_play, as_cycle, as_end } AnimationStatus;
 
 typedef enum { as_right, as_left } AnimationSide;
 

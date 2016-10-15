@@ -2,16 +2,12 @@
 #define _LEVEL_H_
 
 #include <types.h>
-#include "../physics/physics.h"
-#include "level0/level0_tileset.h"
-#include "../enemies/bat.h"
+#include "../enemies/skeleton.h"
 
 typedef struct LevelMap
 {
-  u8* map;
-  Body* emeralds;
-  Bat* bats;
-//Enemies  
+  u8* 		map;
+  Skeletons s;
 } LevelMap;
 
 typedef struct Level
@@ -20,8 +16,6 @@ typedef struct Level
   u8 idx;
   u8 num_maps;
 } Level;
-
-#include "../game.h"
 
 void startLevel();
 u8 nextLevelMap();

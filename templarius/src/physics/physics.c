@@ -1,17 +1,14 @@
 #include "physics.h"
 
-/*
- * AABB Collision for boxes
- * return 0 if no collision
- *        1 overlapping
- */
-u8 checkCollision(const Body *a, const Body *b)
+
+void
+checkCollision(Collision* c)
 {
-  if((a->x + a->w) < b->x || a->x > (b->x + b->w))
-    return 0;
-  if((a->y + a->h) < b->y || a->y > (b->y + b->h))
-    return 0;
-  return 1;
+  if((c->x[0] + c->w[0]) < c->x[1] || c->x[0] > (c->x[1] + c->w[1]))
+  	c->collision = 0;
+  else if((c->y[0] + c->h[0]) < c->y[1] || c->y[0] > (c->y[1] + c->h[1]))
+    c->collision = 0;
+  else c->collision = 1;
 }
 
 //
@@ -44,36 +41,3 @@ u8 checkCollision(const Body *a, const Body *b)
 //
 //}
 
-//void
-//blockCollisions()
-//{
-//  AABB* platform = &_platform;
-//  TCharacter* character = &_character;
-//  if(AABB_BoxCollision(&character->body.box, platform))
-//    {
-//      switch(checkCollisionSide(platform, &character->body.box))
-//        {
-//        case COLLISION_SIDE_BOTTOM:
-//          character->status = cs_idle;
-//          character->body.velocity.y = 0;
-//          character->body.box.max.y = platform->min.y;
-//          character->body.box.min.y = platform->min.y - character->body.box.size.y;
-//          break;
-//        case COLLISION_SIDE_TOP:
-//          character->body.velocity.y = 0;
-//          character->body.box.min.y = platform->max.y + 1;
-//          character->body.box.max.y = character->body.box.min.y + character->body.box.size.y;
-//          break;
-//        case COLLISION_SIDE_RIGHT:
-//          character->body.box.max.x = platform->min.x;
-//          character->body.box.min.x = platform->min.x - character->body.box.size.x;
-//          character->body.velocity.x = 0;
-//          break;
-//        case COLLISION_SIDE_LEFT:
-//          character->body.box.min.x = platform->max.x;
-//          character->body.box.max.x = platform->max.x + character->body.box.size.x;
-//          character->body.velocity.x = 0;
-//          break;
-//        }
-//    }
-//}

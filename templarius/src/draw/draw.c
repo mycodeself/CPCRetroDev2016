@@ -1,72 +1,50 @@
 #include "draw.h"
+#include "../game.h"
 
 cpctm_createTransparentMaskTable(MASK_TABLE, 0x100, M0, 0);
 
-void
-drawScore()
+
+void 
+drawEntity(DrawableEntity* de) __z88dk_fastcall
 {
-  u8* pvm = cpct_getScreenPtr(CPCT_VMEM_START, 56, 168);
-  u8 str[6];
-  sprintf(str, "%5u", _game.score);
-  cpct_drawStringM0(str, pvm, 9, 1);
+  u8* pvm = cpct_getScreenPtr(_backBuffer, de->x[0], de->y[0]);
+  cpct_drawSpriteMaskedAlignedTable(de->sprite, pvm, de->w[0], de->h[0], MASK_TABLE);
+}
+void 
+eraseEntity(DrawableEntity* de) __z88dk_fastcall
+{
+  Game* g = &_game;
+  u8 x = de->x[2] / 2;
+  u8 y = (de->y[2] - 40) / 4;
+  u8 w = (de->w[2] / 2) + 1;
+  u8 h = (de->h[2] / 4) + 1;
+  u8* pvm  = cpct_getScreenPtr(_backBuffer, 0, 40);
+  cpct_etm_drawTileBox2x4(x, y, w, h, 40, pvm, g->lvl->lm->map);
+}
+
+void movePosition(u8 *p) __z88dk_fastcall
+{
+  *p = *(p-1); 
+  --p;
+  *p = *(p-1);
 }
 
 void
-drawCharacter()
+updateDrawableEntity(DrawableEntity* de) __z88dk_fastcall
 {
-  Game* g = &_game;
-  Character* c = &_character;
-  AnimationFrame* frame = c->anim->frames[c->anim->frame_idx];
-
-  cpct_etm_drawTileBox2x4(c->db.lastx / 2, c->db.lasty / 4, 5, 6, LEVEL0_1_W, GAME_VMEM_PTR, g->lvl->lm->map);
-
-  c->p_vmem = cpct_getScreenPtr(GAME_VMEM_PTR, c->db.body.x, c->db.body.y);
-  cpct_drawSpriteMaskedAlignedTable(frame->sprite, c->p_vmem, frame->w, frame->h, MASK_TABLE);
-}
-
-void
-drawBat()
-{
-  Game* g = &_game;
-  Bat* b  = g->lvl->lm->bats;
-  u8* pvm;
-  AnimationFrame* frame;
-    
-  frame = b->anim->frames[b->anim->frame_idx];
-
-  cpct_etm_drawTileBox2x4(b->db.lastx / 2, b->db.lasty / 4, (frame->w / 2)+1, (frame->h / 4) + 2, LEVEL0_1_W,
-                          CPCT_VMEM_START, g->lvl->lm->map);
-
-  pvm = cpct_getScreenPtr(CPCT_VMEM_START, b->db.body.x, b->db.body.y);
-  cpct_drawSpriteMaskedAlignedTable(frame->sprite, pvm, frame->w, frame->h, MASK_TABLE); 
-
-  ++b;
-  frame = b->anim->frames[b->anim->frame_idx];
-   // cpct_etm_drawTileBox2x4(b->db.lastx / 2, b->db.lasty / 4, (frame->w / 2)+1, (frame->h / 4) + 2, LEVEL0_1_W,
-   //                         CPCT_VMEM_START, g->lvl->lm->map);
-
-  pvm = cpct_getScreenPtr(CPCT_VMEM_START, b->db.body.x, b->db.body.y);
-  cpct_drawSpriteMaskedAlignedTable(frame->sprite, pvm, frame->w, frame->h, MASK_TABLE); 
-
+  movePosition(de->x + 2);
+  movePosition(de->y + 2);
+  movePosition(de->w + 2);
+  movePosition(de->h + 2);
+  --de->draw;  
 }
 
 void
 drawMap()
 {
   Game* g = &_game;
-  cpct_etm_drawTilemap2x4_f(40, 40, GAME_VMEM_PTR, g->lvl->lm->map);
+  u8* pvm = cpct_getScreenPtr(_backBuffer, 0, 40);
+  cpct_etm_drawTilemap2x4_f(40, 40, pvm, g->lvl->lm->map);
+  pvm = cpct_getScreenPtr(_screenMem, 0, 40);
+  cpct_etm_drawTilemap2x4_f(40, 40, pvm, g->lvl->lm->map);
 }
-
-// void
-// drawEmeralds()
-// {
-//   Game* g = &_game;
-//   Body* eme = g->lvl->lm->emeralds + 9;
-//   u8* pvm;
-
-//   while(eme != g->lvl->lm->emeralds) {
-//     pvm = cpct_getScreenPtr(CPCT_VMEM_START, eme->x, eme->y);
-//     cpct_drawSpriteMaskedAlignedTable(sprite_emerald, pvm, eme->w, eme->h, MASK_TABLE);
-//     --eme;
-//   }
-// }

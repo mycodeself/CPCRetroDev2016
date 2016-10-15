@@ -78,14 +78,29 @@ $(eval $(call IMG2SPRITES,assets/level0/level0_tileset.png,0,LEVEL0,4,4,$(PALETT
 #$(eval $(call IMG2SPRITES,assets/char/walk1.png,0,character,22,32,$(PALETTE),,src/character/sprites/))
 $(eval $(call IMG2SPRITES,assets/emerald.png,0,sprite,8,8,$(PALETTE),,src/levels/sprites/))
 
+## NUMBERS
+$(eval $(call IMG2SPRITES,assets/numbers/numbers.png,0,sprite,8,12,$(PALETTE),,src/hud/sprites/))
+
 ## CHARACTER
 # WALK
 $(eval $(call IMG2SPRITES,assets/character/character_walk0.png,0,sprite,16,20,$(PALETTE),,src/character/sprites/))
 $(eval $(call IMG2SPRITES,assets/character/character_walk1.png,0,sprite,16,20,$(PALETTE),,src/character/sprites/))
 $(eval $(call IMG2SPRITES,assets/character/character_walk2.png,0,sprite,16,20,$(PALETTE),,src/character/sprites/))
+# IDLE
+$(eval $(call IMG2SPRITES,assets/character/character_idle.png,0,sprite,18,20,$(PALETTE),,src/character/sprites/))
+# JUMP
+$(eval $(call IMG2SPRITES,assets/character/character_jump.png,0,sprite,16,20,$(PALETTE),,src/character/sprites/))
+# ATTACK
+$(eval $(call IMG2SPRITES,assets/character/character_attack.png,0,sprite,26,20,$(PALETTE),,src/character/sprites/))
 
 ## ENEMIES
 # BAT
-$(eval $(call IMG2SPRITES,assets/bat/bat0.png,0,sprite,20,18,$(PALETTE),,src/enemies/sprites/))
-$(eval $(call IMG2SPRITES,assets/bat/bat1.png,0,sprite,20,18,$(PALETTE),,src/enemies/sprites/))
-$(eval $(call IMG2SPRITES,assets/bat/bat2.png,0,sprite,20,18,$(PALETTE),,src/enemies/sprites/))
+# $(eval $(call IMG2SPRITES,assets/bat/bat0.png,0,sprite,20,18,$(PALETTE),,src/enemies/sprites/))
+# $(eval $(call IMG2SPRITES,assets/bat/bat1.png,0,sprite,20,18,$(PALETTE),,src/enemies/sprites/))
+# $(eval $(call IMG2SPRITES,assets/bat/bat2.png,0,sprite,20,18,$(PALETTE),,src/enemies/sprites/))
+
+# SKELETON
+$(eval $(call IMG2SPRITES,assets/skeleton/skeleton_walk0.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
+$(eval $(call IMG2SPRITES,assets/skeleton/skeleton_walk1.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
+$(eval $(call IMG2SPRITES,assets/skeleton/skeleton_hurt.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
+#$(eval $(call IMG2SPRITES,assets/skeleton/skeleton_walk2.png,0,sprite,14,17,$(PALETTE),,src/enemies/sprites/))

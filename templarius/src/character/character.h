@@ -2,35 +2,35 @@
 #define _CHARACTER_H_
 
 #include "../animations/animations.h"
-#include "../common.h"
-#include "../levels/level.h"
+#include "../draw/draw.h"
 #include "../physics/physics.h"
-#include "../utils/utils.h"
-#include "sprites/character_walk0.h"
-#include "sprites/character_walk1.h"
-#include "sprites/character_walk2.h"
 
 #define MAX_JUMP_H -12
 #define JUMP_FORCE 4
 
 // CHARACTER NUMBER OF FRAMES PER ANIM
-#define CHARACTER_IDLE_ANIM_FRAMES 1
-#define CHARACTER_WALK_ANIM_FRAMES 4
+#define CHARACTER_IDLE_ANIM_FRAMES		1
+#define CHARACTER_WALK_ANIM_FRAMES		4
+#define CHARACTER_JUMP_ANIM_FRAMES		1
+#define CHARACTER_ATTACK_ANIM_FRAMES	1
 
-#define CHARACTER_VMEM_START cpctm_screenPtr(GAME_VMEM_PTR, LEVEL0_START_POSITION_X, LEVEL0_START_POSITION_Y)
+// START POSITION OF CHARACTER
+#define CHARACTER_VMEM_START cpctm_screenPtr(CPCT_VMEM_START, 5, 160)
 
-typedef enum { cs_idle, cs_jump, cs_walk, cs_fall, cs_dead } CharacterStatus;
+
+typedef enum { cs_idle, cs_jump, cs_walk, cs_fall, cs_dead, cs_attack, cs_endattack } CharacterStatus;
 
 typedef struct Character {
-  DynamicBody db;
-  CharacterStatus status;
-  CharacterStatus last_status;
-  u8* p_vmem;
-  Animation* anim;
-} Character;
+  DrawableEntity 	de;				// Drawing properties
+  CharacterStatus 	status;			// Status 
+  CharacterStatus 	last_status;	// Last status
+  Animation* 		anim;			// Animation
+  Velocity 			vel;
+} Character;						
 
-extern const Character _character;
+extern Character _character;
 
+void initCharacter();
 void updateCharacter();
 
 #endif

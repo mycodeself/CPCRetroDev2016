@@ -1,18 +1,19 @@
 #ifndef _DRAW_H_
 #define _DRAW_H_
 
-#include "../animations/animations.h"
-#include "../character/character.h"
-#include "../enemies/bat.h"
-#include "../game.h"
-#include "../levels/sprites/emerald.h"
-#include "../physics/physics.h"
+#include <types.h>
 
-void drawCharacter();
+typedef struct DrawableEntity
+{
+  	u8*	sprite;				  	
+  	u8	draw;
+  	u8 	x[3], y[3];
+  	u8 	w[3], h[3];	
+} DrawableEntity;
+
+void drawEntity(DrawableEntity* de) __z88dk_fastcall;
+void eraseEntity(DrawableEntity* de) __z88dk_fastcall;
+void updateDrawableEntity(DrawableEntity* de) __z88dk_fastcall;
 void drawMap();
-void drawLevel();
-void drawEmeralds();
-void drawScore();
-void drawBat();
 
 #endif
