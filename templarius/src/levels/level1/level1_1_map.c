@@ -1,13 +1,13 @@
 //
-// File assets/level0/level0_1_map.tmx converted to csv using cpct_tmx2csv [20161015 02:58:30 CEST]
+// File assets/level1/level1_1_map.tmx converted to csv using cpct_tmx2csv [20161015 17:33:40 CEST]
 //   * Width:  40
 //   * Height: 40
 //   * Bytes:  1600 
 //
 #include <types.h>
 
-// Generated CSV tilemap from assets/level0/level0_1_map.tmx
-const u8 LEVEL0_1[40*40] = {
+// Generated CSV tilemap from assets/level1/level1_1_map.tmx
+const u8 LEVEL1_1[40*40] = {
 39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,
 39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,
 39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,

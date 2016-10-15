@@ -7,9 +7,9 @@
 #define LEVEL0_START_POSITION_X 6   		
 #define LEVEL0_START_POSITION_Y 200 - 20 - 20 // 200 px full map - 20 px ground - 18 character size
 
-extern const Level _level0;
+extern const Level _level1;
 
 void
-initLevel0();
+initLevel1();
 
 #endif

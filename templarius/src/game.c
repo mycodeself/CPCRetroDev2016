@@ -1,9 +1,9 @@
 #include "character/character.h"
-#include "levels/level0/level0.h"
+#include "levels/level1/level1.h"
 #include "enemies/skeleton.h"
 #include "game.h"
 
-const Game _game = { &_level0, 0, gs_play };
+const Game _game = { &_level1, 0, gs_play };
 
 // void
 // drawString(u8 *s)
@@ -38,7 +38,7 @@ game()
   initScore();
   startLevel();
   initCharacter();
-  initLevel0();  
+  initLevel1();  
   while(_character.status != cs_dead)
   {
     updateSkeleton();

@@ -1,6 +1,6 @@
 #include "level.h"
 #include "../draw/draw.h"
-#include "level0/level0_tileset.h"
+#include "level1/level1_tileset.h"
 #include "../game.h"
 
 void
@@ -8,7 +8,7 @@ startLevel()
 {
   Game *g = &_game;
   g->lvl->idx = 0;
-  cpct_etm_setTileset2x4(LEVEL0_tileset);
+  cpct_etm_setTileset2x4(LEVEL1_tileset);
   drawMap();
 }
 

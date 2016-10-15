@@ -6,7 +6,7 @@
 #include "sprites/character_jump.h"
 #include "sprites/character_attack.h"
 #include "../utils/utils.h"
-#include "../levels/level0/level0.h"
+#include "../levels/level1/level1.h"
 #include "../enemies/skeleton.h"
 #include "../game.h"
 

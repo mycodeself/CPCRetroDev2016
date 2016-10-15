@@ -54,8 +54,10 @@
 
 #$(eval $(call TMX2C,img/tilemap.tmx,g_tilemap,src/))
 
-#level0_1
-$(eval $(call TMX2C,assets/level0/level0_1_map.tmx,LEVEL0_1,src/levels/level0))
-#level0_2
-$(eval $(call TMX2C,assets/level0/level0_2_map.tmx,LEVEL0_2,src/levels/level0))
+
+## LEVEL1_1
+# MAP 1
+$(eval $(call TMX2C,assets/level1/level1_1_map.tmx,LEVEL1_1,src/levels/level1))
+# MAP 2
+$(eval $(call TMX2C,assets/level1/level1_2_map.tmx,LEVEL1_2,src/levels/level1))
 

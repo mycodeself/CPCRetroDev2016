@@ -30,7 +30,7 @@ const Skeleton _skeleton_template =
   {
     sprite_skeleton_walk0,  // sprite
     2,                      // draw
-    {30,	30,		30},        // x
+    {0,	  0,    0},         // x
     {164,	164,	164},  	    // y
     {SPRITE_SKELETON_WALK0_W, SPRITE_SKELETON_WALK0_W, SPRITE_SKELETON_WALK0_W},  // w
     {SPRITE_SKELETON_WALK0_H, SPRITE_SKELETON_WALK0_H, SPRITE_SKELETON_WALK0_H}   // h
