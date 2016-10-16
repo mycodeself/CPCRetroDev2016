@@ -1,4 +1,5 @@
 #include "draw.h"
+#include "../common.h"
 #include "../game.h"
 
 cpctm_createTransparentMaskTable(MASK_TABLE, 0x100, M0, 0);
@@ -43,8 +44,6 @@ void
 drawMap()
 {
   Game* g = &_game;
-  u8* pvm = cpct_getScreenPtr(_backBuffer, 0, 40);
-  cpct_etm_drawTilemap2x4_f(40, 40, pvm, g->lvl->lm->map);
-  pvm = cpct_getScreenPtr(_screenMem, 0, 40);
-  cpct_etm_drawTilemap2x4_f(40, 40, pvm, g->lvl->lm->map);
+  cpct_etm_drawTilemap2x4_f(40, 40, GAME_VMEM0_START, g->lvl->lm->map);
+  cpct_etm_drawTilemap2x4_f(40, 40, GAME_VMEM1_START, g->lvl->lm->map);
 }

@@ -27,9 +27,9 @@ updateAnimation(Animation* anim)
     ++anim->time;
   }
   
-  if(anim->side != anim->frames[anim->frame_idx]->side) {
-    cpct_hflipSpriteM0(anim->frames[anim->frame_idx]->w, anim->frames[anim->frame_idx]->h,
-                        anim->frames[anim->frame_idx]->sprite);
-    anim->frames[anim->frame_idx]->side = anim->side;
-  }
+  // if(anim->side != anim->frames[anim->frame_idx]->side) {
+  //   cpct_hflipSpriteM0(anim->frames[anim->frame_idx]->w, anim->frames[anim->frame_idx]->h,
+  //                       anim->frames[anim->frame_idx]->sprite);
+  //   anim->frames[anim->frame_idx]->side = anim->side;
+  // }
 }

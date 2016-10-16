@@ -25,5 +25,7 @@ extern const Skeleton _skeleton_template;
 
 void
 updateSkeleton();
+void
+drawSkeletons();
 
 #endif

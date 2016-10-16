@@ -5,6 +5,7 @@
 #include "../common.h"
 
 void initScore();
+void initLife();
 void incrementScore();
 
 #endif

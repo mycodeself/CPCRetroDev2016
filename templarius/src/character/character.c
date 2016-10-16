@@ -5,11 +5,11 @@
 #include "sprites/character_idle.h"
 #include "sprites/character_jump.h"
 #include "sprites/character_attack.h"
+#include "../common.h"
 #include "../utils/utils.h"
 #include "../levels/level1/level1.h"
 #include "../enemies/skeleton.h"
 #include "../game.h"
-
 #include "../hud/hud.h"
 
 // Character animations
@@ -48,7 +48,8 @@ const Character _character_template =
   cs_idle,
   cs_idle,
   &_character_animation,
-  {0, 0} // vel
+  {0, 0}, // vel
+  6,      // HP
 };
 
 Character _character;
@@ -67,6 +68,69 @@ isGround()
     return 1;
   else
     return 0;
+}
+
+void 
+removeEmerald(u8* tile) __z88dk_fastcall
+{
+  *tile = 39;
+  ++tile;
+  *tile = 39;
+  tile += 40;
+  *tile = 39;
+  --tile;
+  *tile = 39;
+}
+
+void
+checkEmeraldCollision()
+{
+  u8* tile = getTilePtr(_character.de.x[0]+(_character.de.w[0]/2), _character.de.y[0]);
+  if(*tile == EMERALD_TILE_ID_2 || *tile == EMERALD_TILE_ID_3)
+  {
+    incrementScore();
+    if(*tile == EMERALD_TILE_ID_2)
+      tile -= 40;
+    else
+      tile -= 41;
+
+    removeEmerald(tile);
+  }
+  tile = getTilePtr(_character.de.x[0]+(_character.de.w[0]/2), _character.de.y[0]+_character.de.h[0]);
+  if(*tile == EMERALD_TILE_ID_0 || *tile == EMERALD_TILE_ID_1)
+  {
+    incrementScore();
+    if(*tile == EMERALD_TILE_ID_1)
+      --tile;
+
+    removeEmerald(tile);
+  }
+  if(_character.anim->side == as_right)
+  {
+    tile = getTilePtr(_character.de.x[0]+_character.de.w[0], _character.de.y[0]+(_character.de.h[0]/2));
+    if(*tile == EMERALD_TILE_ID_0 || *tile == EMERALD_TILE_ID_2)
+    {
+      incrementScore();
+      if(*tile == EMERALD_TILE_ID_2)
+        tile -= 40;
+      
+      removeEmerald(tile);
+    }
+  }
+  else
+  {
+    tile = getTilePtr(_character.de.x[0]+_character.de.w[0], _character.de.y[0]+(_character.de.h[0]/2));
+    if(*tile == EMERALD_TILE_ID_1 || *tile == EMERALD_TILE_ID_3)
+    {
+      incrementScore();
+      if(*tile == EMERALD_TILE_ID_1)
+        --tile;
+      else
+        tile -= 41;
+
+      removeEmerald(tile);
+    }
+  }
 }
 
 void
@@ -92,9 +156,7 @@ characterController()
     }else if(cpct_isKeyPressed(Key_A) && isGround() && c->status != cs_attack)
     {
       c->status   = cs_attack;
-      c->de.draw  = 2;
-      incrementScore();
-    }
+      c->de.draw  = 2;    }
     if(cpct_isKeyPressed(Key_Space)) // jump
     {
       if(isGround()) {
@@ -150,33 +212,37 @@ handleMapLimits()
 {
   Character* c = &_character;
 
-  if(c->de.x[0] <= 0) {
+  if(c->de.x[0] <= 0) { // left limit
     if(prevLevelMap())
       c->de.x[0] = SCREEN_BYTES_WIDTH - c->de.w[0] - 2;
     else
       c->de.x[0] = 2;
-  } else if((c->de.x[0] + c->de.w[0]) >= SCREEN_BYTES_WIDTH) {
+  } else if((c->de.x[0] + c->de.w[0]) >= SCREEN_BYTES_WIDTH) {  // right limit
     if(nextLevelMap())
       c->de.x[0] = 2;
     else
       c->de.x[0] = SCREEN_BYTES_WIDTH - c->de.w[0] - 2;
-  }   
+  }
+  if(c->de.y[0] <= 40) // top limit
+  {
+    c->de.y[0] = 40;
+  }
 }
 
 void jumpAndGravity()
 {
   Character *c = &_character;
   if(c->status == cs_jump) {
-    c->vel.y -= JUMP_FORCE;
-    if(c->vel.y <= MAX_JUMP_H)
+    c->vel.y -= 1;
+    if(c->vel.y <= -8)
       c->status = cs_fall;
     c->de.draw = 2;
   }
 
   if(!isGround() && c->status != cs_jump) {
-    c->vel.y += GRAVITY_FORCE;
-    if(c->vel.y > 6)
-      c->vel.y = 6;
+    ++c->vel.y;
+    if(c->vel.y > 4)
+      c->vel.y = 4;
     c->de.draw = 2;
   }
 }
@@ -253,6 +319,7 @@ updateCharacter()
 
   if(c->de.draw)
   {
+    checkEmeraldCollision();
     eraseEntity(&c->de);
     drawEntity(&c->de);
     updateDrawableEntity(&c->de);

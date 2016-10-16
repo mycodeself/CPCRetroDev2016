@@ -2,11 +2,13 @@
 #include "level1_1_map.h"
 #include "level1_2_map.h"
 
-Skeleton _skeleton0[2];
+#define MAP1_NUM_SKELETONS	2
+
+Skeleton _skeleton0[MAP1_NUM_SKELETONS];
 
 // Level 0 maps
 const LevelMap _level1_maps[2] = { 
-	{ LEVEL1_1, { _skeleton0, 0, 2 } }, 
+	{ LEVEL1_1, { _skeleton0, 0, MAP1_NUM_SKELETONS } }, 
 	{ LEVEL1_2, { 0, 0, 0 } } 
 };
 

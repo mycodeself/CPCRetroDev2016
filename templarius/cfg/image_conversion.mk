@@ -82,6 +82,8 @@ $(eval $(call IMG2SPRITES,assets/level1/level1_tileset.png,0,LEVEL1,4,4,$(PALETT
 
 ## NUMBERS
 $(eval $(call IMG2SPRITES,assets/numbers/numbers.png,0,sprite,8,12,$(PALETTE),,src/hud/sprites/))
+## HEART
+$(eval $(call IMG2SPRITES,assets/heart/heart.png,0,sprite,14,12,$(PALETTE),,src/hud/sprites/))
 
 ## CHARACTER
 # WALK
@@ -102,7 +104,8 @@ $(eval $(call IMG2SPRITES,assets/character/character_attack.png,0,sprite,26,20,$
 # $(eval $(call IMG2SPRITES,assets/bat/bat2.png,0,sprite,20,18,$(PALETTE),,src/enemies/sprites/))
 
 # SKELETON
-$(eval $(call IMG2SPRITES,assets/skeleton/skeleton_walk0.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
-$(eval $(call IMG2SPRITES,assets/skeleton/skeleton_walk1.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
-$(eval $(call IMG2SPRITES,assets/skeleton/skeleton_hurt.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
+$(eval $(call IMG2SPRITES,assets/skeleton/skeleton.png,0,sprite,12,16,$(PALETTE),,src/enemies/sprites/))
+# $(eval $(call IMG2SPRITES,assets/skeleton/skeleton_walk0.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
+# $(eval $(call IMG2SPRITES,assets/skeleton/skeleton_walk1.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
+# $(eval $(call IMG2SPRITES,assets/skeleton/skeleton_hurt.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
 #$(eval $(call IMG2SPRITES,assets/skeleton/skeleton_walk2.png,0,sprite,14,17,$(PALETTE),,src/enemies/sprites/))

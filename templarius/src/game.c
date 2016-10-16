@@ -1,6 +1,7 @@
 #include "character/character.h"
 #include "levels/level1/level1.h"
 #include "enemies/skeleton.h"
+#include "hud/hud.h"
 #include "game.h"
 
 const Game _game = { &_level1, 0, gs_play };
@@ -36,13 +37,15 @@ void
 game()
 {
   initScore();
+  initLife();
   startLevel();
   initCharacter();
   initLevel1();  
   while(_character.status != cs_dead)
   {
     updateSkeleton();
-    updateCharacter();
+    drawSkeletons();
+    //updateCharacter();
     cpct_waitVSYNC();
     switchBuffers();
   }

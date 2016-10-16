@@ -3,6 +3,6 @@
 
 #include <types.h>
 
-u8* getTilePtr(u8 x, u8 y);
+u8* getTilePtr(u8 x, u8 y); 
 
 #endif
