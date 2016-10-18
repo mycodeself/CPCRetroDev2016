@@ -4,11 +4,11 @@
 #include "../animations/animations.h"
 #include "../draw/draw.h"
 
-typedef enum { ss_idle, ss_walk, ss_hurt, ss_dead } SkeletonStatus;
+typedef enum { ss_idle, ss_walk, ss_hurt, ss_dead, ss_attack } SkeletonStatus;
 
 typedef struct Skeleton 
 {
-	DrawableEntity	de;
+	Entity			e;
 	Animation 		anim;
 	SkeletonStatus	status;
 	SkeletonStatus	lstatus;	// last status

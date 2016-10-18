@@ -15,9 +15,6 @@ typedef struct Game
 
 extern const Game _game;
 
-extern u8* _screenMem;
-extern u8* _backBuffer;
-
 void game();
 
 #endif

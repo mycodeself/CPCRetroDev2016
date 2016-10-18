@@ -16,6 +16,8 @@ typedef struct Collision
 	u8 collision;
 } Collision;
 
+extern const Collision _col;
+
 void checkCollision(Collision* c);
 
 #endif

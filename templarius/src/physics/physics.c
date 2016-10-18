@@ -1,5 +1,10 @@
 #include "physics.h"
 
+const Collision _col = {
+	{0, 0}, {0, 0},
+	{0, 0}, {0, 0},
+	0
+};
 
 void
 checkCollision(Collision* c)

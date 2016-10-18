@@ -70,7 +70,7 @@
 
 
  
-PALETTE={16 0 26 13 1 2 11 10 4 25 18 21 9 3 6 15}
+PALETTE={0 16 26 13 1 2 11 10 4 25 18 21 9 3 6 15}
 
 # LEVEL 1 TILESET
 $(eval $(call IMG2SPRITES,assets/level1/level1_tileset.png,0,LEVEL1,4,4,$(PALETTE),tileset,src/levels/level1))
@@ -105,6 +105,7 @@ $(eval $(call IMG2SPRITES,assets/character/character_attack.png,0,sprite,26,20,$
 
 # SKELETON
 $(eval $(call IMG2SPRITES,assets/skeleton/skeleton.png,0,sprite,12,16,$(PALETTE),,src/enemies/sprites/))
+$(eval $(call IMG2SPRITES,assets/skeleton/skeleton_attack.png,0,sprite,18,16,$(PALETTE),,src/enemies/sprites/))
 # $(eval $(call IMG2SPRITES,assets/skeleton/skeleton_walk0.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
 # $(eval $(call IMG2SPRITES,assets/skeleton/skeleton_walk1.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
 # $(eval $(call IMG2SPRITES,assets/skeleton/skeleton_hurt.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))

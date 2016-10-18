@@ -32,20 +32,21 @@ switchBuffers()
 
   cpct_setVideoMemoryPage( ((u16)_screenMem) >> 10 ); 
 }
-
+º
 void
 game()
 {
   initScore();
   initLife();
-  startLevel();
   initCharacter();
   initLevel1();  
+  startLevel();
   while(_character.status != cs_dead)
-  {
+  {    
+    updateCharacter();
     updateSkeleton();
-    drawSkeletons();
-    //updateCharacter();
+    drawCharacter();
+    drawSkeletons();    
     cpct_waitVSYNC();
     switchBuffers();
   }
