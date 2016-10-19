@@ -2,8 +2,8 @@
 #define _CHARACTER_H_
 
 #include "../common.h"
-#include "../animations/animations.h"
 #include "../physics/physics.h"
+#include "../animations/animations.h"
 
 typedef enum { cs_idle, cs_jump, cs_walk, cs_fall, cs_dead, cs_attack, cs_endattack } CharacterStatus;
 

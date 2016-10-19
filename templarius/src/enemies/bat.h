@@ -1,22 +1,29 @@
-// #ifndef _BAT_H_
-// #define _BAT_H_
+#ifndef _BAT_H_
+#define _BAT_H_
 
-// #include "sprites/bat0.h"
-// #include "sprites/bat1.h"
-// #include "sprites/bat2.h"
-// #include "../physics/physics.h"
-// #include "../animations/animations.h"
+#include "../common.h"
+#include "../animations/animations.h"
 
-// typedef enum {bs_alive, bs_dead} BatStatus;
+typedef enum { bs_fly, bs_hurt, bs_dead } BatStatus;
 
-// typedef struct Bat {
-//   DynamicBody db;
-//   Animation* anim;
-//   BatStatus status;
-// } Bat;
+typedef struct Bat 
+{
+	Entity		e;
+	Animation 	anim;
+	BatStatus	status;
+	BatStatus	lstatus;	// last status
+	u8 			hp;			// health points
+} Bat;
 
-// extern const Animation _bat_animation;
+typedef struct BatArray {
+	Bat* 		current;
+	u8 			idx;
+	u8 			num;
+} BatArray;
 
-// void updateBats(Bat* bat);
+extern const Bat _bat_template;
 
-// #endif
+void updateBat();
+void drawBats();
+
+#endif

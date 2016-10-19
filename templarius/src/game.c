@@ -44,8 +44,10 @@ game()
   {    
     updateCharacter();
     updateSkeleton();
+    updateBat();
     drawCharacter();
-    drawSkeletons();    
+    drawSkeletons();
+    drawBats();    
     cpct_waitVSYNC();
     switchBuffers();
   }

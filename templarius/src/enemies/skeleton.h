@@ -1,8 +1,8 @@
 #ifndef _SKELETON_H_
 #define _SKELETON_H_
 
+#include "../common.h"
 #include "../animations/animations.h"
-#include "../draw/draw.h"
 
 typedef enum { ss_idle, ss_walk, ss_hurt, ss_dead, ss_attack } SkeletonStatus;
 

@@ -1,53 +1,132 @@
-// #include "bat.h"
+#include "bat.h"
+#include "sprites/bat.h"
+#include "../game.h"
+#include "../draw/draw.h"
 
-// const AnimationFrame _bat_frames[3] = {
-//   // sprite, width bytes, height bytes, time, look
-//   { sprite_bat0, SPRITE_BAT0_W, SPRITE_BAT0_H, 3, as_left },
-//   { sprite_bat1, SPRITE_BAT1_W, SPRITE_BAT1_H, 3, as_left },
-//   { sprite_bat2, SPRITE_BAT2_W, SPRITE_BAT2_H, 3, as_left }
-// };
+#define NUM_FRAMES		4
+#define FLY_ANIM_FRAMES	2
+#define SPRITE_FLY_0_L	sprite_bat_0
+#define SPRITE_FLY_0_R	sprite_bat_1
+#define SPRITE_FLY_1_L	sprite_bat_2
+#define SPRITE_FLY_1_R	sprite_bat_3
+#define SPRITE_W 		SPRITE_BAT_0_W
+#define SPRITE_H 		SPRITE_BAT_0_H
 
-// AnimationFrame* const _bat_anim_fly[3] = { &_bat_frames[0], &_bat_frames[1], &_bat_frames[2] };
+const AnimationFrame _bat_frames[NUM_FRAMES] = {
+  // sprite, width bytes, height bytes, time, look
+  { SPRITE_FLY_0_L, SPRITE_W, SPRITE_H, 8, as_left 	},
+  { SPRITE_FLY_1_L, SPRITE_W, SPRITE_H, 8, as_left 	},
+  { SPRITE_FLY_0_R, SPRITE_W, SPRITE_H, 8, as_right	},
+  { SPRITE_FLY_1_L, SPRITE_W, SPRITE_H, 8, as_right }
+};
 
-// const Animation _bat_animation = { _bat_anim_fly, 0, 3, as_play, 0, as_left };
+AnimationFrame* const _bat_anim_fly_l[FLY_ANIM_FRAMES] = { &_bat_frames[0], &_bat_frames[1] };
+AnimationFrame* const _bat_anim_fly_r[FLY_ANIM_FRAMES] = { &_bat_frames[2], &_bat_frames[3] };
+////////////////////////////////////////////////////////////////////////////////////////////////////
+const Bat _bat_template = 
+{
+  {
+    SPRITE_FLY_0_L,        	// sprite
+    2,                      // draw
+    {0,	0,	0},         // x
+    {0,	0,	0},  	    // y
+    { SPRITE_W, SPRITE_W, SPRITE_W },  // w
+    { SPRITE_H, SPRITE_H, SPRITE_H },  // h
+    0                       // grid
+  }, // Entity
+  { _bat_anim_fly_l, 0, FLY_ANIM_FRAMES, as_cycle, 0, as_left },   // Animation
+  bs_fly,                  	// SkeletonStatus
+  bs_fly,                  	// Last SkeletonStatus
+  1,                        // hp
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// void updateBats(Bat* bat)
-// {
-//   u8 i = 0;
-//   u8 r = cpct_rand();  
-//   AnimationFrame* frame;
+void 
+chooseBatAnimation(Bat* b) 
+{
+  AnimationFrame* frame = b->anim.frames[b->anim.frame_idx];
   
-//   for(;i != 3;i++)
-//   {
-//     updateAnimation(bat->anim);
-//     frame = bat->anim->frames[bat->anim->frame_idx];
-//     bat->db.body.w = frame->w;
-//     bat->db.body.h = frame->h;
-    
-//     bat->db.lastx = bat->db.body.x;
-//     bat->db.lasty = bat->db.body.y;
-//     bat->db.vel.x = 0;
-//     bat->db.vel.y = 0;
-    
-//     if(r > 120)
-//       if(bat->anim->side == as_left)
-//         bat->db.vel.x -= 1;
-//       else
-//         bat->db.vel.x += 1;
-//     else if(r > 60 && bat->db.body.y < 130)
-//       bat->db.vel.y += 1;
-//     else if(bat->db.body.y > 100)
-//       bat->db.vel.y -=  1;
+  switch(b->status)
+  {
+    case bs_fly:
+      if(b->anim.side == as_left)
+        b->anim.frames = (AnimationFrame**)_bat_anim_fly_l;
+      else
+        b->anim.frames = (AnimationFrame**)_bat_anim_fly_r;
+      break;
+    case bs_hurt:
+      break;
+    case bs_dead:
+      break;
+  }
+  
+  b->e.sprite = frame->sprite;
+  b->e.w[0]   = frame->w;
+  b->e.h[0]   = frame->h;
+}
 
-//     bat->db.body.x += bat->db.vel.x;
-//     bat->db.body.y += bat->db.vel.y;
-    
-//     if(bat->db.body.x <= 0){
-//       bat->anim->side = as_right;
-//     }else if((bat->db.body.x + bat->db.body.w) >= SCREEN_BYTES_WIDTH)
-//     {
-//       bat->anim->side = as_left;
-//     }
-//     ++bat;
-//   }
-// }
+void 
+updateBatAnimation(Bat* b)
+{
+  AnimationFrame* frame;  
+
+  updateAnimation(&b->anim);
+  if(b->status != b->lstatus)
+  {
+    chooseBatAnimation(b);
+    switch(b->status)
+    {
+      case bs_fly:
+        b->anim.numframes  = FLY_ANIM_FRAMES;
+        b->anim.status     = as_cycle;
+        break;
+      case bs_hurt:
+        break;
+      case bs_dead:
+        break;
+    }
+    b->anim.frame_idx = 0;
+    b->anim.time      = 0;
+  }  
+  frame         = b->anim.frames[b->anim.frame_idx];
+  b->e.sprite   = frame->sprite;
+  b->e.w[0]     = frame->w;
+  b->e.h[0]     = frame->h;
+}
+
+void
+updateBat()
+{
+  Game* g = &_game;
+  BatArray* b = &g->lvl->lm->b;
+  Bat* current;
+
+  current = b->current + b->idx;
+
+  current->e.draw = 2;
+  updateBatAnimation(current);
+
+  current->lstatus  = current->status;
+
+  ++b->idx;
+  if(b->idx == b->num)
+    b->idx = 0;   
+}
+
+void
+drawBats()
+{
+  Game *g       = &_game;
+  BatArray* ba  = &g->lvl->lm->b;
+  Bat* current  = ba->current + ba->num;
+  while(current != ba->current)
+  {
+    --current;
+    if(current->e.draw)
+    {
+      eraseEntitySolidBox(&current->e);
+      drawEntity(&current->e);
+      updateDrawableEntity(&current->e);
+    }
+  }
+}

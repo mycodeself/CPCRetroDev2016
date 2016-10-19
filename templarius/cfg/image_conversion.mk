@@ -99,14 +99,9 @@ $(eval $(call IMG2SPRITES,assets/character/character_attack.png,0,sprite,26,20,$
 
 ## ENEMIES
 # BAT
-# $(eval $(call IMG2SPRITES,assets/bat/bat0.png,0,sprite,20,18,$(PALETTE),,src/enemies/sprites/))
-# $(eval $(call IMG2SPRITES,assets/bat/bat1.png,0,sprite,20,18,$(PALETTE),,src/enemies/sprites/))
-# $(eval $(call IMG2SPRITES,assets/bat/bat2.png,0,sprite,20,18,$(PALETTE),,src/enemies/sprites/))
+$(eval $(call IMG2SPRITES,assets/bat/bat.png,0,sprite,16,14,$(PALETTE),,src/enemies/sprites/))
+
 
 # SKELETON
 $(eval $(call IMG2SPRITES,assets/skeleton/skeleton.png,0,sprite,12,16,$(PALETTE),,src/enemies/sprites/))
 $(eval $(call IMG2SPRITES,assets/skeleton/skeleton_attack.png,0,sprite,18,16,$(PALETTE),,src/enemies/sprites/))
-# $(eval $(call IMG2SPRITES,assets/skeleton/skeleton_walk0.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
-# $(eval $(call IMG2SPRITES,assets/skeleton/skeleton_walk1.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
-# $(eval $(call IMG2SPRITES,assets/skeleton/skeleton_hurt.png,0,sprite,14,16,$(PALETTE),,src/enemies/sprites/))
-#$(eval $(call IMG2SPRITES,assets/skeleton/skeleton_walk2.png,0,sprite,14,17,$(PALETTE),,src/enemies/sprites/))

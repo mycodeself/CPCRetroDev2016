@@ -3,11 +3,13 @@
 
 #include <types.h>
 #include "../enemies/skeleton.h"
+#include "../enemies/bat.h"
 
 typedef struct LevelMap
 {
   u8* 		map;
   Skeletons s;
+  BatArray	b;
 } LevelMap;
 
 typedef struct Level

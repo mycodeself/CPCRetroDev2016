@@ -1,5 +1,5 @@
 //
-// File assets/level1/level1_2_map.tmx converted to csv using cpct_tmx2csv [20161019 00:04:40 CEST]
+// File assets/level1/level1_2_map.tmx converted to csv using cpct_tmx2csv [20161019 23:43:34 CEST]
 //   * Width:  40
 //   * Height: 40
 //   * Bytes:  1600 

@@ -5,12 +5,11 @@
 #include "sprites/character_idle.h"
 #include "sprites/character_jump.h"
 #include "sprites/character_attack.h"
-#include "../common.h"
 #include "../utils/utils.h"
-#include "../levels/level1/level1.h"
 #include "../enemies/skeleton.h"
 #include "../game.h"
 #include "../hud/hud.h"
+#include "../draw/draw.h"
 
 #define MAX_JUMP_H -12
 #define JUMP_FORCE 4
@@ -49,8 +48,8 @@ const Character _character_template =
   {
     sprite_character_idle,  // sprite
     2,                      // draw
-    {LEVEL0_START_POSITION_X, LEVEL0_START_POSITION_X, LEVEL0_START_POSITION_X},  // x
-    {LEVEL0_START_POSITION_Y, LEVEL0_START_POSITION_Y, LEVEL0_START_POSITION_Y},  // y
+    {4, 4, 4},              // x
+    {160, 160, 160},        // y
     {SPRITE_CHARACTER_IDLE_W, SPRITE_CHARACTER_IDLE_W, SPRITE_CHARACTER_IDLE_W},  // w
     {SPRITE_CHARACTER_IDLE_H, SPRITE_CHARACTER_IDLE_H, SPRITE_CHARACTER_IDLE_H},  // h
     0                       // grid

@@ -5,6 +5,7 @@
 #include "../game.h"
 #include "../physics/physics.h"
 #include "../character/character.h"
+#include "../draw/draw.h"
 
 #define NUM_FRAMES          10
 #define WALK_ANIM_FRAMES    2
@@ -88,7 +89,7 @@ const Skeleton _skeleton_template =
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void chooseAnimationSkeleton(Skeleton* s) 
 {
-  AnimationFrame* frame = s->anim.frames[s->anim.frame_idx];
+  AnimationFrame* frame;
   
   switch(s->status)
   {
@@ -116,10 +117,10 @@ void chooseAnimationSkeleton(Skeleton* s)
       else
         s->anim.frames    = (AnimationFrame**)_skeleton_anim_attack_r;  
   }
-  
-  s->e.sprite  = frame->sprite;
-  s->e.w[0]    = frame->w;
-  s->e.h[0]    = frame->h;
+  frame         = s->anim.frames[s->anim.frame_idx];
+  s->e.sprite   = frame->sprite;
+  s->e.w[0]     = frame->w;
+  s->e.h[0]     = frame->h;
 }
 
 void updateSkeletonAnimation(Skeleton* s) 
