@@ -19,3 +19,30 @@ removeEmerald(u8* tile) __z88dk_fastcall
   --tile;
   *tile = 39;
 }
+
+void 
+setGrid(Entity* e) __z88dk_fastcall
+{
+  if(e->x[0] > 20)
+  {
+    if(e->x[0] > 40)
+    {
+      if(e->x[0] > 60)
+      {
+        e->grid = 3;
+      }
+      else
+      {
+        e->grid = 2;
+      }
+    }
+    else
+    {
+      e->grid = 1;
+    }
+  }
+  else
+  {
+    e->grid = 0;
+  }
+}

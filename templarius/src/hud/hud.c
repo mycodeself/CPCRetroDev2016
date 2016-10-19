@@ -1,6 +1,7 @@
 #include "hud.h"
 #include "sprites/numbers.h"
 #include "sprites/heart.h"
+#include "../character/character.h"
 
 u8* const _numbers[10] = {
 	sprite_numbers_00, sprite_numbers_01, 
@@ -14,7 +15,7 @@ const u8 score[5] = {0,0,0,0,0};
 
 void initScore()
 {
-	u8* pvm = cpct_getScreenPtr(0xC000, 60, 2);
+	u8* pvm = cpct_getScreenPtr((u8*)0xC000, 60, 2);
 	u8 i=3;
 	while(--i)
 	{
@@ -27,14 +28,14 @@ void initScore()
 		cpct_drawSprite(sprite_numbers_00, pvm, SPRITE_NUMBERS_00_W, SPRITE_NUMBERS_00_H);
 		pvm += SPRITE_NUMBERS_00_W;
 		cpct_drawSprite(sprite_numbers_00, pvm, SPRITE_NUMBERS_00_W, SPRITE_NUMBERS_00_H);
-		pvm = cpct_getScreenPtr(0x8000, 60, 2);
+		pvm = cpct_getScreenPtr((u8*)0x8000, 60, 2);
 	}
 }
 
 void 
 initLife()
 {
-	u8* pvm = cpct_getScreenPtr(0xC000, 2, 2);
+	u8* pvm = cpct_getScreenPtr((u8*)0xC000, 2, 2);
 	u8 i=3;
 	while(--i)
 	{
@@ -43,15 +44,22 @@ initLife()
 		cpct_drawSprite(sprite_heart_0, pvm, SPRITE_HEART_0_W, SPRITE_HEART_0_H);
 		pvm += SPRITE_HEART_0_W + 1;
 		cpct_drawSprite(sprite_heart_0, pvm, SPRITE_HEART_0_W, SPRITE_HEART_0_H);		
-		pvm = cpct_getScreenPtr(0x8000, 2, 2);
+		pvm = cpct_getScreenPtr((u8*)0x8000, 2, 2);
 	}
+}
+
+void
+initHUD()
+{
+	initScore();
+	initLife();
 }
 
 void incrementScore()
 {
 	u8* s 		= score+5;
-	u8* pvm 	= cpct_getScreenPtr(0xC000, 76, 2);
-	u8* pvm_ 	= cpct_getScreenPtr(0x8000, 76, 2);	
+	u8* pvm 	= cpct_getScreenPtr((u8*)0xC000, 76, 2);
+	u8* pvm_ 	= cpct_getScreenPtr((u8*)0x8000, 76, 2);	
 	while(s != score)
 	{
 		--s;
@@ -69,5 +77,51 @@ void incrementScore()
 			cpct_drawSprite(_numbers[*s], pvm_, 4, 12);
 			break;
 		}
+	}
+}
+
+void 
+decrementLifeHUD()
+{
+	u8* pvm;
+	switch(_character.hp)
+	{
+		case 3:
+			pvm = cpct_getScreenPtr((u8*)0xC000, 18, 2);
+			cpct_drawSprite(sprite_heart_1, pvm, SPRITE_HEART_0_W, SPRITE_HEART_0_H);
+			pvm = cpct_getScreenPtr((u8*)0x8000, 18, 2);
+			cpct_drawSprite(sprite_heart_1, pvm, SPRITE_HEART_0_W, SPRITE_HEART_0_H);
+			break;
+		case 2:
+			pvm = cpct_getScreenPtr((u8*)0xC000, 10, 2);
+			cpct_drawSprite(sprite_heart_1, pvm, SPRITE_HEART_0_W, SPRITE_HEART_0_H);
+			pvm = cpct_getScreenPtr((u8*)0x8000, 10, 2);
+			cpct_drawSprite(sprite_heart_1, pvm, SPRITE_HEART_0_W, SPRITE_HEART_0_H);
+			break;
+		case 1:
+			pvm = cpct_getScreenPtr((u8*)0xC000, 2, 2);
+			cpct_drawSprite(sprite_heart_1, pvm, SPRITE_HEART_0_W, SPRITE_HEART_0_H);
+			pvm = cpct_getScreenPtr((u8*)0x8000, 2, 2);
+			cpct_drawSprite(sprite_heart_1, pvm, SPRITE_HEART_0_W, SPRITE_HEART_0_H);
+	}
+}
+
+void 
+incrementLifeHUD()
+{
+	u8* pvm;
+	switch(_character.hp)
+	{
+		case 2:
+			pvm = cpct_getScreenPtr((u8*)0xC000, 18, 2);
+			cpct_drawSprite(sprite_heart_0, pvm, SPRITE_HEART_0_W, SPRITE_HEART_0_H);
+			pvm = cpct_getScreenPtr((u8*)0x8000, 18, 2);
+			cpct_drawSprite(sprite_heart_0, pvm, SPRITE_HEART_0_W, SPRITE_HEART_0_H);
+			break;
+		case 1:
+			pvm = cpct_getScreenPtr((u8*)0xC000, 10, 2);
+			cpct_drawSprite(sprite_heart_0, pvm, SPRITE_HEART_0_W, SPRITE_HEART_0_H);
+			pvm = cpct_getScreenPtr((u8*)0x8000, 10, 2);
+			cpct_drawSprite(sprite_heart_0, pvm, SPRITE_HEART_0_W, SPRITE_HEART_0_H);
 	}
 }

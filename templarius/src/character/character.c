@@ -339,13 +339,13 @@ drawCharacter()
 void hurtCharacter()
 {
   Character* c = &_character;
+  decrementLifeHUD();
   if(c->anim->side == as_left)
     c->e.x[0] +=  2;
   else if(c->e.x[0] < 4)
     c->e.x[0] = 0;
   else
-    c->e.x[0] -= 2;
-
+    c->e.x[0] -= 2;  
   --c->hp;
   if(c->hp)
   {

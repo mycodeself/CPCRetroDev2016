@@ -32,12 +32,11 @@ switchBuffers()
 
   cpct_setVideoMemoryPage( ((u16)_screenMem) >> 10 ); 
 }
-º
+
 void
 game()
 {
-  initScore();
-  initLife();
+  initHUD();
   initCharacter();
   initLevel1();  
   startLevel();
@@ -50,5 +49,10 @@ game()
     cpct_waitVSYNC();
     switchBuffers();
   }
+
+  
+  while(!cpct_isAnyKeyPressed_f())
+    cpct_scanKeyboard_f();
+
   game();
 }

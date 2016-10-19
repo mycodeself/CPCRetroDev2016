@@ -4,8 +4,9 @@
 #include <cpctelera.h>
 #include "../common.h"
 
-void initScore();
-void initLife();
+void initHUD();
+void decrementLifeHUD();
+void incrementLife();
 void incrementScore();
 
 #endif

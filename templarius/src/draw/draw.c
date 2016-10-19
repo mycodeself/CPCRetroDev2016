@@ -55,30 +55,3 @@ drawMap()
   cpct_etm_drawTilemap2x4_f(40, 40, GAME_VMEM0_START, g->lvl->lm->map);
   cpct_etm_drawTilemap2x4_f(40, 40, GAME_VMEM1_START, g->lvl->lm->map);
 }
-
-void 
-setGrid(Entity* e) __z88dk_fastcall
-{
-  if(e->x[0] > 20)
-  {
-    if(e->x[0] > 40)
-    {
-      if(e->x[0] > 60)
-      {
-        e->grid = 3;
-      }
-      else
-      {
-        e->grid = 2;
-      }
-    }
-    else
-    {
-      e->grid = 1;
-    }
-  }
-  else
-  {
-    e->grid = 0;
-  }
-}
