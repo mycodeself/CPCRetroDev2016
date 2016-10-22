@@ -6,15 +6,6 @@
 
 const Game _game = { &_level1, 0, gs_play };
 
-// void
-// drawString(u8 *s)
-// {
-//   u8 str[6];
-//   u8* pvm = cpct_getScreenPtr(CPCT_VMEM_START, 0,  0);
-//   sprintf(str, "%5u", s);
-//   cpct_drawStringM0(str, pvm, 15, 8);
-// }
-
 void initBuffers()
 {
   __asm
@@ -36,23 +27,23 @@ switchBuffers()
 void
 game()
 {
-  initHUD();
-  initCharacter();
+  initHUD();  
   initLevel1();  
+  initCharacter();
   startLevel();
   while(_character.status != cs_dead)
   {    
     updateCharacter();
-    updateSkeleton();
-    updateBat();
+    //updateSkeleton();
+    // updateBat();
     drawCharacter();
-    drawSkeletons();
-    drawBats();    
+    //drawSkeletons();
+    // drawBats();    
     cpct_waitVSYNC();
     switchBuffers();
   }
 
-  
+  drawGameover();
   while(!cpct_isAnyKeyPressed_f())
     cpct_scanKeyboard_f();
 

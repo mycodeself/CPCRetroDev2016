@@ -21,7 +21,7 @@ eraseEntityTileBox(Entity* e) __z88dk_fastcall
   u8 w = (e->w[2] / 2) + 1;
   u8 h = (e->h[2] / 4) + 1;
   u8* pvm  = cpct_getScreenPtr(_backBuffer, 0, 40);
-  cpct_etm_drawTileBox2x4(x, y, w, h, 40, pvm, g->lvl->lm->map);
+  cpct_etm_drawTileBox2x4(x, y, w, h, 40, pvm, g->lvl->m->map);
 }
 
 void
@@ -52,6 +52,6 @@ void
 drawMap()
 {
   Game* g = &_game;
-  cpct_etm_drawTilemap2x4_f(40, 40, GAME_VMEM0_START, g->lvl->lm->map);
-  cpct_etm_drawTilemap2x4_f(40, 40, GAME_VMEM1_START, g->lvl->lm->map);
+  cpct_etm_drawTilemap2x4_f(40, 40, GAME_VMEM0_START, g->lvl->m->map);
+  cpct_etm_drawTilemap2x4_f(40, 40, GAME_VMEM1_START, g->lvl->m->map);
 }

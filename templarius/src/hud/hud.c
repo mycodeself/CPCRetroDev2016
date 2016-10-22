@@ -1,6 +1,7 @@
 #include "hud.h"
 #include "sprites/numbers.h"
 #include "sprites/heart.h"
+#include "sprites/gameover.h"
 #include "../character/character.h"
 
 u8* const _numbers[10] = {
@@ -124,4 +125,12 @@ incrementLifeHUD()
 			pvm = cpct_getScreenPtr((u8*)0x8000, 10, 2);
 			cpct_drawSprite(sprite_heart_0, pvm, SPRITE_HEART_0_W, SPRITE_HEART_0_H);
 	}
+}
+
+#define GAMEOVER_PVM0 cpctm_screenPtr(0xC000, 20, 80)	
+#define GAMEOVER_PVM1 cpctm_screenPtr(0x8000, 20, 80)
+void drawGameover()
+{
+	cpct_drawSprite(sprite_gameover, GAMEOVER_PVM0, SPRITE_GAMEOVER_W, SPRITE_GAMEOVER_H);
+	cpct_drawSprite(sprite_gameover, GAMEOVER_PVM1, SPRITE_GAMEOVER_W, SPRITE_GAMEOVER_H);
 }

@@ -15,11 +15,11 @@ typedef struct Skeleton
 	u8 				hp;			// health points
 } Skeleton;
 
-typedef struct Skeletons {
+typedef struct SkeletonArray {
 	Skeleton* 	current;
 	u8 			idx;
 	u8 			num;
-} Skeletons;
+} SkeletonArray;
 
 extern const Skeleton _skeleton_template;
 

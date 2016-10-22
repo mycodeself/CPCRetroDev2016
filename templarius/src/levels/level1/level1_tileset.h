@@ -1,6 +1,6 @@
 // Data created with Img2CPC - (c) Retroworks - 2007-2015
-#ifndef _ASSETS_LEVEL1_LEVEL1_TILESET_H_
-#define _ASSETS_LEVEL1_LEVEL1_TILESET_H_
+#ifndef _ASSETS_LEVELS_LEVEL1_TILESET_H_
+#define _ASSETS_LEVELS_LEVEL1_TILESET_H_
 
 #include <types.h>
 extern u8* const LEVEL1_tileset[56];

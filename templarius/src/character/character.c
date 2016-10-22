@@ -1,9 +1,5 @@
 #include "character.h"
-#include "sprites/character_walk0.h"
-#include "sprites/character_walk1.h"
-#include "sprites/character_walk2.h"
-#include "sprites/character_idle.h"
-#include "sprites/character_jump.h"
+#include "sprites/character.h"
 #include "sprites/character_attack.h"
 #include "../utils/utils.h"
 #include "../enemies/skeleton.h"
@@ -13,45 +9,75 @@
 
 #define MAX_JUMP_H -12
 #define JUMP_FORCE 4
+#define NUM_FRAMES        14
+#define ANIM_IDLE_FRAMES  1
+#define ANIM_WALK_FRAMES  4
+#define ANIM_JUMP_FRAMES  1
+#define ANIM_ATK_FRAMES   1
+#define ANIM_HURT_FRAMES  1
+#define SPRITE_W          SPRITE_CHARACTER_00_W
+#define SPRITE_H          SPRITE_CHARACTER_00_H
+#define SPRITE_ATK_W      SPRITE_CHARACTER_ATTACK_0_W
+#define SPRITE_ATK_H      SPRITE_CHARACTER_ATTACK_0_H
 
-// CHARACTER NUMBER OF FRAMES PER ANIM
-#define CHARACTER_IDLE_ANIM_FRAMES    1
-#define CHARACTER_WALK_ANIM_FRAMES    4
-#define CHARACTER_JUMP_ANIM_FRAMES    1
-#define CHARACTER_ATTACK_ANIM_FRAMES  1
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 // Character animations
-const AnimationFrame _character_frames[6] = {
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+const AnimationFrame _character_frames[NUM_FRAMES] = {
   // sprite, width bytes, height bytes, time, look  
-  { sprite_character_walk0,   SPRITE_CHARACTER_WALK0_W,   SPRITE_CHARACTER_WALK0_H,  3, as_right },
-  { sprite_character_walk1,   SPRITE_CHARACTER_WALK1_W,   SPRITE_CHARACTER_WALK1_H,  3, as_right },
-  { sprite_character_walk2,   SPRITE_CHARACTER_WALK2_W,   SPRITE_CHARACTER_WALK2_H,  3, as_right },
-  { sprite_character_idle,    SPRITE_CHARACTER_IDLE_W,    SPRITE_CHARACTER_IDLE_H,   1, as_right },    
-  { sprite_character_jump,    SPRITE_CHARACTER_JUMP_W,    SPRITE_CHARACTER_JUMP_H,   1, as_right },
-  { sprite_character_attack,  SPRITE_CHARACTER_ATTACK_W,  SPRITE_CHARACTER_ATTACK_H, 5, as_right },
+  { sprite_character_01,        SPRITE_W,     SPRITE_H,  6, as_right }, // WALK R
+  { sprite_character_02,        SPRITE_W,     SPRITE_H,  6, as_right },
+  { sprite_character_03,        SPRITE_W,     SPRITE_H,  6, as_right }, 
+  { sprite_character_00,        SPRITE_W,     SPRITE_H,  1, as_right }, // IDLE R  
+  { sprite_character_04,        SPRITE_W,     SPRITE_H,  1, as_right }, // JUMP R
+  { sprite_character_07,        SPRITE_W,     SPRITE_H,  6, as_left  }, // WALK L
+  { sprite_character_08,        SPRITE_W,     SPRITE_H,  3, as_left  },
+  { sprite_character_09,        SPRITE_W,     SPRITE_H,  3, as_left  },
+  { sprite_character_06,        SPRITE_W,     SPRITE_H,  1, as_left  }, // IDLE L
+  { sprite_character_10,        SPRITE_W,     SPRITE_H,  1, as_left  }, // JUMP L
+  { sprite_character_attack_0,  SPRITE_ATK_W, SPRITE_CHARACTER_ATTACK_0_H, 10, as_right  },
+  { sprite_character_attack_1,  SPRITE_ATK_W, SPRITE_CHARACTER_ATTACK_0_H, 10, as_left   },
+  { sprite_character_05,        SPRITE_W,     SPRITE_H,  10, as_right },  // HURT R
+  { sprite_character_11,        SPRITE_W,     SPRITE_H,  10, as_left  }   // HURT L
+};
+// walk
+AnimationFrame* const _character_anim_walk_r[4] = { 
+  &_character_frames[0], &_character_frames[1], &_character_frames[0], &_character_frames[2] 
 };
 
-// walk
-AnimationFrame* const _character_anim_walk[4] = { &_character_frames[0], &_character_frames[1], &_character_frames[0], &_character_frames[2] };
+AnimationFrame* const _character_anim_walk_l[4] = { 
+  &_character_frames[5], &_character_frames[6], &_character_frames[5], &_character_frames[7] 
+};
 // idle
-AnimationFrame* const _character_anim_idle[1] = { &_character_frames[3] };
+AnimationFrame* const _character_anim_idle_r[ANIM_IDLE_FRAMES] = { 
+  &_character_frames[3] 
+};
+AnimationFrame* const _character_anim_idle_l[ANIM_IDLE_FRAMES] = { 
+  &_character_frames[8] 
+};
 // jump
-AnimationFrame* const _character_anim_jump[1] = { &_character_frames[4] };
+AnimationFrame* const _character_anim_jump_r[ANIM_JUMP_FRAMES] = { &_character_frames[4] };
+AnimationFrame* const _character_anim_jump_l[ANIM_JUMP_FRAMES] = { &_character_frames[9] };
 // attack
-AnimationFrame* const _character_anim_attack[1] = { &_character_frames[5] };
+AnimationFrame* const _character_anim_attack_r[ANIM_ATK_FRAMES] = { &_character_frames[10] };
+AnimationFrame* const _character_anim_attack_l[ANIM_ATK_FRAMES] = { &_character_frames[11] };
+// hurt
+AnimationFrame* const _character_anim_hurt_r[ANIM_HURT_FRAMES] = { &_character_frames[12] };
+AnimationFrame* const _character_anim_hurt_l[ANIM_HURT_FRAMES] = { &_character_frames[13] };
 // start animation
-const Animation _character_animation = { _character_anim_idle, 0, 1, as_play, 0, as_right };
-
+const Animation _character_animation = { _character_anim_idle_r, 0, 1, as_play, 0, as_right };
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 // Character template
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 const Character _character_template = 
 {
   {
-    sprite_character_idle,  // sprite
+    sprite_character_00,  // sprite
     2,                      // draw
     {4, 4, 4},              // x
     {160, 160, 160},        // y
-    {SPRITE_CHARACTER_IDLE_W, SPRITE_CHARACTER_IDLE_W, SPRITE_CHARACTER_IDLE_W},  // w
-    {SPRITE_CHARACTER_IDLE_H, SPRITE_CHARACTER_IDLE_H, SPRITE_CHARACTER_IDLE_H},  // h
+    {SPRITE_W, SPRITE_W, SPRITE_W},  // w
+    {SPRITE_H, SPRITE_H, SPRITE_H},  // h
     0                       // grid
   }, // DrawableEntity
   cs_idle,
@@ -59,11 +85,11 @@ const Character _character_template =
   &_character_animation,
   {0, 0}, // vel
   3,      // HP
-  0
+  1
 };
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 Character _character;
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 void
 initCharacter()
 {
@@ -140,28 +166,90 @@ characterController()
     if(cpct_isKeyPressed(Key_CursorRight)) // walk right
     {
       c->vel.x       += 1;
-      c->anim->side   = as_right; // looking right      
+      c->anim->side  = as_right; // looking right      
       c->e.draw      = 2;
-      if(isGround())
+      if(c->ground)
        c->status = cs_walk;
     } else if(cpct_isKeyPressed(Key_CursorLeft)) // walk left
     {
       c->vel.x       -= 1;
-      c->anim->side   = as_left; // looking left
+      c->anim->side  = as_left; // looking left
       c->e.draw      = 2;
-      if(isGround())
+      if(c->ground)
        c->status = cs_walk;
-    }else if(cpct_isKeyPressed(Key_A) && isGround() && c->status != cs_attack)
+    }else if(cpct_isKeyPressed(Key_A) && c->ground && c->lstatus != cs_attack)
     {
       c->status   = cs_attack;
-      c->e.draw  = 2;    }
-    if(cpct_isKeyPressed(Key_Space)) // jump
+      c->e.draw  = 2;    
+    }
+    if(cpct_isKeyPressed(Key_Space) && c->ground) // jump
     {
-      if(c->lstatus != cs_jump && isGround()) {
+      if(c->lstatus != cs_jump) {
         c->status  = cs_jump;
       }
     }
   }
+}
+
+void 
+chooseCharacterAnimation()
+{
+  Character* c = &_character;
+  AnimationFrame* frame;
+  frame = c->anim->frames[c->anim->frame_idx];
+  if(c->lstatus == cs_attack && frame->side == as_left)
+  {
+    c->e.x[0] += 5;
+  }
+  switch(c->status) { 
+    case cs_walk:
+      if(c->anim->side == as_left)
+        c->anim->frames = (AnimationFrame**)_character_anim_walk_l;
+      else
+        c->anim->frames = (AnimationFrame**)_character_anim_walk_r;
+      c->anim->numframes = ANIM_WALK_FRAMES;
+      c->anim->status    = as_cycle;
+      break;
+    case cs_jump:
+      if(c->anim->side == as_left)
+        c->anim->frames = (AnimationFrame**)_character_anim_jump_l;
+      else
+        c->anim->frames = (AnimationFrame**)_character_anim_jump_r;
+      c->anim->numframes = ANIM_JUMP_FRAMES;
+      c->anim->status    = as_play;
+      break;
+    case cs_attack:
+      if(c->anim->side == as_left)
+      {
+        c->anim->frames = (AnimationFrame**)_character_anim_attack_l;
+        c->e.x[0] -= 5;
+      }
+      else
+      {
+        c->anim->frames = (AnimationFrame**)_character_anim_attack_r;
+      }
+      c->anim->numframes = ANIM_ATK_FRAMES;
+      c->anim->status    = as_play;
+      break;
+    case cs_hurt:
+      if(c->anim->side == as_left)
+        c->anim->frames = (AnimationFrame**)_character_anim_hurt_l;
+      else
+        c->anim->frames = (AnimationFrame**)_character_anim_hurt_r;
+      c->anim->numframes = ANIM_HURT_FRAMES;
+      c->anim->status    = as_play;
+      break;
+    case cs_idle:
+      if(c->anim->side == as_left)
+        c->anim->frames = (AnimationFrame**)_character_anim_idle_l;
+      else
+        c->anim->frames = (AnimationFrame**)_character_anim_idle_r;
+      c->anim->numframes = ANIM_IDLE_FRAMES;
+      c->anim->status    = as_play;
+      break;         
+  }
+  frame = c->anim->frames[c->anim->frame_idx];
+  c->e.sprite  = frame->sprite;
 }
 
 void
@@ -173,59 +261,59 @@ updateCharacterAnimation()
   updateAnimation(c->anim);
   frame = c->anim->frames[c->anim->frame_idx];
   if(c->status != c->lstatus) {
-    switch(c->status) {
-      case cs_idle:
-        c->anim->frames     = (AnimationFrame**)_character_anim_idle;
-        c->anim->numframes  = CHARACTER_IDLE_ANIM_FRAMES;
-        c->anim->status     = as_play;
-        break;
-      case cs_walk:
-        c->anim->frames     = (AnimationFrame**)_character_anim_walk;
-        c->anim->numframes  = CHARACTER_WALK_ANIM_FRAMES;
-        c->anim->status     = as_cycle;
-        break;
-      case cs_jump:
-        c->anim->frames     = (AnimationFrame**)_character_anim_jump;
-        c->anim->numframes  = CHARACTER_JUMP_ANIM_FRAMES;
-        c->anim->status     = as_play;
-        break;
-      case cs_attack:
-        c->anim->frames     = (AnimationFrame**)_character_anim_attack;
-        c->anim->numframes  = CHARACTER_ATTACK_ANIM_FRAMES;
-        c->anim->status     = as_play;
-        break;
-    }
+    chooseCharacterAnimation();
+
     c->anim->frame_idx = 0;
     frame = c->anim->frames[c->anim->frame_idx];
     c->anim->time = frame->time;
-  }  
+    c->e.w[0] = frame->w;
+    c->e.h[0] = frame->h;
+  }else if(c->anim->side != frame->side)
+  {
+    chooseCharacterAnimation();
+    frame = c->anim->frames[c->anim->frame_idx];
+  } 
   
-  c->e.w[0]    = frame->w;
-  c->e.h[0]    = frame->h;
   c->e.sprite  = frame->sprite;
 }
 
 void 
-handleMapLimits()
+handleMapLimitsLevel1()
 {
   Character* c = &_character;
 
   if(c->e.x[0] <= 0) { // left limit
-    if(prevLevelMap())
+    if(prevMap())
       c->e.x[0] = SCREEN_BYTES_WIDTH - c->e.w[0] - 2;
     else
       c->e.x[0] = 2;
   } else if((c->e.x[0] + c->e.w[0]) >= SCREEN_BYTES_WIDTH) {  // right limit
-    if(nextLevelMap())
-      c->e.x[0] = 2;
-    else
-      c->e.x[0] = SCREEN_BYTES_WIDTH - c->e.w[0] - 2;
+    nextMap();
+    c->e.x[0] = 2;
   }
   if(c->e.y[0] <= 40) // top limit
   {
     c->e.y[0] = 40;
   }
 }
+
+void 
+handleMapLimitsLevel2()
+{
+  Character* c = &_character;
+
+  if(c->e.x[0] <= 0) { // left limit
+      c->e.x[0] = 2;
+  } else if((c->e.x[0] + c->e.w[0]) >= SCREEN_BYTES_WIDTH) {  // right limit
+      c->e.x[0] = SCREEN_BYTES_WIDTH - c->e.w[0] - 2;
+  }
+  if(c->e.y[0] <= 40) // top limit
+  {
+    nextMap();    
+    c->e.y[0] = 100;
+  }
+}
+
 
 void jumpAndGravity()
 {
@@ -279,14 +367,17 @@ updateCharacter()
 {
   Character* c    = &_character;
   c->vel.x        = 0;
-  c->lstatus  = c->status;
-
+    
+  
   characterController();
 
   jumpAndGravity();
 
   c->e.x[0] += c->vel.x;
   c->e.y[0] += c->vel.y;
+
+  updateCharacterAnimation();
+
   
   if(isGround())
   {
@@ -294,7 +385,7 @@ updateCharacter()
     c->vel.y   = 0;
     if(c->vel.x == 0)
     {        
-      if(c->lstatus != cs_idle && c->status != cs_attack)
+      if(c->lstatus != cs_idle)
       {
        c->status = cs_idle;
        c->e.draw += 2;
@@ -305,23 +396,90 @@ updateCharacter()
     c->status = cs_fall;
   }
 
-  updateCharacterAnimation();
-
-  // if(c->status == cs_attack)
-  //   attack(); 
   
+
+  c->lstatus  = c->status;  
+
+  //if(c->status == cs_attack && c->stat) 
+
+  //attack(); 
+
+  if((c->e.y[0] + c->e.h[0]) >= 190)
+    c->status = cs_dead;
+
+
   if(c->e.draw)
   {
     checkEmeraldCollision();
     setGrid(&c->e);
   }
 
-  if((c->e.y[0] + c->e.h[0]) >= 190)
-    c->status = cs_dead;
-
-  handleMapLimits();
+  handleMapLimitsLevel1();
 
 }
+
+// void
+// updateCharacter()
+// {
+//   Character* c    = &_character;
+//   c->vel.x        = 0;  
+//   // c->lstatus      = c->status;
+  
+//   characterController();   
+//   jumpAndGravity();
+
+//   c->e.x[0] += c->vel.x;
+//   c->e.y[0] += c->vel.y;
+
+//   updateCharacterAnimation();
+
+//   c->lstatus = c->status;
+
+//   switch(c->status)
+//   {
+//     case cs_hurt:
+//     case cs_attack:
+//       if(c->anim->status == as_end)
+//       {
+//         c->status = cs_idle;   
+//         c->e.draw = 2;        
+//       }   
+//       break;    
+//     default:      
+//       if(isGround())
+//       {
+//         c->e.y[0] = (c->e.y[0] & 0b11111100);
+//         c->vel.y  = 0;
+//         if(c->vel.x == 0 && c->lstatus != cs_idle)
+//         {
+//           c->status = cs_idle;
+//           c->e.draw = 2;
+//         }
+//       }        
+//   }
+ 
+//   if(c->e.draw)
+//   {
+//     checkEmeraldCollision();
+//     setGrid(&c->e);
+//   }
+
+//   if((c->e.y[0] + c->e.h[0]) >= 190)
+//     c->status = cs_dead;
+
+//   switch(_game.lvlidx)
+//   {
+//     case 0:
+//       if(_game.lvl->idx == 2)    
+//         handleMapLimitsLevel2();
+//       else
+//         handleMapLimitsLevel1();      
+//       break;
+//     case 1:
+//       handleMapLimitsLevel2();
+//   }
+  
+// }
 
 void
 drawCharacter()
@@ -340,16 +498,17 @@ void hurtCharacter()
   Character* c = &_character;
   decrementLifeHUD();
   if(c->anim->side == as_left)
-    c->e.x[0] +=  2;
+    c->e.x[0] +=  4;
   else if(c->e.x[0] < 4)
     c->e.x[0] = 0;
   else
-    c->e.x[0] -= 2;  
-  --c->hp;
-  if(c->hp)
+    c->e.x[0] -= 4;  
+  
+  if(--c->hp)
   {
     c->e.draw = 2;
-    handleMapLimits();
+    c->status = cs_hurt;
+    handleMapLimitsLevel1();
   }
   else
   {

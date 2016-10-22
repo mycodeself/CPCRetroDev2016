@@ -5,7 +5,7 @@ u8*
 getTilePtr(u8 x, u8 y)
 {
   Game *g = &_game;
-  return g->lvl->lm->map + ((y-40)/ 4 * 40 + x / 2);
+  return g->lvl->m->map + ((y-40)/ 4 * 40 + x / 2);
 }
 
 void 

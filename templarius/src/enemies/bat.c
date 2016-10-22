@@ -98,7 +98,7 @@ void
 updateBat()
 {
   Game* g = &_game;
-  BatArray* b = &g->lvl->lm->b;
+  BatArray* b = &g->lvl->m->b;
   Bat* current;
 
   current = b->current + b->idx;
@@ -117,7 +117,7 @@ void
 drawBats()
 {
   Game *g       = &_game;
-  BatArray* ba  = &g->lvl->lm->b;
+  BatArray* ba  = &g->lvl->m->b;
   Bat* current  = ba->current + ba->num;
   while(current != ba->current)
   {

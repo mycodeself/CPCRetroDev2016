@@ -5,22 +5,22 @@
 #include "../enemies/skeleton.h"
 #include "../enemies/bat.h"
 
-typedef struct LevelMap
+typedef struct Map
 {
-  u8* 		map;
-  Skeletons s;
-  BatArray	b;
-} LevelMap;
+  u8* 			map;
+  SkeletonArray s;
+  BatArray		b;
+} Map;
 
 typedef struct Level
 {
-  LevelMap* lm;
-  u8 idx;
-  u8 num_maps;
+  Map* 	m;
+  u8 	idx;
+  u8 	num;
 } Level;
 
 void startLevel();
-u8 nextLevelMap();
-u8 prevLevelMap();
+void nextMap();
+u8 prevMap();
 
 #endif

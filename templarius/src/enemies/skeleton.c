@@ -73,7 +73,7 @@ const Skeleton _skeleton_template =
   {
     SPRITE_WALK_0_L,        // sprite
     2,                      // draw
-    {0,	  0,    0},         // x
+    {60,	 60,   60},         // x
     {164,	164,	164},  	    // y
     { SPRITE_W, SPRITE_W, SPRITE_W },  // w
     { SPRITE_H, SPRITE_H, SPRITE_H },  // h
@@ -239,7 +239,7 @@ void
 updateSkeleton()
 {
   Game* g = &_game;
-  Skeletons* s = &g->lvl->lm->s;
+  SkeletonArray* s = &g->lvl->m->s;
   Skeleton* current;
 
   current = s->current + s->idx;
@@ -282,7 +282,7 @@ void
 drawSkeletons()
 {
   Game *g           = &_game;
-  Skeletons* s      = &g->lvl->lm->s;
+  SkeletonArray* s  = &g->lvl->m->s;
   Skeleton* current = s->current + s->num;
   while(current != s->current)
   {

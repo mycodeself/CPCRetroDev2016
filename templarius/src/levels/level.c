@@ -1,7 +1,12 @@
 #include "level.h"
-#include "../draw/draw.h"
 #include "level1/level1_tileset.h"
+#include "level2/level2.h"
+#include "../draw/draw.h"
 #include "../game.h"
+
+#define LEVEL1 0
+#define LEVEL2 1
+#define LEVEL3 2
 
 void
 startLevel()
@@ -12,27 +17,45 @@ startLevel()
   drawMap();
 }
 
-
-u8
-nextLevelMap()
+void
+nextLevel()
 {
   Game* g = &_game;
-  if(g->lvl->idx < g->lvl->num_maps){
-    ++g->lvl->lm;
-    ++g->lvl->idx;
-    drawMap();
-    return 1;
+  switch(g->lvlidx)
+  {
+    case LEVEL1:
+      g->lvl = &_level2;
+      break;
+    case LEVEL2:
+      break;
+    case LEVEL3:
+      break;
   }
-  return 0;
+  ++g->lvlidx;
+  drawMap();
+}
+
+
+void 
+nextMap()
+{
+  Game* g = &_game;
+  if(++g->lvl->idx < g->lvl->num){
+    ++g->lvl->m;       
+    drawMap();
+  }else if(g->lvl->idx == g->lvl->num)
+  {
+    nextLevel();
+  }
 }
 
 u8
-prevLevelMap()
+prevMap()
 {
   Game* g = &_game;
   if(g->lvl->idx != 0)
   {
-    --g->lvl->lm;
+    --g->lvl->m;
     --g->lvl->idx;
     drawMap();
     return 1;

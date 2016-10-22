@@ -4,7 +4,7 @@
 void
 updateAnimation(Animation* anim)
 {
-  if(anim->time == anim->frames[anim->frame_idx]->time)
+  if(anim->time == 0)
   {
     switch(anim->status)
     {
@@ -24,12 +24,6 @@ updateAnimation(Animation* anim)
         break;
     }
   }else{
-    ++anim->time;
+    --anim->time;
   }
-  
-  // if(anim->side != anim->frames[anim->frame_idx]->side) {
-  //   cpct_hflipSpriteM0(anim->frames[anim->frame_idx]->w, anim->frames[anim->frame_idx]->h,
-  //                       anim->frames[anim->frame_idx]->sprite);
-  //   anim->frames[anim->frame_idx]->side = anim->side;
-  // }
 }

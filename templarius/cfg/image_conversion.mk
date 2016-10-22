@@ -72,34 +72,33 @@
  
 PALETTE={0 16 26 13 1 2 11 10 4 25 18 21 9 3 6 15}
 
-# LEVEL 1 TILESET
-$(eval $(call IMG2SPRITES,assets/level1/level1_tileset.png,0,LEVEL1,4,4,$(PALETTE),tileset,src/levels/level1))
+## MENU
+#play
+$(eval $(call IMG2SPRITES,assets/mainscreen/play.png,0,sprite_menu,36,18,$(PALETTE),,src/mainscreen/sprites))
+#credits
+$(eval $(call IMG2SPRITES,assets/mainscreen/credits.png,0,sprite_menu,66,18,$(PALETTE),,src/mainscreen/sprites))
+#help
+$(eval $(call IMG2SPRITES,assets/mainscreen/help.png,0,sprite_menu,42,18,$(PALETTE),,src/mainscreen/sprites))
 
-#$(eval $(call IMG2SPRITES,assets/char/idle.png,0,character,18,32,$(PALETTE),,src/character/sprites/))
-#$(eval $(call IMG2SPRITES,assets/char/walk0.png,0,character,22,32,$(PALETTE),,src/character/sprites/))
-#$(eval $(call IMG2SPRITES,assets/char/walk1.png,0,character,22,32,$(PALETTE),,src/character/sprites/))
-#$(eval $(call IMG2SPRITES,assets/emerald.png,0,sprite,8,8,$(PALETTE),,src/levels/sprites/))
+
+# LEVEL 1 TILESET
+$(eval $(call IMG2SPRITES,assets/levels/level1_tileset.png,0,LEVEL1,4,4,$(PALETTE),tileset,src/levels/level1))
 
 ## NUMBERS
 $(eval $(call IMG2SPRITES,assets/numbers/numbers.png,0,sprite,8,12,$(PALETTE),,src/hud/sprites/))
 ## HEART
 $(eval $(call IMG2SPRITES,assets/heart/heart.png,0,sprite,14,12,$(PALETTE),,src/hud/sprites/))
+## GAMEOVER
+$(eval $(call IMG2SPRITES,assets/gameover.png,0,sprite,86,30,$(PALETTE),,src/hud/sprites/))
 
 ## CHARACTER
-# WALK
-$(eval $(call IMG2SPRITES,assets/character/character_walk0.png,0,sprite,16,20,$(PALETTE),,src/character/sprites/))
-$(eval $(call IMG2SPRITES,assets/character/character_walk1.png,0,sprite,16,20,$(PALETTE),,src/character/sprites/))
-$(eval $(call IMG2SPRITES,assets/character/character_walk2.png,0,sprite,16,20,$(PALETTE),,src/character/sprites/))
-# IDLE
-$(eval $(call IMG2SPRITES,assets/character/character_idle.png,0,sprite,18,20,$(PALETTE),,src/character/sprites/))
-# JUMP
-$(eval $(call IMG2SPRITES,assets/character/character_jump.png,0,sprite,16,20,$(PALETTE),,src/character/sprites/))
+$(eval $(call IMG2SPRITES,assets/character/character.png,0,sprite,16,20,$(PALETTE),,src/character/sprites/))
 # ATTACK
 $(eval $(call IMG2SPRITES,assets/character/character_attack.png,0,sprite,26,20,$(PALETTE),,src/character/sprites/))
 
 ## ENEMIES
 # BAT
-$(eval $(call IMG2SPRITES,assets/bat/bat.png,0,sprite,16,14,$(PALETTE),,src/enemies/sprites/))
+$(eval $(call IMG2SPRITES,assets/bat/bat.png,0,sprite,14,12,$(PALETTE),,src/enemies/sprites/))
 
 
 # SKELETON
