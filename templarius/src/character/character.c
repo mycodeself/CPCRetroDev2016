@@ -90,6 +90,11 @@ const Character _character_template =
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 Character _character;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+// FUNCTIONS
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+void doCharacterAction(CharacterStatus status) __z88dk_fastcall;
+void attackCharacter();
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 void
 initCharacter()
 {
@@ -165,28 +170,22 @@ characterController()
   if(cpct_isAnyKeyPressed_f()) {
     if(cpct_isKeyPressed(Key_CursorRight)) // walk right
     {
-      c->vel.x       += 1;
+      c->vel.x       = 1;
       c->anim->side  = as_right; // looking right      
-      c->e.draw      = 2;
-      if(c->ground)
-       c->status = cs_walk;
+      doCharacterAction(cs_walk);
     } else if(cpct_isKeyPressed(Key_CursorLeft)) // walk left
     {
-      c->vel.x       -= 1;
+      c->vel.x       = -1;
       c->anim->side  = as_left; // looking left
-      c->e.draw      = 2;
-      if(c->ground)
-       c->status = cs_walk;
+      doCharacterAction(cs_walk);
     }else if(cpct_isKeyPressed(Key_A) && c->ground && c->lstatus != cs_attack)
     {
       c->status   = cs_attack;
       c->e.draw  = 2;    
     }
-    if(cpct_isKeyPressed(Key_Space) && c->ground) // jump
+    if(cpct_isKeyPressed(Key_Space)) // jump
     {
-      if(c->lstatus != cs_jump) {
-        c->status  = cs_jump;
-      }
+      doCharacterAction(cs_jump);
     }
   }
 }
@@ -315,7 +314,7 @@ handleMapLimitsLevel2()
 }
 
 
-void jumpAndGravity()
+/*void jumpAndGravity()
 {
   Character *c = &_character;
   if(c->status == cs_jump) {
@@ -331,10 +330,10 @@ void jumpAndGravity()
       c->vel.y = 4;
     c->e.draw = 2;
   }
-}
+}*/
 
-void attack()
-{
+//void attack()
+//{
   // u8* pvm = cpct_getScreenPtr(_backBuffer, 40, 0);
   // Character* c = &_character;
   // Collision col;
@@ -360,26 +359,89 @@ void attack()
   //     s->status = ss_hurt;
   //   }
   // }
+//}
+
+void
+gravity()
+{
+  Character *c = &_character;
+  if(!c->ground) {
+    ++c->vel.y;
+    if(c->vel.y > 4)
+      c->vel.y = 4;
+    c->e.draw = 2;
+  }  
 }
+
+void
+jumpCharacter()
+{
+  Character *c = &_character;
+  if(c->status == cs_jump) {
+    c->vel.y -= 1;
+    if(c->vel.y <= -8)
+      c->status = cs_fall;
+    c->e.draw = 2;
+  }
+}
+
+void
+walkCharacter()
+{
+  Character *c = &_character;
+  c->e.x[0] += c->vel.x;
+  c->e.draw = 2;
+  if(c->ground)   // only if its in ground its walking, else its moving on air
+    c->status = cs_walk;
+  
+  updateCharacterAnimation();
+}
+
+void
+doCharacterAction(CharacterStatus status) __z88dk_fastcall
+{
+  Character* c = &_character;
+  switch(status)
+  {
+    case cs_walk:
+      walkCharacter();
+      break;
+    case cs_jump:
+      jumpCharacter();      
+      break;
+    case cs_attack:
+      attackCharacter();
+      break;
+  }
+}
+
+void attackCharacter()
+{}
 
 void
 updateCharacter()
 {
-  Character* c    = &_character;
-  c->vel.x        = 0;
-    
+  Character* c    = &_character;    
   
   characterController();
 
-  jumpAndGravity();
+  gravity();
+
+  if(c->ground = isGround())
+  {
+    c->e.y[0] = (c->e.y[0] & 0b11111100);
+    c->vel.y  = 0;    
+  }
+
+/*  jumpAndGravity();
 
   c->e.x[0] += c->vel.x;
   c->e.y[0] += c->vel.y;
 
   updateCharacterAnimation();
-
+*/
   
-  if(isGround())
+/*  if(isGround())
   {
     c->e.y[0] = (c->e.y[0] & 0b11111100);
     c->vel.y   = 0;
@@ -415,71 +477,9 @@ updateCharacter()
   }
 
   handleMapLimitsLevel1();
-
+*/
 }
 
-// void
-// updateCharacter()
-// {
-//   Character* c    = &_character;
-//   c->vel.x        = 0;  
-//   // c->lstatus      = c->status;
-  
-//   characterController();   
-//   jumpAndGravity();
-
-//   c->e.x[0] += c->vel.x;
-//   c->e.y[0] += c->vel.y;
-
-//   updateCharacterAnimation();
-
-//   c->lstatus = c->status;
-
-//   switch(c->status)
-//   {
-//     case cs_hurt:
-//     case cs_attack:
-//       if(c->anim->status == as_end)
-//       {
-//         c->status = cs_idle;   
-//         c->e.draw = 2;        
-//       }   
-//       break;    
-//     default:      
-//       if(isGround())
-//       {
-//         c->e.y[0] = (c->e.y[0] & 0b11111100);
-//         c->vel.y  = 0;
-//         if(c->vel.x == 0 && c->lstatus != cs_idle)
-//         {
-//           c->status = cs_idle;
-//           c->e.draw = 2;
-//         }
-//       }        
-//   }
- 
-//   if(c->e.draw)
-//   {
-//     checkEmeraldCollision();
-//     setGrid(&c->e);
-//   }
-
-//   if((c->e.y[0] + c->e.h[0]) >= 190)
-//     c->status = cs_dead;
-
-//   switch(_game.lvlidx)
-//   {
-//     case 0:
-//       if(_game.lvl->idx == 2)    
-//         handleMapLimitsLevel2();
-//       else
-//         handleMapLimitsLevel1();      
-//       break;
-//     case 1:
-//       handleMapLimitsLevel2();
-//   }
-  
-// }
 
 void
 drawCharacter()
