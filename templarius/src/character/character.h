@@ -22,6 +22,6 @@ extern Character _character;
 void initCharacter();
 void updateCharacter();
 void drawCharacter();
-void hurtCharacter();
+void doCharacterAction(CharacterStatus status) __z88dk_fastcall;
 
 #endif

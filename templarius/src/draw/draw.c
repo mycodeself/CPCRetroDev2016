@@ -31,6 +31,14 @@ eraseEntitySolidBox(Entity* e) __z88dk_fastcall
   cpct_drawSolidBox(pvm, 0, e->w[2], e->h[2]);
 }
 
+void eraseEntityBuffersSolidBox(Entity* e)
+{
+  u8* pvm = cpct_getScreenPtr(0x8000, e->x[0], e->y[0]);
+  cpct_drawSolidBox(pvm, 0, e->w[0], e->h[0]); 
+  pvm = cpct_getScreenPtr(0xC000, e->x[0], e->y[0]);
+  cpct_drawSolidBox(pvm, 0, e->w[0], e->h[0]);
+}
+
 void movePosition(u8 *p) __z88dk_fastcall
 {
   *p = *(p-1); 

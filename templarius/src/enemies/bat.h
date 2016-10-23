@@ -19,11 +19,14 @@ typedef struct BatArray {
 	Bat* 		current;
 	u8 			idx;
 	u8 			num;
+	Bat*		nearest;
+	u8			min_dist;
 } BatArray;
 
 extern const Bat _bat_template;
 
 void updateBat();
 void drawBats();
+void killBat(Bat* b) __z88dk_fastcall;
 
 #endif

@@ -4,7 +4,7 @@
 #include "../common.h"
 #include "../animations/animations.h"
 
-typedef enum { ss_idle, ss_walk, ss_hurt, ss_dead, ss_attack } SkeletonStatus;
+typedef enum { ss_walk, ss_hurt, ss_dead, ss_attack, ss_dying } SkeletonStatus;
 
 typedef struct Skeleton 
 {
@@ -20,13 +20,14 @@ typedef struct SkeletonArray {
 	u8 			idx;
 	u8 			num;
 	Skeleton* 	nearest;
+	u8 			min_dist;
 } SkeletonArray;
 
 extern const Skeleton _skeleton_template;
 
-void
-updateSkeleton();
-void
-drawSkeletons();
+void updateSkeleton();
+void drawSkeletons();
+void hurtSkeleton(Skeleton *s) __z88dk_fastcall;
+
 
 #endif

@@ -11,6 +11,7 @@ typedef struct Game
   Level* 		lvl;       	// Current level
   u8 			lvlidx;     // Level index
   GameStatus 	gs;    		// GameStatus
+  u8			time;
 } Game;
 
 extern const Game _game;

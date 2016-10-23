@@ -7,8 +7,9 @@
 #include "../hud/hud.h"
 #include "../draw/draw.h"
 
-#define MAX_JUMP_VEL     -6
-#define JUMP_FORCE        1
+#define MAX_JUMP_VEL     -8
+#define JUMP_FORCE       -4
+#define MAX_GRAVITY_VEL   4
 #define GRAVITY           1
 
 #define NUM_FRAMES        14
@@ -21,15 +22,14 @@
 #define SPRITE_H          SPRITE_CHARACTER_00_H
 #define SPRITE_ATK_W      SPRITE_CHARACTER_ATTACK_0_W
 #define SPRITE_ATK_H      SPRITE_CHARACTER_ATTACK_0_H
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // Character animations
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 const AnimationFrame _character_frames[NUM_FRAMES] = {
   // sprite, width bytes, height bytes, time, look  
   { sprite_character_01,        SPRITE_W,     SPRITE_H,  6, as_right }, // WALK R
-  { sprite_character_02,        SPRITE_W,     SPRITE_H,  6, as_right },
-  { sprite_character_03,        SPRITE_W,     SPRITE_H,  6, as_right }, 
+  { sprite_character_02,        SPRITE_W,     SPRITE_H,  3, as_right },
+  { sprite_character_03,        SPRITE_W,     SPRITE_H,  3, as_right }, 
   { sprite_character_00,        SPRITE_W,     SPRITE_H,  1, as_right }, // IDLE R  
   { sprite_character_04,        SPRITE_W,     SPRITE_H,  1, as_right }, // JUMP R
   { sprite_character_07,        SPRITE_W,     SPRITE_H,  6, as_left  }, // WALK L
@@ -39,8 +39,8 @@ const AnimationFrame _character_frames[NUM_FRAMES] = {
   { sprite_character_10,        SPRITE_W,     SPRITE_H,  1, as_left  }, // JUMP L
   { sprite_character_attack_0,  SPRITE_ATK_W, SPRITE_CHARACTER_ATTACK_0_H, 10, as_right  },
   { sprite_character_attack_1,  SPRITE_ATK_W, SPRITE_CHARACTER_ATTACK_0_H, 10, as_left   },
-  { sprite_character_05,        SPRITE_W,     SPRITE_H,  10, as_right },  // HURT R
-  { sprite_character_11,        SPRITE_W,     SPRITE_H,  10, as_left  }   // HURT L
+  { sprite_character_05,        SPRITE_W,     SPRITE_H,  5, as_right },  // HURT R
+  { sprite_character_11,        SPRITE_W,     SPRITE_H,  5, as_left  }   // HURT L
 };
 // walk
 AnimationFrame* const _character_anim_walk_r[4] = { 
@@ -97,7 +97,6 @@ Character _character;
 // FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 void characterController();
-void doCharacterAction(CharacterStatus status) __z88dk_fastcall;
 void characterAttack();
 void moveCharacter();
 void jumpCharacter();
@@ -267,8 +266,8 @@ gravity()
   if(!c->ground)
   {
     c->vel.y += GRAVITY;
-    if(c->vel.y > 4)
-      c->vel.y = 4;
+    if(c->vel.y > MAX_GRAVITY_VEL)
+      c->vel.y = MAX_GRAVITY_VEL;
     c->e.draw = 2;
     c->e.y[0] += c->vel.y;
   }  
@@ -279,7 +278,7 @@ jumpCharacter()
 {
   Character *c = &_character;
   
-  c->vel.y  = -1;
+  c->vel.y  = JUMP_FORCE;
   c->status = cs_jump;
   updateCharacterAnimation();
   c->ground = 0;
@@ -294,29 +293,118 @@ moveCharacter()
   c->e.x[0] += c->vel.x;
   c->e.draw  = 2;  
   emeraldCollision();
-  if(c->ground = isGround()) // only if its in ground its walking, else its moving on air  
-    c->status = cs_walk;
-  else if(c->status != cs_jump)
-    c->status = cs_fall;
+  if(c->status != cs_jump)
+  {
+    if(c->ground = isGround()) // only if its in ground its walking, else its moving on air  
+      c->status = cs_walk;
+    else     
+      c->status = cs_fall;
+  }
   setGrid(&c->e);
   updateCharacterAnimation();
 }
 
-void characterAttack()
+void
+characterAttackBat(Bat* b) __z88dk_fastcall
+{
+  Character* c      = &_character;
+  Collision* col  = &_col;
+
+  if(c->anim->side == as_right)
+    col->x[0] = c->e.x[0]+9;
+  else
+    col->x[0] = c->e.x[0];
+  col->y[0] = c->e.y[0]+7;  
+  col->w[0] = 5;
+  col->h[0] = 2;
+  col->x[1] = b->e.x[0];
+  col->y[1] = b->e.y[0];
+  col->w[1] = b->e.w[0];
+  col->h[1] = b->e.h[0];
+  checkCollision(col);
+  if(col->collision)
+  {
+    killBat(b);
+    b = 0;
+  }
+}
+
+void
+characterAttackSkeleton(Skeleton* s) __z88dk_fastcall
+{
+  Character* c      = &_character;
+  Collision* col  = &_col;
+  
+  if(c->anim->side == as_right)
+    col->x[0] = c->e.x[0]+9;
+  else
+    col->x[0] = c->e.x[0];
+  col->y[0] = c->e.y[0]+7;  
+  col->w[0] = 5;
+  col->h[0] = 2;
+  col->x[1] = s->e.x[0];
+  col->y[1] = s->e.y[0];
+  col->w[1] = s->e.w[0];
+  col->h[1] = s->e.h[0];
+  checkCollision(col);
+  if(col->collision)
+  {
+    hurtSkeleton(s);
+    s = 0;
+  }
+}
+
+void 
+characterAttack()
 {
   Character* c      = &_character;
   Game* g           = &_game;
   SkeletonArray* s  = &g->lvl->m->s;
+  BatArray* b       = &g->lvl->m->b;
   if(c->ground && c->lstatus != cs_attack)
   {
     if(c->anim->side == as_left)
-      c->e.x[0] -= 5;         
+    {
+      if(c->e.x[0] > 5)
+        c->e.x[0] -= 5;         
+      else
+        return;      
+    }
+    else
+    {
+      if(c->e.x[0] >= 67)
+        return;
+    }      
+      
     c->status = cs_attack;
     c->e.draw = 2;
     updateCharacterAnimation();
-    s->nearest->status = ss_hurt;
+    if(s->nearest)
+      characterAttackSkeleton(s->nearest);
+    if(b->nearest)
+      characterAttackBat(b->nearest);
   }
 }
+
+void hurtCharacter()
+{
+  Character* c = &_character;
+  decrementLifeHUD();
+  if(c->status != cs_hurt)
+  {
+    if(--c->hp)
+    {
+      c->status = cs_hurt;
+      updateCharacterAnimation();
+      c->e.draw = 2;
+    }
+    else
+    {
+      c->status = cs_dead;
+    }
+  }
+}
+
 
 void
 doCharacterAction(CharacterStatus status) __z88dk_fastcall
@@ -333,6 +421,9 @@ doCharacterAction(CharacterStatus status) __z88dk_fastcall
     case cs_attack:
       characterAttack();
       break;
+    case cs_hurt:
+      hurtCharacter();
+      break; 
   }
 }
 
@@ -386,6 +477,14 @@ updateCharacter()
         c->e.draw = 2;
       }
       updateCharacterAnimation();
+      break;
+    case cs_hurt:
+      if(c->anim->status == as_end)
+      {
+        c->status = cs_idle;
+      }
+      updateCharacterAnimation();
+      break;      
   }
 
   mapLimits();
@@ -406,40 +505,16 @@ drawCharacter()
   }  
 }
 
-void hurtCharacter()
-{
-  Character* c = &_character;
-  decrementLifeHUD();
-  if(c->anim->side == as_left)
-    c->e.x[0] +=  4;
-  else if(c->e.x[0] < 4)
-    c->e.x[0] = 0;
-  else
-    c->e.x[0] -= 4;  
-  
-  if(--c->hp)
-  {
-    c->e.draw = 2;
-    c->status = cs_hurt;
-    
-  }
-  else
-  {
-    c->status = cs_dead;
-  }
-}
-
 void
 mapLimits()
 {
-  Character* c  = &_character;
   Game* g       = &_game;
   switch(g->lvlidx)
   {
-    case 1:
+    case 0:
       mapLimitsLevel1();
       break;
-    case 2:
+    case 1:
       mapLimitsLevel2();
       break;
   }

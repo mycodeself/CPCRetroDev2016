@@ -54,9 +54,11 @@ setGrid(Entity* e) __z88dk_fastcall
   }
 }
 
-i16 distanceToCharacter(Entity* e) __z88dk_fastcall
+u8 distanceToCharacter(Entity* e) __z88dk_fastcall
 {
-  i16 a = (_character.e.x[0] - e->x[0]);
-  i16 b = (_character.e.y[0] - e->y[0]);
-  return (a*a) + (b*b);
+  i8 x = (_character.e.x[0] - e->x[0]);
+  i8 y = (_character.e.y[0] - e->y[0]);
+  if(x < 0) (x = x * -1);
+  if(y < 0) (y = y * -1); 
+  return x+y;
 }
