@@ -2,6 +2,7 @@
 #define _COMMON_H_
 
 #include <cpctelera.h>
+#include <math.h>
 #include <types.h>
 
 // SCREEN SIZE

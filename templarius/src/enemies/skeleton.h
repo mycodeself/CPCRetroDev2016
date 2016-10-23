@@ -19,6 +19,7 @@ typedef struct SkeletonArray {
 	Skeleton* 	current;
 	u8 			idx;
 	u8 			num;
+	Skeleton* 	nearest;
 } SkeletonArray;
 
 extern const Skeleton _skeleton_template;

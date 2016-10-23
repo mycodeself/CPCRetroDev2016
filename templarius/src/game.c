@@ -4,7 +4,7 @@
 #include "hud/hud.h"
 #include "game.h"
 
-const Game _game = { &_level1, 0, gs_play };
+const Game _game = { &_level1, 1, gs_play };
 
 void initBuffers()
 {
@@ -34,10 +34,10 @@ game()
   while(_character.status != cs_dead)
   {    
     updateCharacter();
-    //updateSkeleton();
+    updateSkeleton();
     // updateBat();
     drawCharacter();
-    //drawSkeletons();
+    drawSkeletons();
     // drawBats();    
     cpct_waitVSYNC();
     switchBuffers();

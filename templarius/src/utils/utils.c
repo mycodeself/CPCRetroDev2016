@@ -1,5 +1,6 @@
 #include "utils.h"
 #include "../game.h"
+#include "../character/character.h"
 
 u8*
 getTilePtr(u8 x, u8 y)
@@ -11,6 +12,12 @@ getTilePtr(u8 x, u8 y)
 void 
 removeEmerald(u8* tile) __z88dk_fastcall
 {
+  switch(*tile)
+  {
+    case EMERALD_TILE_ID_1: --tile;     break;
+    case EMERALD_TILE_ID_2: tile -= 40; break;
+    case EMERALD_TILE_ID_3: tile -= 41; break;
+  }
   *tile = 39;
   ++tile;
   *tile = 39;
@@ -45,4 +52,11 @@ setGrid(Entity* e) __z88dk_fastcall
   {
     e->grid = 0;
   }
+}
+
+i16 distanceToCharacter(Entity* e) __z88dk_fastcall
+{
+  i16 a = (_character.e.x[0] - e->x[0]);
+  i16 b = (_character.e.y[0] - e->y[0]);
+  return (a*a) + (b*b);
 }

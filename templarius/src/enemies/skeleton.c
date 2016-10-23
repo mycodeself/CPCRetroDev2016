@@ -35,7 +35,7 @@ const AnimationFrame _skeleton_frames[NUM_FRAMES] = {
   { SPRITE_DEAD_L,    SPRITE_W,         SPRITE_H,         1, as_left  },
   { SPRITE_WALK_0_R,  SPRITE_W,         SPRITE_H,         2, as_right },
   { SPRITE_WALK_1_R,  SPRITE_W,         SPRITE_H,         2, as_right },
-  { SPRITE_HURT_R,    SPRITE_W,         SPRITE_H,         1, as_right },
+  { SPRITE_HURT_R,    SPRITE_W,         SPRITE_H,         10, as_right },
   { SPRITE_DEAD_R,    SPRITE_W,         SPRITE_H,         1, as_right },
   { SPRITE_ATTACK_L,  SPRITE_ATTACK_W,  SPRITE_ATTACK_H,  10, as_left  },
   { SPRITE_ATTACK_R,  SPRITE_ATTACK_W,  SPRITE_ATTACK_H,  10, as_right }
@@ -235,20 +235,22 @@ moveSkeleton(Skeleton* s) __z88dk_fastcall
   s->e.draw = 2;
 }
 
+u16 min_dist = 65535;
+
 void
 updateSkeleton()
 {
-  Game* g = &_game;
-  SkeletonArray* s = &g->lvl->m->s;
-  Skeleton* current;
+  Game* g           = &_game;
+  SkeletonArray* s  = &g->lvl->m->s;
+  Skeleton* current = s->current + s->idx;
+  u16 dist;
 
-  current = s->current + s->idx;
 
-  if(_character.e.grid == current->e.grid)
-  {
+  // if(_character.e.grid == current->e.grid)
+  // {
     
-    attackSkeleton(current);
-  }
+  //   attackSkeleton(current);
+  // }
 
   switch(current->status)
   {
@@ -260,6 +262,12 @@ updateSkeleton()
       break; 
     case ss_walk:
       moveSkeleton(current);
+      dist = distanceToCharacter(&current->e);
+      // if(dist < min_dist)
+      // {
+        min_dist    = dist;
+        s->nearest  = s->current + s->idx;
+      // }
       break;
     case ss_hurt:
       if(current->anim.status == as_end)
@@ -285,7 +293,7 @@ drawSkeletons()
   SkeletonArray* s  = &g->lvl->m->s;
   Skeleton* current = s->current + s->num;
   while(current != s->current)
-  {
+  {    
     --current;
     if(current->e.draw)
     {
