@@ -2,12 +2,13 @@
 #include "sprites/character.h"
 #include "sprites/character_attack.h"
 #include "../utils/utils.h"
+#include "../levels/level.h"
 #include "../enemies/skeleton.h"
 #include "../game.h"
 #include "../hud/hud.h"
 #include "../draw/draw.h"
 
-#define MAX_JUMP_VEL     -8
+#define MAX_JUMP_VEL     -6
 #define JUMP_FORCE       -4
 #define MAX_GRAVITY_VEL   4
 #define GRAVITY           1
@@ -101,9 +102,6 @@ void characterAttack();
 void moveCharacter();
 void jumpCharacter();
 void gravity();
-void mapLimits();
-void mapLimitsLevel1();
-void mapLimitsLevel2();
 u8 isGround();
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 void
@@ -379,9 +377,9 @@ characterAttack()
     c->status = cs_attack;
     c->e.draw = 2;
     updateCharacterAnimation();
-    if(s->nearest)
+    if(s->nearest && s->nearest->status != ss_dead)
       characterAttackSkeleton(s->nearest);
-    if(b->nearest)
+    if(b->nearest && b->nearest->status != ss_dead)
       characterAttackBat(b->nearest);
   }
 }
@@ -503,55 +501,4 @@ drawCharacter()
     drawEntity(&c->e);
     updateDrawableEntity(&c->e);
   }  
-}
-
-void
-mapLimits()
-{
-  Game* g       = &_game;
-  switch(g->lvlidx)
-  {
-    case 0:
-      mapLimitsLevel1();
-      break;
-    case 1:
-      mapLimitsLevel2();
-      break;
-  }
-}
-void 
-mapLimitsLevel1()
-{
-  Character* c = &_character;
-
-  if(c->e.x[0] <= 0) { // left limit
-    if(prevMap())
-      c->e.x[0] = SCREEN_BYTES_WIDTH - c->e.w[0] - 2;
-    else
-      c->e.x[0] = 2;
-  } else if((c->e.x[0] + c->e.w[0]) >= SCREEN_BYTES_WIDTH) {  // right limit
-    nextMap();
-    c->e.x[0] = 2;
-  }
-  if(c->e.y[0] <= 40) // top limit
-  {
-    c->e.y[0] = 40;
-  }
-}
-
-void 
-mapLimitsLevel2()
-{
-  Character* c = &_character;
-
-  if(c->e.x[0] <= 0) { // left limit
-      c->e.x[0] = 2;
-  } else if((c->e.x[0] + c->e.w[0]) >= SCREEN_BYTES_WIDTH) {  // right limit
-      c->e.x[0] = SCREEN_BYTES_WIDTH - c->e.w[0] - 2;
-  }
-  if(c->e.y[0] == 40) // top limit
-  {
-    nextMap();    
-    c->e.y[0] = 100;
-  }
 }

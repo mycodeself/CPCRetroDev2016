@@ -4,7 +4,7 @@
 
 #include <types.h>
 #define SPRITE_LOGO_CRUSADER_W 46
-#define SPRITE_LOGO_CRUSADER_H 14
-extern const u8 sprite_logo_crusader[46 * 14];
+#define SPRITE_LOGO_CRUSADER_H 12
+extern const u8 sprite_logo_crusader[46 * 12];
 
 #endif

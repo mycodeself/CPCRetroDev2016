@@ -20,8 +20,13 @@ switchBuffers()
 void
 initGame()
 {
+  Game* g = &_game;
   cpct_memset((u8*)0x8000, 0, 0x4000);
   cpct_memset((u8*)0xC000, 0, 0x4000);
+  g->lvl    = &_level1;
+  g->lvlidx = 0;
+  g->gs     = 0;
+  g->time   = 0;
 }
 
 void
@@ -36,17 +41,17 @@ game()
   while(_character.status != cs_dead)
   {    
     updateCharacter();    
-    if(g->time == 1)
-      updateSkeleton();
-    if(g->time == 2)
-    {      
-      updateBat();  
-      g->time = 0;
-    }    
+    // if(g->time == 1)
+    //   updateSkeleton();
+    // if(g->time == 2)
+    // {      
+    //   updateBat();  
+    //   g->time = 0;
+    // }    
     drawCharacter();    
-    drawSkeletons();
-    drawBats();
-    ++g->time;
+    // drawSkeletons();
+    // drawBats();
+    // ++g->time;
     cpct_waitVSYNC();
     switchBuffers();
   }

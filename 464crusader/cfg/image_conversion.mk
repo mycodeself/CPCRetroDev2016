@@ -74,7 +74,8 @@ PALETTE={0 16 26 13 1 2 11 10 4 25 18 21 9 3 6 15}
 
 ## MAINSCREEN
 #logo
-$(eval $(call IMG2SPRITES,assets/mainscreen/logo_crusader.png,0,sprite,92,14,$(PALETTE),,src/mainscreen/sprites))
+$(eval $(call IMG2SPRITES,assets/mainscreen/logo_crusader.png,0,sprite,92,12,$(PALETTE),,src/mainscreen/sprites))
+$(eval $(call IMG2SPRITES,assets/mainscreen/logo_464.png,0,sprite,34,10,$(PALETTE),,src/mainscreen/sprites))
 #play
 $(eval $(call IMG2SPRITES,assets/mainscreen/play.png,0,sprite,32,12,$(PALETTE),,src/mainscreen/sprites))
 #help
@@ -91,7 +92,8 @@ $(eval $(call IMG2SPRITES,assets/numbers/numbers.png,0,sprite,8,12,$(PALETTE),,s
 ## HEART
 $(eval $(call IMG2SPRITES,assets/heart/heart.png,0,sprite,14,12,$(PALETTE),,src/hud/sprites/))
 ## GAMEOVER
-$(eval $(call IMG2SPRITES,assets/gameover.png,0,sprite,86,30,$(PALETTE),,src/hud/sprites/))
+$(eval $(call IMG2SPRITES,assets/you.png,0,sprite,24,10,$(PALETTE),,src/hud/sprites/))
+$(eval $(call IMG2SPRITES,assets/died.png,0,sprite,28,10,$(PALETTE),,src/hud/sprites/))
 
 ## CHARACTER
 $(eval $(call IMG2SPRITES,assets/character/character.png,0,sprite,16,20,$(PALETTE),,src/character/sprites/))

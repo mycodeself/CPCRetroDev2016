@@ -266,8 +266,8 @@ updateSkeleton()
         {
           s->min_dist = dist;
           s->nearest  = s->current + s->idx;
-          // if(_character.e.grid == current->e.grid)
-          //   attackSkeleton(current);
+          if(_character.e.grid == current->e.grid)
+            attackSkeleton(current);
         }
         break;
       case ss_hurt:

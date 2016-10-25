@@ -68,3 +68,5 @@ $(eval $(call TMX2C,assets/levels/map1_3.tmx,MAP1_3,src/levels/level1))
 $(eval $(call TMX2C,assets/levels/map2_1.tmx,MAP2_1,src/levels/level2))
 # MAP 2
 $(eval $(call TMX2C,assets/levels/map2_2.tmx,MAP2_2,src/levels/level2))
+# MAP 3
+$(eval $(call TMX2C,assets/levels/map2_3.tmx,MAP2_3,src/levels/level2))

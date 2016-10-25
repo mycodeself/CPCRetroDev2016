@@ -1,5 +1,6 @@
 #include "mainscreen.h"
 #include "sprites/logo_crusader.h"
+#include "sprites/logo_464.h"
 #include "sprites/play.h"
 #include "sprites/help.h"
 #include "sprites/credits.h"
@@ -11,13 +12,14 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // MAIN SCREEN
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-#define LOGO_VMEM			cpctm_screenPtr(_screenMem, 0, 10)
-#define ONE_VMEM 			cpctm_screenPtr(_screenMem, 25, 70)
-#define PLAY_VMEM			cpctm_screenPtr(_screenMem, 31, 70)
-#define TWO_VMEM 			cpctm_screenPtr(_screenMem, 25, 100)
-#define HELP_VMEM			cpctm_screenPtr(_screenMem, 31, 100)
-#define THREE_VMEM 			cpctm_screenPtr(_screenMem, 25, 130)
-#define CREDITS_VMEM		cpctm_screenPtr(_screenMem, 31, 130)
+#define LOGO_VMEM0			cpctm_screenPtr(_screenMem, 30, 20)
+#define LOGO_VMEM1			cpctm_screenPtr(_screenMem, 16, 40)
+#define ONE_VMEM 			cpctm_screenPtr(_screenMem, 25, 80)
+#define PLAY_VMEM			cpctm_screenPtr(_screenMem, 31, 80)
+#define TWO_VMEM 			cpctm_screenPtr(_screenMem, 25, 110)
+#define HELP_VMEM			cpctm_screenPtr(_screenMem, 31, 110)
+#define THREE_VMEM 			cpctm_screenPtr(_screenMem, 25, 140)
+#define CREDITS_VMEM		cpctm_screenPtr(_screenMem, 31, 140)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // HELP SCREEN
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,14 +50,15 @@ mainScreen()
 {
 	cpct_memset(_screenMem, 0, 0x4000);
 	// draw everything
-	cpct_drawSprite(sprite_logo_crusader,(u8*)LOGO_VMEM, SPRITE_LOGO_CRUSADER_W, SPRITE_LOGO_CRUSADER_H);
+	cpct_drawSprite(sprite_logo_464,		(u8*)LOGO_VMEM0, SPRITE_LOGO_464_W, 		SPRITE_LOGO_464_H);
+	cpct_drawSprite(sprite_logo_crusader,	(u8*)LOGO_VMEM1, SPRITE_LOGO_CRUSADER_W, 	SPRITE_LOGO_CRUSADER_H);	
 	cpct_drawSprite(sprite_numbers_01, (u8*)ONE_VMEM, SPRITE_NUMBERS_01_W, SPRITE_NUMBERS_01_H);
 	cpct_drawSprite(sprite_play,(u8*)PLAY_VMEM, SPRITE_PLAY_W, SPRITE_PLAY_H);
 	cpct_drawSprite(sprite_numbers_02, (u8*)TWO_VMEM, SPRITE_NUMBERS_02_W, SPRITE_NUMBERS_02_H);
 	cpct_drawSprite(sprite_help,(u8*)HELP_VMEM, SPRITE_HELP_W, SPRITE_HELP_H);
 	cpct_drawSprite(sprite_numbers_03, (u8*)THREE_VMEM, SPRITE_NUMBERS_03_W, SPRITE_NUMBERS_03_H);
 	cpct_drawSprite(sprite_credits,(u8*)CREDITS_VMEM, SPRITE_CREDITS_W, SPRITE_CREDITS_H);
-	cpct_drawStringM0("Press num key", (u8*)TEXT_BOTTOM_VMEM, 3, 0);
+	cpct_drawStringM0("Press num key", (u8*)TEXT_BOTTOM_VMEM, 9, 0);
 	while(1)
 	{
 		cpct_scanKeyboard_f();
