@@ -1,3 +1,21 @@
+/*	
+ *
+ *  This file is part of 464 Crusader, game for Amstrad CPC 464.
+ *
+ *  464 Crusader is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  464 Crusader is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with 464 Crusader.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 #include "physics.h"
 
 const Collision _col = {
@@ -15,34 +33,3 @@ checkCollision(Collision* c)
     c->collision = 0;
   else c->collision = 1;
 }
-
-//
-//u8 checkCollisionSide(const AABB *a, const AABB *b)
-//{
-//	u8 bottom		= b->max.y - a->min.y;
-//	u8 top	= a->max.y - b->min.y;
-//	u8 left	= a->max.x - b->min.x;
-//	u8 right		= b->max.x - a->min.x;
-//	if (top < bottom && top < left && top < right )
-//	{                           
-//		//Top collision
-//		return COLLISION_SIDE_TOP;
-//	}
-//	if (bottom < top && bottom < left && bottom < right)                        
-//	{
-//		//bottom collision
-//		return COLLISION_SIDE_BOTTOM;
-//	}
-//	if (left < right && left < top && left < bottom)
-//	{
-//		//Left collision
-//		return COLLISION_SIDE_LEFT;
-//	}
-//	if (right < left && right < top && right < bottom )
-//	{
-//		//Right collision
-//		return COLLISION_SIDE_RIGHT;
-//	}
-//
-//}
-

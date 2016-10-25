@@ -1,0 +1,5 @@
+- Author:
+	Ismael Piñeiro Ramos | https://github.com/mycodeself | twitter: @IsmaKepimKepam
+
+- Made with:
+	CPCtelera http://lronaldo.github.io/cpctelera/files/readme-txt.html	
