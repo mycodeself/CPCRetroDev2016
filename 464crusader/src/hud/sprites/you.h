@@ -3,8 +3,8 @@
 #define _ASSETS_YOU_H_
 
 #include <types.h>
-#define SPRITE_YOU_W 12
-#define SPRITE_YOU_H 10
-extern const u8 sprite_you[12 * 10];
+#define SPRITE_YOU_W 25
+#define SPRITE_YOU_H 18
+extern const u8 sprite_you[25 * 18];
 
 #endif

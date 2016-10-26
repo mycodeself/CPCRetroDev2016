@@ -62,11 +62,17 @@ $(eval $(call TMX2C,assets/levels/map1_1.tmx,MAP1_1,src/levels/level1))
 $(eval $(call TMX2C,assets/levels/map1_2.tmx,MAP1_2,src/levels/level1))
 # MAP 3
 $(eval $(call TMX2C,assets/levels/map1_3.tmx,MAP1_3,src/levels/level1))
+# MAP 4
+$(eval $(call TMX2C,assets/levels/map1_4.tmx,MAP1_4,src/levels/level1))
+# MAP 5
+$(eval $(call TMX2C,assets/levels/map1_5.tmx,MAP1_5,src/levels/level1))
+# MAP 6
+$(eval $(call TMX2C,assets/levels/map1_6.tmx,MAP1_6,src/levels/level1))
 
 ## LEVEL2
 # MAP 1
-$(eval $(call TMX2C,assets/levels/map2_1.tmx,MAP2_1,src/levels/level2))
-# MAP 2
-$(eval $(call TMX2C,assets/levels/map2_2.tmx,MAP2_2,src/levels/level2))
-# MAP 3
-$(eval $(call TMX2C,assets/levels/map2_3.tmx,MAP2_3,src/levels/level2))
+# $(eval $(call TMX2C,assets/levels/map2_1.tmx,MAP2_1,src/levels/level2))
+# # MAP 2
+# $(eval $(call TMX2C,assets/levels/map2_2.tmx,MAP2_2,src/levels/level2))
+# # MAP 3
+# $(eval $(call TMX2C,assets/levels/map2_3.tmx,MAP2_3,src/levels/level2))

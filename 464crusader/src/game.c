@@ -43,7 +43,7 @@ initGame()
   cpct_memset((u8*)0xC000, 0, 0x4000);
   g->lvl    = &_level1;
   g->lvlidx = 0;
-  g->gs     = 0;
+  g->gs     = gs_play;
   g->time   = 0;
 }
 
@@ -59,24 +59,20 @@ game()
   while(_character.status != cs_dead)
   {    
     updateCharacter();    
-    // if(g->time == 1)
-    //   updateSkeleton();
-    // if(g->time == 2)
-    // {      
-    //   updateBat();  
-    //   g->time = 0;
-    // }    
+    if(g->time == 1)
+      updateSkeleton();
+    if(g->time == 2)
+    {      
+      updateBat();  
+      g->time = 0;
+    }    
     drawCharacter();    
-    // drawSkeletons();
-    // drawBats();
-    // ++g->time;
+    drawSkeletons();
+    drawBats();
+    ++g->time;
     cpct_waitVSYNC();
     switchBuffers();
   }
 
   drawGameover();
-  while(!cpct_isAnyKeyPressed_f())
-    cpct_scanKeyboard_f();
-
-  mainScreen();
 }

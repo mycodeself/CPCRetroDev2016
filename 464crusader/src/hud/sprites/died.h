@@ -3,8 +3,8 @@
 #define _ASSETS_DIED_H_
 
 #include <types.h>
-#define SPRITE_DIED_W 14
-#define SPRITE_DIED_H 10
-extern const u8 sprite_died[14 * 10];
+#define SPRITE_DIED_W 28
+#define SPRITE_DIED_H 16
+extern const u8 sprite_died[28 * 16];
 
 #endif

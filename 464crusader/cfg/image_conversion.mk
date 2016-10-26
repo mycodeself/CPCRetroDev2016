@@ -92,8 +92,8 @@ $(eval $(call IMG2SPRITES,assets/numbers/numbers.png,0,sprite,8,12,$(PALETTE),,s
 ## HEART
 $(eval $(call IMG2SPRITES,assets/heart/heart.png,0,sprite,14,12,$(PALETTE),,src/hud/sprites/))
 ## GAMEOVER
-$(eval $(call IMG2SPRITES,assets/you.png,0,sprite,24,10,$(PALETTE),,src/hud/sprites/))
-$(eval $(call IMG2SPRITES,assets/died.png,0,sprite,28,10,$(PALETTE),,src/hud/sprites/))
+$(eval $(call IMG2SPRITES,assets/you.png,0,sprite,50,18,$(PALETTE),,src/hud/sprites/))
+$(eval $(call IMG2SPRITES,assets/died.png,0,sprite,56,16,$(PALETTE),,src/hud/sprites/))
 
 ## CHARACTER
 $(eval $(call IMG2SPRITES,assets/character/character.png,0,sprite,16,20,$(PALETTE),,src/character/sprites/))

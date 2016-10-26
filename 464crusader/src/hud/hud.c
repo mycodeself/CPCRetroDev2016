@@ -22,6 +22,7 @@
 #include "sprites/you.h"
 #include "sprites/died.h"
 #include "../character/character.h"
+#include "../mainscreen/mainscreen.h"
 
 u8* const _numbers[10] = {
 	sprite_numbers_00, sprite_numbers_01, 
@@ -37,6 +38,8 @@ void initScore()
 {
 	u8* pvm = cpct_getScreenPtr((u8*)0xC000, 60, 2);
 	u8 i=3;
+	u8* s = score;
+	*s = 0;	++s; *s = 0; ++s; *s = 0; ++s; *s = 0; ++s; *s = 0;
 	while(--i)
 	{
 		cpct_drawSprite(sprite_numbers_00, pvm, SPRITE_NUMBERS_00_W, SPRITE_NUMBERS_00_H);
@@ -146,12 +149,26 @@ incrementLifeHUD()
 	}
 }
 
-#define GAMEOVER_VMEM0 		cpctm_screenPtr(_screenMem, 20, 80)
-#define GAMEOVER_VMEM1 		cpctm_screenPtr(_screenMem, 20, 100)
+#define GAMEOVER_VMEM0 		cpctm_screenPtr(_screenMem, 27, 80)
+#define GAMEOVER_VMEM1 		cpctm_screenPtr(_screenMem, 26, 110)
 #define GAMEOVER_BG_VMEM	cpctm_screenPtr(_screenMem, 10, 80)
+#define TEXT_BOTTOM_VMEM0	cpctm_screenPtr(_screenMem, 17, 145)
+#define TEXT_BOTTOM_VMEM1	cpctm_screenPtr(_screenMem, 15, 160)
 void drawGameover()
 {
-	cpct_drawSolidBox((u8*)GAMEOVER_BG_VMEM, 1, 60, 100);
+	cpct_drawSolidBox((u8*)GAMEOVER_BG_VMEM, 0, 60, 100);
 	cpct_drawSprite(sprite_you, 	GAMEOVER_VMEM0, SPRITE_YOU_W, 	SPRITE_YOU_H);
 	cpct_drawSprite(sprite_died,	GAMEOVER_VMEM1, SPRITE_DIED_W, 	SPRITE_DIED_H);
+	cpct_drawStringM0("1:Play again", (u8*)TEXT_BOTTOM_VMEM0, 2, 0);
+	cpct_drawStringM0("ESC:Main menu", (u8*)TEXT_BOTTOM_VMEM1, 2, 0);
+	cpct_scanKeyboard_f();
+	while(1)
+	{
+		cpct_scanKeyboard_f();
+		if(cpct_isKeyPressed(Key_1))
+			game();
+		else if(cpct_isKeyPressed(Key_Esc))
+			mainScreen();
+	}
+    
 }
