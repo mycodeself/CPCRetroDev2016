@@ -21,6 +21,7 @@
 #include "sprites/heart.h"
 #include "sprites/you.h"
 #include "sprites/died.h"
+#include "../game.h"
 #include "../character/character.h"
 #include "../mainscreen/mainscreen.h"
 

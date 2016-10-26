@@ -18,10 +18,10 @@
  */
 #include "level.h"
 #include "level1/level1_tileset.h"
-#include "level2/level2.h"
 #include "../draw/draw.h"
 #include "../game.h"
 #include "../character/character.h"
+#include "../mainscreen/mainscreen.h"
 
 void
 startLevel()
@@ -31,40 +31,20 @@ startLevel()
   drawMap();
 }
 
-// void
-// nextLevel()
-// {
-//   Game* g = &_game;
-//   switch(g->lvlidx)
-//   {
-//     case LEVEL1:
-//       initLevel2();
-//       g->lvl = &_level2;
-//       break;
-//     case LEVEL2:
-//       break;
-//     case LEVEL3:
-//       break;
-//   }
-//   ++g->lvlidx;
-//   drawMap();
-// }
-
-
-void 
+u8
 nextMap()
 {
   Game* g = &_game;
-  ++g->lvl->idx;
-  if(g->lvl->idx < g->lvl->num)
+  if(g->lvl->idx < 1)
   {
-    ++g->lvl->m;       
+    ++g->lvl->m;
+    ++g->lvl->idx;
     drawMap();
+    return 1;
+  }else{
+    mainScreen();
   }
-  else
-  {
-    --g->lvl->idx;
-  }
+  return 0;
 }
 
 u8
@@ -86,14 +66,16 @@ mapLimitsLevel1()
 {
   Character* c = &_character;
 
-  if(c->e.x[0] <= 0) { // left limit
+  if(c->e.x[0] <= 1) { // left limit
     if(prevMap())
-      c->e.x[0] = SCREEN_BYTES_WIDTH - c->e.w[0] - 2;
+      c->e.x[0] = SCREEN_BYTES_WIDTH - c->e.w[0] - 4;
     else
       c->e.x[0] = 2;
-  } else if((c->e.x[0] + c->e.w[0]) >= SCREEN_BYTES_WIDTH) {  // right limit
-    nextMap();
-    c->e.x[0] = 2;
+  } else if((c->e.x[0] + c->e.w[0]) >= SCREEN_BYTES_WIDTH-1) {  // right limit
+    if(nextMap())
+      c->e.x[0] = 4;
+    else
+      c->e.x[0] = SCREEN_BYTES_WIDTH - c->e.w[0] - 2;
   }
   if(c->e.y[0] <= 40) // top limit
   {
@@ -144,17 +126,5 @@ void
 mapLimits()
 {
   mapLimitsLevel1();
-  // Game* g       = &_game;
-  // switch(g->lvlidx)
-  // {
-  //   case 0:
-  //     if(g->lvl->idx == LAST_MAP_LEVEL1)
-  //       mapLimitsLevel2();
-  //     else 
-  //     mapLimitsLevel1();
-  //     break;
-  //   case 1:
-  //     mapLimitsLevel2();
-  //     break;
-  // }
+
 }

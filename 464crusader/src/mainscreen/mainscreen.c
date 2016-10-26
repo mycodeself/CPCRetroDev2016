@@ -76,7 +76,7 @@ mainScreen()
 	cpct_drawSprite(sprite_help,(u8*)HELP_VMEM, SPRITE_HELP_W, SPRITE_HELP_H);
 	cpct_drawSprite(sprite_numbers_03, (u8*)THREE_VMEM, SPRITE_NUMBERS_03_W, SPRITE_NUMBERS_03_H);
 	cpct_drawSprite(sprite_credits,(u8*)CREDITS_VMEM, SPRITE_CREDITS_W, SPRITE_CREDITS_H);
-	cpct_drawStringM0("Press num key", (u8*)TEXT_BOTTOM_VMEM, 9, 0);
+	// cpct_drawStringM0("Press num key", (u8*)TEXT_BOTTOM_VMEM, 9, 0);
 	while(1)
 	{
 		cpct_scanKeyboard_f();

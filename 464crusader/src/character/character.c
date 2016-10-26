@@ -503,7 +503,8 @@ updateCharacter()
       break;      
   }
 
-  mapLimits();
+  if(c->e.draw)
+    mapLimits();
 
   c->lstatus  = c->status;  
 }

@@ -1,7 +1,7 @@
 #include "level1_tileset.h"
 // Data created with Img2CPC - (c) Retroworks - 2007-2015
-u8* const LEVEL1_tileset[56] = { 
-	LEVEL1_level1_tileset_00, LEVEL1_level1_tileset_01, LEVEL1_level1_tileset_02, LEVEL1_level1_tileset_03, LEVEL1_level1_tileset_04, LEVEL1_level1_tileset_05, LEVEL1_level1_tileset_06, LEVEL1_level1_tileset_07, LEVEL1_level1_tileset_08, LEVEL1_level1_tileset_09, LEVEL1_level1_tileset_10, LEVEL1_level1_tileset_11, LEVEL1_level1_tileset_12, LEVEL1_level1_tileset_13, LEVEL1_level1_tileset_14, LEVEL1_level1_tileset_15, LEVEL1_level1_tileset_16, LEVEL1_level1_tileset_17, LEVEL1_level1_tileset_18, LEVEL1_level1_tileset_19, LEVEL1_level1_tileset_20, LEVEL1_level1_tileset_21, LEVEL1_level1_tileset_22, LEVEL1_level1_tileset_23, LEVEL1_level1_tileset_24, LEVEL1_level1_tileset_25, LEVEL1_level1_tileset_26, LEVEL1_level1_tileset_27, LEVEL1_level1_tileset_28, LEVEL1_level1_tileset_29, LEVEL1_level1_tileset_30, LEVEL1_level1_tileset_31, LEVEL1_level1_tileset_32, LEVEL1_level1_tileset_33, LEVEL1_level1_tileset_34, LEVEL1_level1_tileset_35, LEVEL1_level1_tileset_36, LEVEL1_level1_tileset_37, LEVEL1_level1_tileset_38, LEVEL1_level1_tileset_39, LEVEL1_level1_tileset_40, LEVEL1_level1_tileset_41, LEVEL1_level1_tileset_42, LEVEL1_level1_tileset_43, LEVEL1_level1_tileset_44, LEVEL1_level1_tileset_45, LEVEL1_level1_tileset_46, LEVEL1_level1_tileset_47, LEVEL1_level1_tileset_48, LEVEL1_level1_tileset_49, LEVEL1_level1_tileset_50, LEVEL1_level1_tileset_51, LEVEL1_level1_tileset_52, LEVEL1_level1_tileset_53, LEVEL1_level1_tileset_54, LEVEL1_level1_tileset_55
+u8* const LEVEL1_tileset[40] = { 
+	LEVEL1_level1_tileset_00, LEVEL1_level1_tileset_01, LEVEL1_level1_tileset_02, LEVEL1_level1_tileset_03, LEVEL1_level1_tileset_04, LEVEL1_level1_tileset_05, LEVEL1_level1_tileset_06, LEVEL1_level1_tileset_07, LEVEL1_level1_tileset_08, LEVEL1_level1_tileset_09, LEVEL1_level1_tileset_10, LEVEL1_level1_tileset_11, LEVEL1_level1_tileset_12, LEVEL1_level1_tileset_13, LEVEL1_level1_tileset_14, LEVEL1_level1_tileset_15, LEVEL1_level1_tileset_16, LEVEL1_level1_tileset_17, LEVEL1_level1_tileset_18, LEVEL1_level1_tileset_19, LEVEL1_level1_tileset_20, LEVEL1_level1_tileset_21, LEVEL1_level1_tileset_22, LEVEL1_level1_tileset_23, LEVEL1_level1_tileset_24, LEVEL1_level1_tileset_25, LEVEL1_level1_tileset_26, LEVEL1_level1_tileset_27, LEVEL1_level1_tileset_28, LEVEL1_level1_tileset_29, LEVEL1_level1_tileset_30, LEVEL1_level1_tileset_31, LEVEL1_level1_tileset_32, LEVEL1_level1_tileset_33, LEVEL1_level1_tileset_34, LEVEL1_level1_tileset_35, LEVEL1_level1_tileset_36, LEVEL1_level1_tileset_37, LEVEL1_level1_tileset_38, LEVEL1_level1_tileset_39
 };
 // Tile LEVEL1_level1_tileset_00: 4x4 pixels, 2x4 bytes.
 const u8 LEVEL1_level1_tileset_00[2 * 4] = {
@@ -317,134 +317,6 @@ const u8 LEVEL1_level1_tileset_38[2 * 4] = {
 
 // Tile LEVEL1_level1_tileset_39: 4x4 pixels, 2x4 bytes.
 const u8 LEVEL1_level1_tileset_39[2 * 4] = {
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00
-};
-
-// Tile LEVEL1_level1_tileset_40: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_40[2 * 4] = {
-	0xf3, 0xf3,
-	0xf3, 0x7b,
-	0x7b, 0xb7,
-	0xb7, 0x51
-};
-
-// Tile LEVEL1_level1_tileset_41: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_41[2 * 4] = {
-	0xf3, 0xf3,
-	0xf3, 0xf3,
-	0x3f, 0x7b,
-	0x3f, 0x7b
-};
-
-// Tile LEVEL1_level1_tileset_42: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_42[2 * 4] = {
-	0xf3, 0xf3,
-	0xf3, 0x7b,
-	0x3f, 0x7b,
-	0xb7, 0x3f
-};
-
-// Tile LEVEL1_level1_tileset_43: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_43[2 * 4] = {
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00
-};
-
-// Tile LEVEL1_level1_tileset_44: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_44[2 * 4] = {
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00
-};
-
-// Tile LEVEL1_level1_tileset_45: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_45[2 * 4] = {
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00
-};
-
-// Tile LEVEL1_level1_tileset_46: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_46[2 * 4] = {
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00
-};
-
-// Tile LEVEL1_level1_tileset_47: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_47[2 * 4] = {
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00
-};
-
-// Tile LEVEL1_level1_tileset_48: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_48[2 * 4] = {
-	0xbf, 0xaa,
-	0x55, 0x3f,
-	0x00, 0x3f,
-	0x00, 0x00
-};
-
-// Tile LEVEL1_level1_tileset_49: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_49[2 * 4] = {
-	0xff, 0xaa,
-	0xff, 0xbf,
-	0x55, 0x15,
-	0x00, 0x00
-};
-
-// Tile LEVEL1_level1_tileset_50: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_50[2 * 4] = {
-	0xff, 0x3f,
-	0xff, 0xaa,
-	0x2a, 0xaa,
-	0x00, 0x00
-};
-
-// Tile LEVEL1_level1_tileset_51: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_51[2 * 4] = {
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00
-};
-
-// Tile LEVEL1_level1_tileset_52: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_52[2 * 4] = {
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00
-};
-
-// Tile LEVEL1_level1_tileset_53: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_53[2 * 4] = {
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00
-};
-
-// Tile LEVEL1_level1_tileset_54: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_54[2 * 4] = {
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00,
-	0x00, 0x00
-};
-
-// Tile LEVEL1_level1_tileset_55: 4x4 pixels, 2x4 bytes.
-const u8 LEVEL1_level1_tileset_55[2 * 4] = {
 	0x00, 0x00,
 	0x00, 0x00,
 	0x00, 0x00,

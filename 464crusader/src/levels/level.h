@@ -38,8 +38,6 @@ typedef struct Level
 } Level;
 
 void startLevel();
-void nextMap();
 void mapLimits();
-u8 prevMap();
 
 #endif

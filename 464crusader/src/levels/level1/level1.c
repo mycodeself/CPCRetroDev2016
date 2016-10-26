@@ -20,13 +20,9 @@
 #include "map1_1.h"
 #include "map1_2.h"
 #include "map1_3.h"
-#include "map1_4.h"
-#include "map1_5.h"
-#include "map1_6.h"
-#include "../../animations/animations.h"
 #include "../../utils/utils.h"
 
-#define NUM_MAPS 			6
+#define NUM_MAPS 			2
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // MAP1
 #define MAP1_NUM_SKELETONS	1
@@ -53,27 +49,7 @@ const Map _maps_level1[NUM_MAPS] = {
 		MAP1_2, 
 		{ _skeletons1_2, 0, MAP2_NUM_SKELETONS, 0, 255 },
 		{ _bats1_2, 0, MAP2_NUM_BATS, 0, 255 } 
-	},
-	{
-		MAP1_3,
-		{ 0, 0, 0, 0, 0 },
-		{ _bats1_3, 0, MAP3_NUM_BATS, 0, 255 }
-	},
-	{
-		MAP1_4,
-		{ 0, 0, 0, 0, 0 },
-		{ _bats1_3, 0, MAP3_NUM_BATS, 0, 255 }
-	},
-	{
-		MAP1_5,
-		{ 0, 0, 0, 0, 0 },
-		{ _bats1_3, 0, MAP3_NUM_BATS, 0, 255 }
-	},		
-	{
-		MAP1_6,
-		{ 0, 0, 0, 0, 0 },
-		{ _bats1_3, 0, MAP3_NUM_BATS, 0, 255 }
-	}	 
+	}
 };
 
 const Level _level1 = { _maps_level1, 0, NUM_MAPS };
@@ -111,6 +87,7 @@ initLevel1()
 	// init level
 	l->m 	= _maps_level1;
   	l->idx 	= 0;
+  	l->num 	= NUM_MAPS;
 }
 
 void

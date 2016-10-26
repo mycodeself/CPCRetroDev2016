@@ -3,7 +3,7 @@
 #define _ASSETS_LEVELS_LEVEL1_TILESET_H_
 
 #include <types.h>
-extern u8* const LEVEL1_tileset[56];
+extern u8* const LEVEL1_tileset[40];
 
 #define LEVEL1_LEVEL1_TILESET_00_W 2
 #define LEVEL1_LEVEL1_TILESET_00_H 4
@@ -125,53 +125,5 @@ extern const u8 LEVEL1_level1_tileset_38[2 * 4];
 #define LEVEL1_LEVEL1_TILESET_39_W 2
 #define LEVEL1_LEVEL1_TILESET_39_H 4
 extern const u8 LEVEL1_level1_tileset_39[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_40_W 2
-#define LEVEL1_LEVEL1_TILESET_40_H 4
-extern const u8 LEVEL1_level1_tileset_40[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_41_W 2
-#define LEVEL1_LEVEL1_TILESET_41_H 4
-extern const u8 LEVEL1_level1_tileset_41[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_42_W 2
-#define LEVEL1_LEVEL1_TILESET_42_H 4
-extern const u8 LEVEL1_level1_tileset_42[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_43_W 2
-#define LEVEL1_LEVEL1_TILESET_43_H 4
-extern const u8 LEVEL1_level1_tileset_43[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_44_W 2
-#define LEVEL1_LEVEL1_TILESET_44_H 4
-extern const u8 LEVEL1_level1_tileset_44[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_45_W 2
-#define LEVEL1_LEVEL1_TILESET_45_H 4
-extern const u8 LEVEL1_level1_tileset_45[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_46_W 2
-#define LEVEL1_LEVEL1_TILESET_46_H 4
-extern const u8 LEVEL1_level1_tileset_46[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_47_W 2
-#define LEVEL1_LEVEL1_TILESET_47_H 4
-extern const u8 LEVEL1_level1_tileset_47[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_48_W 2
-#define LEVEL1_LEVEL1_TILESET_48_H 4
-extern const u8 LEVEL1_level1_tileset_48[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_49_W 2
-#define LEVEL1_LEVEL1_TILESET_49_H 4
-extern const u8 LEVEL1_level1_tileset_49[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_50_W 2
-#define LEVEL1_LEVEL1_TILESET_50_H 4
-extern const u8 LEVEL1_level1_tileset_50[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_51_W 2
-#define LEVEL1_LEVEL1_TILESET_51_H 4
-extern const u8 LEVEL1_level1_tileset_51[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_52_W 2
-#define LEVEL1_LEVEL1_TILESET_52_H 4
-extern const u8 LEVEL1_level1_tileset_52[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_53_W 2
-#define LEVEL1_LEVEL1_TILESET_53_H 4
-extern const u8 LEVEL1_level1_tileset_53[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_54_W 2
-#define LEVEL1_LEVEL1_TILESET_54_H 4
-extern const u8 LEVEL1_level1_tileset_54[2 * 4];
-#define LEVEL1_LEVEL1_TILESET_55_W 2
-#define LEVEL1_LEVEL1_TILESET_55_H 4
-extern const u8 LEVEL1_level1_tileset_55[2 * 4];
 
 #endif
